@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "target": "ESNext",
+      "module": "ESNext",
+      "moduleResolution": "node",
+      "baseUrl": "./",
+      "strict": true,
+      "skipLibCheck": true,
+      "noImplicitAny": false
+    },
+    "include": [
+        "resources/js/**/*.vue",
+        "resources/js/**/*.ts",
+    ]
+  }
