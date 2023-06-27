@@ -7,10 +7,11 @@
     users: RankingType[];
   }>();
 
-  const ranking = computed(() => {
-    const users = Object.assign({}, props.users);
-    return users.sort((prev, cur) => (prev.total < cur.total ? 1 : -1)).slice(0, 3);
-  });
+  const ranking = computed(() =>
+    Array.from(props.users)
+      .sort((prev, cur) => (prev.total < cur.total ? 1 : -1))
+      .slice(0, 3)
+  );
 
   const medals = readonly(['🥇', '🥈', '🥉']);
 </script>

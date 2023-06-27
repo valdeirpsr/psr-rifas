@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, it } from "vitest";
-import Ranking from './Ranking.vue';
+import Ranking from './PsrRanking.vue';
 
 describe('Teste de renderização do componente', () => {
     it ('Os três usuários com maiores quantidades de número devem aparecer na ordem do que mais comprou para o que menos comprou', () => {
