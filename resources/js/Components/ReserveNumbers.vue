@@ -1,5 +1,5 @@
 <template>
-  <Card>
+  <PsrCard>
     <template #heading>Selecione a quantidade de bilhetes</template>
 
     <div class="grid grid-cols-4 gap-2 w-full mx-auto sm:max-w-xl">
@@ -25,16 +25,18 @@
     <p class="w-full mx-auto text-end text-sm sm:max-w-xl" data-testid="price-total">Valor total: {{ priceTotal }}</p>
 
     <div class="w-full max-w-xl mx-auto">
-      <PsrButton class="w-full" data-testid="confirm" @click="$emit('reserveNumbers', quantity)">Reservar Bilhetes</PsrButton>
+      <PsrButton class="w-full" data-testid="confirm" @click="$emit('reserveNumbers', quantity)">
+        Reservar Bilhetes
+      </PsrButton>
     </div>
-  </Card>
+  </PsrCard>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useLocaleCurrency } from '../Composables/Locale';
 
-import Card from './Card.vue';
+import PsrCard from './PsrCard.vue';
 import PsrButton from './PsrButton.vue';
 
 defineEmits<{
