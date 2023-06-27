@@ -10,7 +10,7 @@ export type Rifa = {
     buy_min: number,
     raffle: string,
     status: string,
-    expired_at: string,
+    expired_at: string|null,
     created_at: string,
     updated_at: string,
 }
