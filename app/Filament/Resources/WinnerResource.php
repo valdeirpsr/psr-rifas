@@ -38,38 +38,39 @@ class WinnerResource extends Resource
             ->schema([
                 Forms\Components\Select::make('rifa_id')
                     ->options(Rifa::all(['title', 'id'])->pluck('title', 'id'))
-                    ->required()
-                    ->searchable()
                     ->reactive()
-                    ->afterStateUpdated(fn (\Closure $set, $state) => $set('order_id', $state)),
+                    ->required(),
+
+                Forms\Components\TextInput::make('drawn_number')
+                    ->hidden(fn (\Closure $get) => !$get('rifa_id'))
+                    ->reactive()
+                    ->required(),
 
                 Forms\Components\Select::make('order_id')
                     ->reactive()
                     ->options(fn (\Closure $get) =>
                         Order::select('customer_fullname', 'id')
                             ->where('rifa_id', $get('rifa_id'))
+                            ->whereRaw('JSON_CONTAINS(`numbers_reserved`, \'"' . preg_replace('/\D/', '', $get('drawn_number')) . '"\')')
                             ->pluck('customer_fullname', 'id')
                     )
-                    ->required()
-                    ->searchable(),
+                    ->hidden(fn (\Closure $get) => !$get('drawn_number'))
+                    ->required(),
 
                 Forms\Components\Select::make('position')
+                    ->hidden(fn (\Closure $get) => !$get('order_id'))
                     ->options(self::POSITION)
                     ->required(),
 
-                Forms\Components\TextInput::make('drawn_number')
-                    ->required()
-                    ->maxLength(10),
+                Forms\Components\Textarea::make('testimonial')
+                    ->hidden(fn (\Closure $get) => !$get('position'))
+                    ->maxLength(16777215),
 
-                Forms\Components\Grid::make(1)
-                    ->schema([
-                        Forms\Components\Textarea::make('testimonial')
-                            ->maxLength(16777215),
-
-                        Forms\Components\FileUpload::make('video')
-                            ->acceptedFileTypes(['video/mp4']),
-                    ])
-            ]);
+                Forms\Components\FileUpload::make('video')
+                    ->acceptedFileTypes(['video/mp4'])
+                    ->hidden(fn (\Closure $get) => !$get('position')),
+            ])
+            ->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -82,8 +83,6 @@ class WinnerResource extends Resource
                     ->label(__('filament.column.fullname')),
                 Tables\Columns\TextColumn::make('drawn_number')
                     ->label(__('filament.column.drawn_number')),
-                Tables\Columns\TextColumn::make('testimonial')
-                    ->label(__('filament.column.testimonial')),
                 Tables\Columns\TextColumn::make('position')
                     ->label(__('filament.column.position'))
                     ->enum(self::POSITION)
