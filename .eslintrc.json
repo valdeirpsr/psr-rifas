@@ -33,6 +33,37 @@
         "semi": [
             "error",
             "always"
-        ]
-    }
+        ],
+        "vue/script-indent": [
+            "error",
+            2,
+            {
+                "baseIndent": 1,
+                "switchCase": 0,
+                "ignores": []
+            }
+        ],
+        "vue/singleline-html-element-content-newline": ["error", {
+            "ignoreWhenNoAttributes": true,
+            "ignoreWhenEmpty": true,
+            "ignores": ["template"]
+        }],
+        "vue/html-self-closing": ["error", {
+            "html": {
+              "void": "always",
+              "normal": "always",
+              "component": "always"
+            },
+            "svg": "always",
+            "math": "always"
+        }]
+    },
+    "overrides": [
+        {
+            "files": ["*.vue"],
+            "rules": {
+                "indent": "off"
+            }
+        }
+    ]
 }
