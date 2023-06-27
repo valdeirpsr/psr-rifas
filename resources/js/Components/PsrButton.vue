@@ -2,15 +2,17 @@
   withDefaults(
     defineProps<{
       type?: 'primary' | 'link';
+      disabled?: boolean
     }>(),
     {
       type: 'primary',
+      disabled: false,
     }
   );
 </script>
 
 <template>
-  <button :class="type">
+  <button :class="type" :disabled="disabled">
     <slot />
   </button>
 </template>
@@ -27,12 +29,16 @@
     duration-200
     focus-visible:outline-none
     focus-visible:ring-2
-    focus-visible:ring-offset-2 active:scale-95;
+    focus-visible:ring-offset-2
+    disabled:bg-gray-400;
+  }
+  button:not([disabled]):active {
+    @apply scale-95;
   }
   .primary {
     @apply bg-[#1e7dd4] border-transparent;
   }
-  .primary:hover {
+  .primary:not([disabled]):hover {
     @apply bg-[hsl(209,75%,41%)];
   }
   .link {
