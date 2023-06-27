@@ -1,0 +1,16 @@
+export type Rifa = {
+    id : number,
+    title: string,
+    thumbnail: string,
+    price: number,
+    description: string,
+    slug: string,
+    total_numbers_available: number,
+    buy_max: number,
+    buy_min: number,
+    raffle: string,
+    status: string,
+    expired_at: string,
+    created_at: string,
+    updated_at: string,
+}
