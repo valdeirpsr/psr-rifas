@@ -27,6 +27,7 @@
         "vitest": "^0.32.2"
     },
     "dependencies": {
+        "@chenfengyuan/vue-countdown": "2",
         "@inertiajs/vue3": "^1.0.8",
         "@vuelidate/core": "^2.0.2",
         "@vuelidate/validators": "^2.0.2",
