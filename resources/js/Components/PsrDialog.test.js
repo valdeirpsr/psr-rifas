@@ -20,6 +20,18 @@ describe('Testa eventos do modal', () => {
 
         expect(event).toHaveLength(1);
     });
+
+    it('Os botões de cancelar e confirmar não devem aparecer quando for definido nos atributos do componente', () => {
+        const wrapper = mount(PsrDialog, {
+            props: {
+                buttonCancel: false,
+                buttonConfirm: false,
+            }
+        });
+
+        expect(wrapper.find('[data-testid="button-cancel"]').exists()).toBeFalsy()
+        expect(wrapper.find('[data-testid="button-confirm"]').exists()).toBeFalsy()
+    })
 });
 
 describe('Compara snapshot', () => {

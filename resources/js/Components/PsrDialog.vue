@@ -49,10 +49,18 @@
             </h3>
             <div id="modal-content" class="text-gray-500"><slot /></div>
 
-            <slot name="footer">
+            <slot v-if="buttonCancel || buttonConfirm" name="footer">
               <div class="mt-6 flex justify-end gap-x-4">
-                <PsrButton type="link" data-testid="button-cancel" @click="$emit('dismiss')">Cancelar</PsrButton>
-                <PsrButton data-testid="button-confirm" :disabled="buttonConfirmDisabled" @click="$emit('confirm')">
+                <PsrButton v-if="buttonCancel" type="link" data-testid="button-cancel" @click="$emit('dismiss')">
+                  Cancelar
+                </PsrButton>
+
+                <PsrButton
+                  v-if="buttonConfirm"
+                  data-testid="button-confirm"
+                  :disabled="buttonConfirmDisabled"
+                  @click="$emit('confirm')"
+                >
                   Confirmar
                 </PsrButton>
               </div>
