@@ -6,7 +6,11 @@
       "baseUrl": "./",
       "strict": true,
       "skipLibCheck": true,
-      "noImplicitAny": false
+      "noImplicitAny": false,
+      "paths": {
+        "@Components/*": ["resources/js/Components/*"],
+        "@Assets/*": ["resources/assets/*"],
+      }
     },
     "include": [
         "resources/js/**/*.vue",
