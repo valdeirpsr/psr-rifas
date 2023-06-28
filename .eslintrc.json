@@ -26,6 +26,8 @@
             "error",
             "unix"
         ],
+        "no-console": ["error"],
+        "no-debugger": ["error"],
         "quotes": [
             "error",
             "single"
