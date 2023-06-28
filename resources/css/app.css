@@ -1,3 +1,5 @@
+@import "./transitions/fade.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
