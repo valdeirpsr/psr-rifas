@@ -1,3 +1,27 @@
+@import "./transitions/fade.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    color: #333;
+    font-family: 'Poppins';
+}
+
+svg, svg * {
+    color: currentColor;
+    fill: currentColor;
+}
+
+body {
+    background-color: #f9fafb;
+}
+
+#app {
+    @apply px-4;
+}
+
+.container {
+    margin: 0 auto;
+}

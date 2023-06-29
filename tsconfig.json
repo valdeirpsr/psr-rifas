@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+      "target": "ESNext",
+      "module": "ESNext",
+      "moduleResolution": "node",
+      "baseUrl": "./",
+      "strict": true,
+      "skipLibCheck": true,
+      "noImplicitAny": false,
+      "paths": {
+        "@Components/*": ["resources/js/Components/*"],
+        "@Assets/*": ["resources/assets/*"],
+      },
+      "typeRoots": [
+        "./global.d.ts"
+      ]
+    },
+    "include": [
+        "resources/js/**/*.vue",
+        "resources/js/**/*.ts",
+        "./global.d.ts"
+    ]
+  }
