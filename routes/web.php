@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/rifas/{rifa:slug}/orders/{telephone}', [\App\Http\Controllers\RifasController::class, 'showOrders']);
