@@ -36,6 +36,7 @@
             "error",
             "always"
         ],
+        "no-undef": ["off"],
         "vue/script-indent": [
             "error",
             2,

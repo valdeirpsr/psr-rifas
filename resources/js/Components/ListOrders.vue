@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { readonly, ref } from 'vue';
-import { OrderStatuses } from '../Types/Order';
 import PsrBadge from './PsrBadge.vue';
 import PsrCountdown from './PsrCountdown.vue';
 

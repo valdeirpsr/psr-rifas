@@ -6,14 +6,13 @@
   import { IconSvgEmail, IconSvgPeople, IconSvgTelephone } from '@Assets/icons';
   import { useFullname, useSameAs } from '../Composables/Validators';
   import PsrDialog from './PsrDialog.vue';
-  import { FormReserveNumbers as FormReserveNumbersType } from '../Types/FormReserveNumbers';
 
   const emits = defineEmits<{
-    (event: 'confirm', value: FormReserveNumbersType): void;
+    (event: 'confirm', value: FormReserveNumbers): void;
     (event: 'dismiss'): void;
   }>();
 
-  const form = reactive<FormReserveNumbersType>({
+  const form = reactive<FormReserveNumbers>({
     fullname: '',
     email: '',
     telephone: '',

@@ -1,10 +1,9 @@
 <script setup lang="ts">
   import { computed, readonly } from 'vue';
-  import { RankingType } from '../Types/Ranking';
   import PsrCard from './PsrCard.vue';
 
   const props = defineProps<{
-    users: RankingType[];
+    users: Ranking[];
   }>();
 
   const ranking = computed(() =>
