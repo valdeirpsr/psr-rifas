@@ -1,10 +1,6 @@
 <script setup lang="ts">
-  /**
-   * @TODO: Realizar integração com back-end
-   */
-
-  import { computed, ref } from 'vue';
-  import { useTimeoutFn } from '@vueuse/core';
+  import { computed, inject, ref } from 'vue';
+  import axios from 'axios';
   import { vMaska } from 'maska';
   import { useTelephone } from '../Composables/Validators';
   import { IconSvgWhatsApp } from '@Assets/icons';
@@ -12,48 +8,29 @@
   import PsrDialog from './PsrDialog.vue';
   import ListOrders from './ListOrders.vue';
   import PsrLoading from './PsrLoading.vue';
-  import { Order } from '../Types/Order';
+  import { RIFA_SLUG } from '../symbols';
 
   const opened = ref(false);
   const telephone = ref('');
-  const orders = ref<Order[]>([]);
+  const orders = ref<OrderWithPayment[]>([]);
   const isLoading = ref(false);
+  const rifaSlug = inject(RIFA_SLUG);
 
   const isValidTelephone = computed(() => useTelephone(telephone.value));
 
   /**
-   * @TODO: Integrar com a API a função searchOrders
+   * Realiza busca de dados na API
    */
-  function searchOrders() {
+  async function searchOrders() {
     isLoading.value = true;
+    const telephoneRaw = telephone.value.replace(/\D/g, '');
 
-    useTimeoutFn(() => {
-      orders.value = [
-        {
-          id: 31,
-          name: 'Valdeir Psr',
-          numbers: ['89638', '94409', '41347', '95886', '33410'],
-          payment_expire_at: new Date('2023-07-13T15:00:00').getTime() - Date.now(),
-          status: 'reserved',
-        },
-        {
-          id: 32,
-          name: 'Valdeir Psr',
-          numbers: ['1381'],
-          payment_expire_at: null,
-          status: 'paid',
-        },
-        {
-          id: 32,
-          name: 'Valdeir Psr',
-          numbers: ['1307'],
-          payment_expire_at: null,
-          status: 'expired',
-        },
-      ];
+    const { data: response } = await axios.get<{ data: OrderWithPayment[] }>(
+      `/rifas/${rifaSlug}/orders/${telephoneRaw}`
+    );
 
-      isLoading.value = false;
-    }, 1000 * 5);
+    orders.value = response.data;
+    isLoading.value = false;
   }
 
   function onDialogClosed() {
@@ -71,7 +48,7 @@
       <PsrDialog :button-cancel="false" :button-confirm="false" @dismiss="onDialogClosed">
         <template #heading>
           <span v-if="orders.length === 0">Informe o número do seu telefone</span>
-          <span v-else>Lista de pedidos</span>
+          <span v-else>Lista de bilhetes</span>
         </template>
 
         <template #default>
