@@ -29,8 +29,8 @@ declare type OrderStatuses = {
 }
 
 declare type Ranking = {
-  name: string,
-  total: number
+  customer_fullname: string,
+  total_numbers: number
 }
 
 declare type Rifa = {
