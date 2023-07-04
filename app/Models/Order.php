@@ -10,6 +10,12 @@ class Order extends Model
 {
     use HasFactory;
 
+    /** @var string */
+    public const STATUS_PAID = 'paid';
+
+    /** @var string */
+    public const STATUS_RESERVED = 'reserved';
+
     protected $fillable = [
         'rifa_id',
         'customer_fullname',
@@ -20,7 +26,8 @@ class Order extends Model
     ];
 
     protected $casts = [
-        'numbers_reserved' => 'array'
+        'numbers_reserved' => 'array',
+        'total_numbers' => 'int'
     ];
 
     public function rifa(): HasOne

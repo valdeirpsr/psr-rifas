@@ -3,13 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class Rifa extends Model
 {
+    /** @var int Número máximo de participantes na lista de ranking */
+    private const MAX_RANKING = 3;
+
+    /** @var string */
+    public const STATUS_PUBLISHED = 'published';
+
     use HasFactory;
 
     protected $fillable = [
@@ -43,5 +51,16 @@ class Rifa extends Model
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function ranking(): Collection
+    {
+        return $this->orders()
+            ->select('customer_fullname', DB::raw('SUM(JSON_LENGTH(numbers_reserved)) as total_numbers'))
+            ->where('status', Order::STATUS_PAID)
+            ->groupBy('customer_telephone')
+            ->orderBy('total_numbers', 'desc')
+            ->limit(self::MAX_RANKING)
+            ->get();
     }
 }
