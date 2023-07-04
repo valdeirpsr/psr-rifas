@@ -17,7 +17,7 @@ declare type Payment = {
 }
 
 declare type OrderWithPayment = Order & {
-  payment: Payment
+  payment: Payment|null
 }
 
 declare type OrderStatuses = {
@@ -55,5 +55,7 @@ declare type FormReserveNumbers = {
   email: string,
   telephone: string,
   confirmTelephone: string,
-  terms: boolean
+  terms: boolean,
+  quantity: number,
+  rifa: Rifa['id']
 }
