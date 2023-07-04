@@ -19,3 +19,8 @@ Route::get('/', function () {
 
 Route::get('/rifas/{rifa:slug}/orders/{telephone}', [\App\Http\Controllers\RifasController::class, 'showOrders']);
 Route::post('/orders', [App\Http\Controllers\OrderController::class, 'store'])->name('orders.store');
+
+/**
+ * @TODO: Route fake
+ */
+Route::get('/payment/{id}', fn () => 'Payment')->name('payment.show');
