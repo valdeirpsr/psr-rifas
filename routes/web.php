@@ -22,7 +22,8 @@ Route::get(
     [\App\Http\Controllers\RifasController::class, 'showOrders']
 )->name('rifas.show.orders');
 
-Route::get('/rifas/{rifa:slug}/orders/{telephone}', [\App\Http\Controllers\RifasController::class, 'showOrders']);
+Route::get('/rifas/{rifa:slug}', [App\Http\Controllers\RifasController::class, 'show']);
+
 Route::post('/orders', [App\Http\Controllers\OrderController::class, 'store'])->name('orders.store');
 
 /**

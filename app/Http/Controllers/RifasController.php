@@ -6,6 +6,7 @@ use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Rifa;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Inertia\Inertia;
 
 class RifasController extends Controller
 {
@@ -15,6 +16,17 @@ class RifasController extends Controller
     public function index()
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Rifa $rifa)
+    {
+        return Inertia::render('Rifa/PsrShow', [
+            'rifa' => $rifa->toArray(),
+            'ranking' => $rifa->ranking()
+        ]);
     }
 
     /**
