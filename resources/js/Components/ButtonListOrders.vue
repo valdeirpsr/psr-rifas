@@ -8,13 +8,15 @@
   import PsrDialog from './PsrDialog.vue';
   import ListOrders from './ListOrders.vue';
   import PsrLoading from './PsrLoading.vue';
-  import { RIFA_SLUG } from '../symbols';
+
+  const props = defineProps<{
+    rifaSlug: string
+  }>();
 
   const opened = ref(false);
   const telephone = ref('');
   const orders = ref<OrderWithPayment[]>([]);
   const isLoading = ref(false);
-  const rifaSlug = inject(RIFA_SLUG);
 
   const isValidTelephone = computed(() => useTelephone(telephone.value));
 
@@ -26,7 +28,7 @@
     const telephoneRaw = telephone.value.replace(/\D/g, '');
 
     const { data: response } = await axios.get<{ data: OrderWithPayment[] }>(
-      `/rifas/${rifaSlug}/orders/${telephoneRaw}`
+      route('rifas.show.orders', [props.rifaSlug, telephoneRaw])
     );
 
     orders.value = response.data;
