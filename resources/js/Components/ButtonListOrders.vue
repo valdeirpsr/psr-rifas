@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed, inject, ref } from 'vue';
+  import { computed, ref } from 'vue';
   import axios from 'axios';
   import { vMaska } from 'maska';
   import { useTelephone } from '../Composables/Validators';
