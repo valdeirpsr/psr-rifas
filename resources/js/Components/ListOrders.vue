@@ -2,8 +2,9 @@
 import { readonly, ref } from 'vue';
 import PsrBadge from './PsrBadge.vue';
 import PsrCountdown from './PsrCountdown.vue';
+import { computed } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   orders: OrderWithPayment[]
 }>();
 
@@ -19,12 +20,21 @@ const badgeClasses = readonly({
   paid: 'success',
   reserved: 'warning'
 });
+
+const allOrders = computed(() =>
+  props.orders.map(order => ({
+    ...order,
+    paymentLink: order.payment ?
+      route('payment.show', [order.payment.order_id]) :
+      route('checkout.show', [order.id]),
+  }))
+)
 </script>
 
 <template>
   <div class="mt-4 space-y-4">
     <div
-      v-for="order in orders"
+      v-for="order in allOrders"
       :key="`number-${order.id}`"
       class="bg-white gap-2 p-4 rounded-lg shadow space-y-3 text-start hover:bg-gray-50"
     >
@@ -41,7 +51,7 @@ const badgeClasses = readonly({
         >{{ number }}</PsrBadge>
       </div>
 
-      <p v-if="order.status === 'reserved'" class="text-xs">
+      <p v-if="order.status === 'reserved' && order.expire_at" class="text-xs">
         <span>Expira em: </span>
         <PsrCountdown :time="order.expire_at" />
       </p>
@@ -50,7 +60,7 @@ const badgeClasses = readonly({
         <a
           class="bg-[#1e7dd4] uppercase px-3 py-2 rounded text-white text-sm w-full"
           data-test="pay"
-          :href="`/checkout/${order.payment.order_id}`"
+          :href="order.paymentLink"
         >Pagar</a>
       </p>
     </div>
