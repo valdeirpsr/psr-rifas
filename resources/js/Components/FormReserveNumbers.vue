@@ -8,11 +8,11 @@
   import PsrDialog from './PsrDialog.vue';
 
   const emits = defineEmits<{
-    (event: 'confirm', value: FormReserveNumbers): void;
+    (event: 'confirm', value: Partial<FormReserveNumbers>): Promise<void>;
     (event: 'dismiss'): void;
   }>();
 
-  const form = reactive<FormReserveNumbers>({
+  const form = reactive<Partial<FormReserveNumbers>>({
     fullname: '',
     email: '',
     telephone: '',
@@ -34,7 +34,7 @@
         sameAsRawValue: sameAs(true),
       },
     },
-    form
+    form as FormReserveNumbers
   );
 
   async function isValid() {
