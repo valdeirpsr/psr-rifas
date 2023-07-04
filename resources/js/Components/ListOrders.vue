@@ -1,34 +1,32 @@
 <script setup lang="ts">
-import { readonly, ref } from 'vue';
-import PsrBadge from './PsrBadge.vue';
-import PsrCountdown from './PsrCountdown.vue';
-import { computed } from 'vue';
+  import { readonly } from 'vue';
+  import PsrBadge from './PsrBadge.vue';
+  import PsrCountdown from './PsrCountdown.vue';
+  import { computed } from 'vue';
 
-const props = defineProps<{
-  orders: OrderWithPayment[]
-}>();
+  const props = defineProps<{
+    orders: OrderWithPayment[];
+  }>();
 
-const statuses = readonly<OrderStatuses>({
-  expired: 'Expirado',
-  paid: 'Pago',
-  reserved: 'Reservado',
-  unknown: 'Desconhecido'
-});
+  const statuses = readonly<OrderStatuses>({
+    expired: 'Expirado',
+    paid: 'Pago',
+    reserved: 'Reservado',
+    unknown: 'Desconhecido',
+  });
 
-const badgeClasses = readonly({
-  expired: 'danger',
-  paid: 'success',
-  reserved: 'warning'
-});
+  const badgeClasses = readonly({
+    expired: 'danger',
+    paid: 'success',
+    reserved: 'warning',
+  });
 
-const allOrders = computed(() =>
-  props.orders.map(order => ({
-    ...order,
-    paymentLink: order.payment ?
-      route('payment.show', [order.payment.order_id]) :
-      route('checkout.show', [order.id]),
-  }))
-)
+  const allOrders = computed(() =>
+    props.orders.map((order) => ({
+      ...order,
+      paymentLink: order.payment ? route('payment.show', [order.payment.order_id]) : route('checkout.show', [order.id]),
+    }))
+  );
 </script>
 
 <template>
@@ -38,17 +36,17 @@ const allOrders = computed(() =>
       :key="`number-${order.id}`"
       class="bg-white gap-2 p-4 rounded-lg shadow space-y-3 text-start hover:bg-gray-50"
     >
-      <span :class="order.status">
-        Situação: {{ statuses[order.status] ?? statuses.unknown }}
-      </span>
+      <span :class="order.status"> Situação: {{ statuses[order.status] ?? statuses.unknown }} </span>
 
       <div class="flex flex-wrap justify-start gap-2">
         <PsrBadge
-          v-for="number,idx in order.numbers_reserved"
+          v-for="(number, idx) in order.numbers_reserved"
           :key="`number-${idx}`"
           :style="order.status"
           :type="badgeClasses[order.status] ?? 'default'"
-        >{{ number }}</PsrBadge>
+        >
+          {{ number }}
+        </PsrBadge>
       </div>
 
       <p v-if="order.status === 'reserved' && order.expire_at" class="text-xs">
@@ -68,8 +66,8 @@ const allOrders = computed(() =>
 </template>
 
 <style scoped>
-span.badge.danger {
-  text-decoration: line-through;
-  text-decoration-thickness: 8px;
-}
+  span.badge.danger {
+    text-decoration: line-through;
+    text-decoration-thickness: 8px;
+  }
 </style>

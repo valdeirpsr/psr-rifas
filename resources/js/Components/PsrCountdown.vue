@@ -16,11 +16,11 @@
     }
 
     return props.time;
-  })
+  });
 </script>
 
 <template>
-  <VueCountdown :time="time" v-slot="{ totalHours, minutes, seconds }">
+  <VueCountdown v-slot="{ totalHours, minutes, seconds }" :time="time">
     <slot>{{ totalHours }} horas, {{ minutes }} minutos e {{ seconds }} segundos</slot>
   </VueCountdown>
 </template>
