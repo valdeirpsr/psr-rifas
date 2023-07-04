@@ -27,7 +27,7 @@ class RifaFactory extends Factory
             'buy_min' => fake()->randomDigitNotNull(),
             'raffle' => 'Loteria Federal',
             'status' => fake()->randomElement(['published', 'draft']),
-            'expired_at' => now()->addMonth(1),
+            'expired_at' => fake()->randomElement([null, now()->addMonth(1)]),
         ];
     }
 }

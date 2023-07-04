@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -30,6 +31,14 @@ class Order extends Model
         'total_numbers' => 'int'
     ];
 
+    public function customerTelephone(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => preg_replace('/\D/', '', $value),
+            set: fn (string $value) => preg_replace('/\D/', '', $value),
+        );
+    }
+
     public function rifa(): HasOne
     {
         return $this->hasOne(Rifa::class, 'id');
@@ -40,3 +49,4 @@ class Order extends Model
         return $this->hasOne(Payment::class);
     }
 }
+
