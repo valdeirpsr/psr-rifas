@@ -8,20 +8,20 @@ describe('Teste de renderização do componente', () => {
             props: {
                 users: [
                     {
-                      name: "Valdeir",
-                      total: 1
+                      customer_fullname: "Valdeir",
+                      total_numbers: 1
                     },
                     {
-                      name: "Valdeir Sant'Anna",
-                      total: 1000
+                      customer_fullname: "Valdeir Sant'Anna",
+                      total_numbers: 1000
                     },
                     {
-                      name: "Valdeir PSR",
-                      total: 500
+                      customer_fullname: "Valdeir PSR",
+                      total_numbers: 500
                     },
                     {
-                        name: "PSR",
-                        total: 500
+                        customer_fullname: "PSR",
+                        total_numbers: 500
                     },
                 ]
             }
@@ -39,16 +39,16 @@ describe('Compara snapshot', () => {
             props: {
                 users: [
                     {
-                      name: "Valdeir",
-                      total: 1
+                      customer_fullname: "Valdeir",
+                      total_numbers: 1
                     },
                     {
-                      name: "Valdeir Sant'Anna",
-                      total: 1000
+                      customer_fullname: "Valdeir Sant'Anna",
+                      total_numbers: 1000
                     },
                     {
-                      name: "Valdeir PSR",
-                      total: 500
+                      customer_fullname: "Valdeir PSR",
+                      total_numbers: 500
                     }
                 ]
             }
