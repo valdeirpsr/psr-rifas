@@ -39,8 +39,9 @@ import { useLocaleCurrency } from '../Composables/Locale';
 import PsrCard from './PsrCard.vue';
 import PsrButton from './PsrButton.vue';
 
-defineEmits<{
+const emits = defineEmits<{
   (event: 'reserveNumbers', quantity:  number): void,
+  (event: 'update:quantity', value: number): void,
 }>();
 
 const props = defineProps<{
@@ -57,14 +58,18 @@ const priceTotal = computed(() =>
 
 function increment(n: number = 1) {
   quantity.value = Math.min(quantity.value + n, props.buyMax);
+  preventLetters();
 }
 
 function decrement() {
   quantity.value = Math.max(quantity.value - 1, props.buyMin);
+  preventLetters();
 }
 
 function preventLetters() {
   quantity.value = parseFloat(quantity.value.toString().replace(/\D/g, '') || '1');
+
+  emits('update:quantity', quantity.value);
 }
 </script>
 
