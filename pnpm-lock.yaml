@@ -23,6 +23,9 @@ dependencies:
   maska:
     specifier: ^2.1.9
     version: 2.1.9
+  node-snackbar:
+    specifier: ^0.1.16
+    version: 0.1.16
   vue:
     specifier: ^3.3.4
     version: 3.3.4
@@ -2241,6 +2244,10 @@ packages:
   /node-releases@2.0.12:
     resolution: {integrity: sha512-QzsYKWhXTWx8h1kIvqfnC++o0pEmpRQA/aenALsL2F4pqNVr7YzcdMlDij5WBnwftRbJCNJL/O7zdKaxKPHqgQ==}
     dev: true
+
+  /node-snackbar@0.1.16:
+    resolution: {integrity: sha512-3s43QMKgABXdnqUfpKAXG+WlvS8bbuO6n6LAOmmLNZs87CGdpexqfGYCktFVi9NHFgREwNJARgeVTLOFAf2MQg==}
+    dev: false
 
   /nopt@6.0.0:
     resolution: {integrity: sha512-ZwLpbTgdhuZUnZzjd7nb1ZV+4DoiC6/sfiVKok72ym/4Tlf+DFdlHYmT2JPmcNNWV6Pi3SDf1kT+A4r9RTuT9g==}
