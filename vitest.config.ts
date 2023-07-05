@@ -7,17 +7,25 @@ import svgLoader from 'vite-svg-loader';
 
 export default defineConfig({
   plugins: [
-    Vue(),
+    Vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => ['lottie-player'].includes(tag)
+        }
+      }
+    }),
     svgLoader()
   ],
   test: {
     globals: true,
     environment: 'jsdom',
+    setupFiles: ['./vitest.setup.ts'],
   },
   resolve: {
     alias: {
       '@Assets': path.resolve(__dirname, 'resources/assets'),
       '@Components': path.resolve(__dirname, 'resources/js/Components'),
+      '@Composables': path.resolve(__dirname, 'resources/js/Composables'),
     }
   }
 });
