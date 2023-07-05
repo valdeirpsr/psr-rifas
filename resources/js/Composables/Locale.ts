@@ -18,3 +18,7 @@ export function useLocaleCurrency(value: number) {
         style: 'currency',
     }).replace(/\s/g, '')
 }
+
+export function useLocaleTelephone(value: string) {
+  return value.replace(/(\d{2})(\d{5})(\d{4})/, "(\$1) \$2-\$3");
+}
