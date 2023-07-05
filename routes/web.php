@@ -26,6 +26,8 @@ Route::get('/rifas/{rifa:slug}', [App\Http\Controllers\RifasController::class, '
 
 Route::post('/orders', [App\Http\Controllers\OrderController::class, 'store'])->name('orders.store');
 
+Route::get('/checkout/{id}', [App\Http\Controllers\CheckoutController::class, 'show'])->name('checkout.show');
+
 /**
  * @TODO: Route fake
  */

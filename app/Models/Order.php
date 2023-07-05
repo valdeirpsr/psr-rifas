@@ -41,7 +41,7 @@ class Order extends Model
 
     public function rifa(): HasOne
     {
-        return $this->hasOne(Rifa::class, 'id');
+        return $this->hasOne(Rifa::class, 'id', 'rifa_id');
     }
 
     public function payment(): HasOne
