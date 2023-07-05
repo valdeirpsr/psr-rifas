@@ -2,6 +2,10 @@
   import { computed } from 'vue';
   import VueCountdown from '@chenfengyuan/vue-countdown';
 
+  defineEmits<{
+    (event: 'end'): void
+  }>();
+
   const props = defineProps<{
     time: Date|number|string
   }>();
@@ -20,7 +24,7 @@
 </script>
 
 <template>
-  <VueCountdown v-slot="{ totalHours, minutes, seconds }" :time="time">
+  <VueCountdown v-slot="{ totalHours, minutes, seconds }" :time="time" @end="$emit('end')">
     <slot>{{ totalHours }} horas, {{ minutes }} minutos e {{ seconds }} segundos</slot>
   </VueCountdown>
 </template>
