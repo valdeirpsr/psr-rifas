@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue';
+  import { useForm } from '@inertiajs/vue3';
   import { useLocaleCurrency, useLocaleDateLong, useLocaleTelephone } from '@Composables/Locale';
   import PsrBadge from '@Components/PsrBadge.vue';
   import PsrCard from '@Components/PsrCard.vue';
@@ -24,6 +25,10 @@
 
   const isPaid  = ref(false);
   const checkIsPaid = computed(() => isPaid.value || props.order.status === 'paid');
+
+  const form = useForm({
+    orderId: props.order.id
+  });
 </script>
 
 <template>
@@ -104,7 +109,13 @@
       <PsrCountdown v-if="!checkIsPaid" :time="(order.expire_at as string)" class="inline-block" data-testid="countdown" />
     </p>
 
-    <PsrButton v-if="!checkIsPaid" class="w-full max-w-[558px]" data-testid="button-payment" :disabled="expired">
+    <PsrButton
+      v-if="!checkIsPaid"
+      class="w-full max-w-[558px]"
+      data-testid="button-payment"
+      :disabled="expired"
+      @click="form.post(route('payment.store'))"
+    >
       {{ expired ? 'Expirado' : 'Pagar' }}
     </PsrButton>
   </div>
