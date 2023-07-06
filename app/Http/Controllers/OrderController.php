@@ -70,7 +70,7 @@ class OrderController extends Controller
 
         if ($order instanceof Order) {
             return response()->json([
-                'redirect' => route('payment.show', [ $order->id ])
+                'redirect' => route('checkout.show', [ $order->id ])
             ], 201);
         }
 

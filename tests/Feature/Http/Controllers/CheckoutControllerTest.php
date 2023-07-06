@@ -31,14 +31,14 @@ class CheckoutControllerTest extends TestCase
             'rifa_id' => $this->rifa->id
         ]);
 
-        $response = $this->get("/payment/{$order->id}");
+        $response = $this->get("/checkout/{$order->id}");
 
         $response->assertStatus(200);
     }
 
     public function test_redirecionar_para_home_caso_pedido_nao_seja_encontrado(): void
     {
-        $response = $this->get("/payment/invalid");
+        $response = $this->get("/checkout/invalid");
 
         $response->assertLocation('/');
     }
