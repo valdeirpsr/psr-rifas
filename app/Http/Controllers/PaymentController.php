@@ -37,7 +37,7 @@ class PaymentController extends Controller
             $payment->id = $response->id;
             $payment->ticket_url = $response->ticket_url;
             $payment->payment_code = $response->payment_method_id;
-            $payment->date_of_expiration = Carbon::parse($response->date_of_expiration);
+            $payment->date_of_expiration = Carbon::parse($response->date_of_expiration)->timezone(config('app.timezone'));
             $payment->transaction_amount = $response->transaction_amount;
             $payment->qr_code = $response->qr_code;
             $payment->order_id = $order->id;

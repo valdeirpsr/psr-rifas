@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\Rifa;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 
 class MercadoPago
@@ -37,6 +38,7 @@ class MercadoPago
                 'description' => "Rifa \"{$rifa->title}\"",
                 'payment_method_id' => 'pix',
                 'notification_url' => $notificationUrl,
+                'date_of_expiration' => Carbon::parse($order->expire_at)->format('Y-m-d\TH:i:s.vP'),
                 'payer' => [
                     'email' => $order->customer_email,
                     'first_name' => $customerNameParts->first(),

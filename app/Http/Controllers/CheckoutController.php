@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class CheckoutController extends Controller
 {
@@ -27,6 +28,7 @@ class CheckoutController extends Controller
 
         $order = $result->makeHidden('rifa');
         $order->transaction_amount = $rifa->price * count($order->numbers_reserved);
+        $order->expire_at = Carbon::parse($order->expire_at);
 
         return inertia('Checkout/PsrShow', [
             'order' => $order,
