@@ -31,6 +31,6 @@ Route::get('/checkout/{id}', [App\Http\Controllers\CheckoutController::class, 's
 /**
  * @TODO: Route fake
  */
-Route::get('/payment/{id}', fn () => 'Payment')->name('payment.show');
+Route::get('/payments/{payment:id}', [App\Http\Controllers\PaymentController::class, 'show'])->name('payment.show');
 
 Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store'])->name('payment.store');

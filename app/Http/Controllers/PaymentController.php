@@ -43,7 +43,7 @@ class PaymentController extends Controller
             $payment->order_id = $order->id;
             $payment->save();
 
-            return Inertia::location(route('payment.show', ['id' => $response->id]));
+            return Inertia::location(route('payment.show', ['payment' => $response->id]));
         } catch (RequestException $e) {
             if ($e->response->status() === 401) {
                 Log::emergency($e->response->body());
@@ -51,7 +51,7 @@ class PaymentController extends Controller
 
             return abort(500);
         } catch (QueryException $e) {
-            return Inertia::location(route('payment.show', ['id' => $response->id]));
+            return Inertia::location(route('payment.show', ['payment' => $response->id]));
         }
     }
 
