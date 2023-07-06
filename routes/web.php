@@ -28,6 +28,8 @@ Route::post('/orders', [App\Http\Controllers\OrderController::class, 'store'])->
 
 Route::get('/checkout/{id}', [App\Http\Controllers\CheckoutController::class, 'show'])->name('checkout.show');
 
+Route::get('/payments/{payment:id}', [App\Http\Controllers\PaymentController::class, 'show'])->name('payment.show');
+
 /**
  * @TODO: Route fake
  */

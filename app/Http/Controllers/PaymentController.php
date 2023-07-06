@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PaymentController extends Controller
 {
@@ -60,7 +61,19 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        //
+        $qrcode = QrCode::encoding('UTF-8')->format('png')->size(300)->generate($payment->qr_code);
+        $payment->qr_code_img = base64_encode($qrcode);
+        $payment->date_of_expiration = Carbon::parse($payment->date_of_expiration)->timezone('America/Sao_Paulo');
+
+        return inertia('Payment/PsrShow', [
+            'payment' => $payment->only([
+                'qr_code',
+                'qr_code_img',
+                'ticket_url',
+                'transaction_amount',
+                'date_of_expiration'
+            ])
+        ]);
     }
 
     /**
