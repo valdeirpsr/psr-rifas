@@ -30,9 +30,6 @@ Route::get('/checkout/{id}', [App\Http\Controllers\CheckoutController::class, 's
 
 Route::get('/payments/{payment:id}', [App\Http\Controllers\PaymentController::class, 'show'])->name('payment.show');
 
-/**
- * @TODO: Route fake
- */
-Route::get('/payments/{payment:id}', [App\Http\Controllers\PaymentController::class, 'show'])->name('payment.show');
+Route::post('/payments/notification', [App\Http\Controllers\PaymentController::class, 'update'])->name('payment.update');
 
 Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store'])->name('payment.store');

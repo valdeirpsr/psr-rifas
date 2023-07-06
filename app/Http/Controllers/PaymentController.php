@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
@@ -16,6 +17,8 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PaymentController extends Controller
 {
+    private const STATUS_APPROVED = 'approved';
+
     public function __construct(
         private ServicesMercadoPago $paymentGateway
     ) {}
@@ -77,10 +80,34 @@ class PaymentController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Recebe notificação via WebHook, consulta o pagamento e atualiza os dados
+     * se necessário
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request): Response
     {
-        //
+        if ($request->input('action') !== 'payment.updated') {
+            return response(null, 204);
+        }
+
+        $paymentId = $request->input('data.id');
+
+        $paymentInfo = $this->paymentGateway->getPayment($paymentId);
+
+        if ($paymentInfo->status === self::STATUS_APPROVED) {
+            $payment = Payment::where('id', $paymentId)->first();
+
+            $payment->update([
+                'date_approved' => Carbon::parse($paymentInfo->date_approved),
+            ]);
+
+            Order::where('id', $payment->order_id)
+                ->update(['status' => Order::STATUS_PAID]);
+        }
+
+        return response('');
     }
 }

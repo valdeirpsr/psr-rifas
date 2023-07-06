@@ -19,7 +19,7 @@ class MercadoPago
 
     public function generatePix(Order $order, Rifa $rifa)
     {
-        $notificationUrl = route('payment.update', ['orderId' => $order->id]);
+        $notificationUrl = route('payment.update');
 
         /**
          * Não funciona caso o endereço seja localhost
@@ -58,5 +58,24 @@ class MercadoPago
             'transaction_amount' => $response->json('transaction_amount'),
             'qr_code' => $response->json('point_of_interaction.transaction_data.qr_code'),
         ];
+    }
+
+    /**
+     * Busca as informações de um pedido através da API
+     *
+     * @param int $paymentId
+     *
+     * @return object
+     */
+    public function getPayment(int $paymentId): object
+    {
+        $response = Http::withToken($this->accessToken)
+            ->get(self::API_URL . "/{$paymentId}");
+
+        if ($response->failed()) {
+            return $response->throw();
+        }
+
+        return $response->object();
     }
 }
