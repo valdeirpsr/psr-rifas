@@ -7,7 +7,6 @@ use App\Models\Rifa;
 use App\Services\MercadoPago;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class PaymentControllerTest extends TestCase
@@ -43,6 +42,6 @@ class PaymentControllerTest extends TestCase
             'id' => $resultFake['id']
         ]);
 
-        $response->assertLocation("payment/{$resultFake['id']}");
+        $response->assertLocation("payments/{$resultFake['id']}");
     }
 }
