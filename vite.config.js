@@ -16,7 +16,13 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.ts'],
             refresh: true,
         }),
-        vue(),
+        vue({
+            template: {
+                compilerOptions: {
+                    isCustomElement: (tag) => ['lottie-player'].includes(tag)
+                }
+            }
+        }),
         svgLoder()
     ],
     resolve: {
