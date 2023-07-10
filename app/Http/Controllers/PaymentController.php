@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PaymentStatusResource;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Services\MercadoPago as ServicesMercadoPago;
@@ -30,9 +31,14 @@ class PaymentController extends Controller
     {
         $order = Order::with([
             'rifa' => fn (HasOne $query) => $query->select('id', 'title', 'price'),
+            'payment' => fn (HasOne $query) => $query->select('id', 'order_id'),
         ])
         ->where('id', $request->input('orderId', 0))
         ->first();
+
+        if ($order->payment()->first()) {
+            return redirect()->route('payment.show', ['payment' => $order->payment()->first()->id]);
+        }
 
         try {
             $response = $this->paymentGateway->generatePix($order, $order->rifa);
@@ -70,11 +76,13 @@ class PaymentController extends Controller
 
         return inertia('Payment/PsrShow', [
             'payment' => $payment->only([
+                'id',
                 'qr_code',
                 'qr_code_img',
                 'ticket_url',
                 'transaction_amount',
-                'date_of_expiration'
+                'date_of_expiration',
+                'date_approved'
             ])
         ]);
     }
@@ -109,5 +117,16 @@ class PaymentController extends Controller
         }
 
         return response('');
+    }
+
+    /**
+     * Realiza uma conexão SSE com o cliente e envia informações periódicas sobre
+     * um determinado pedido.
+     *
+     * @param Payment $payment
+     */
+    public function check(Payment $payment)
+    {
+        return new PaymentStatusResource($payment);
     }
 }

@@ -93,4 +93,37 @@ class PaymentControllerTest extends TestCase
             'status' => 'paid'
         ]);
     }
+
+    /**
+     * Se houver um pagamento cadastrado para um pedido específico, o usuário
+     * deverá ser redirecionado para a tela de pagamento
+     * E um novo pagamento NÃO deverá ser gerado
+     */
+    public function test_se_houver_um_pagamento_para_um_pedido_o_usuario_devera_ser_redirecionado_para_o_pagamento()
+    {
+        $rifa = Rifa::factory(1)
+            ->has(
+                Order::factory(1)
+                    ->has(
+                        Payment::factory(1)
+                    )
+            )
+            ->create([
+                'status' => 'reserved'
+            ])
+            ->first();
+
+        $order = $rifa->orders()->first();
+        $payment = $order->payment()->first();
+
+        $this->mock(MercadoPago::class, function ($mock) {
+            $mock->shouldReceive('generatePix')->never();
+        });
+
+        $response = $this->post("/payments", [
+            'orderId' => $order->id
+        ]);
+
+        $response->assertLocation("/payments/{$payment->id}");
+    }
 }
