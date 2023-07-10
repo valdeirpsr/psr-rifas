@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import { computed, ref } from 'vue';
-  import { useLocaleCurrency, useLocaleDateLong } from '../../Composables/Locale';
-
+  import { useLocaleCurrency, useLocaleDateLong } from '@Composables/Locale';
   import { useDanger } from '@Composables/Snackbar';
   import PsrCard from '@Components/PsrCard.vue';
   import PsrRanking from '@Components/PsrRanking.vue';
