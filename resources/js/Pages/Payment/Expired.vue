@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { Link as PsrLink } from '@inertiajs/vue3';
   import "@lottiefiles/lottie-player";
 </script>
 
@@ -19,11 +20,11 @@
     </div>
 
     <div class="flex flex-initial h-full items-center justify-center text-center">
-      <a
+      <PsrLink
         class="bg-[#1e7dd4] border-transparent uppercase px-3 py-2 rounded-md text-sm text-white"
         title="Ir para a página inicial"
         :href="route('home')"
-      >Página Inicial</a>
+      >Página Inicial</PsrLink>
     </div>
   </div>
 </template>
