@@ -14,6 +14,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Log;
 
 class WinnerResource extends Resource
 {
@@ -48,12 +49,14 @@ class WinnerResource extends Resource
 
                 Forms\Components\Select::make('order_id')
                     ->reactive()
-                    ->options(fn (\Closure $get) =>
-                        Order::select('customer_fullname', 'id')
+                    ->options(function (\Closure $get) {
+                        $drawNumber = '"' . preg_replace('/\D/', '', $get('drawn_number')) . '"';
+
+                        return Order::select('customer_fullname', 'id')
                             ->where('rifa_id', $get('rifa_id'))
-                            ->whereRaw('JSON_CONTAINS(`numbers_reserved`, \'"' . preg_replace('/\D/', '', $get('drawn_number')) . '"\')')
-                            ->pluck('customer_fullname', 'id')
-                    )
+                            ->whereRaw('JSON_CONTAINS(`numbers_reserved`, ?)', [$drawNumber])
+                            ->pluck('customer_fullname', 'id');
+                    })
                     ->hidden(fn (\Closure $get) => !$get('drawn_number'))
                     ->required(),
 
