@@ -22,13 +22,15 @@ Route::get(
     [\App\Http\Controllers\RifasController::class, 'showOrders']
 )->name('rifas.show.orders');
 
-Route::get('/rifas/{rifa:slug}', [App\Http\Controllers\RifasController::class, 'show']);
+Route::get('/rifas/{rifa:slug}', [App\Http\Controllers\RifasController::class, 'show'])->name('rifas.show');
 
 Route::post('/orders', [App\Http\Controllers\OrderController::class, 'store'])->name('orders.store');
 
 Route::get('/checkout/{id}', [App\Http\Controllers\CheckoutController::class, 'show'])->name('checkout.show');
 
 Route::get('/payments/{payment:id}', [App\Http\Controllers\PaymentController::class, 'show'])->name('payment.show');
+
+Route::get('/payments/{payment:id}/check', [App\Http\Controllers\PaymentController::class, 'check'])->name('payment.check');
 
 Route::post('/payments/notification', [App\Http\Controllers\PaymentController::class, 'update'])->name('payment.update');
 
