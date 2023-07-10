@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { mount } from "@vue/test-utils";
 import PsrShow from './PsrShow.vue';
 import PsrBadge from '@Components/PsrBadge.vue';
-import LottieFileApproved from '@Components/LottieFileApproved.vue';
 
 const getValidData = () => {
     const expire_at = new Date(Date.now() + 3600).toLocaleString('af');
