@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Rifa;
+use App\Models\Slideshow;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Inertia\Inertia;
 
@@ -29,8 +30,11 @@ class RifasController extends Controller
                 'updated_at'
             ]);
 
+        $slideshows = Slideshow::orderBy('order')->get();
+
         return Inertia::render('Rifa/PsrList', [
-            'values' => $rifas
+            'values' => $rifas,
+            'slideshows' => $slideshows
         ]);
     }
 

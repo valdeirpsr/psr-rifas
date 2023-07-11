@@ -1,17 +1,12 @@
 <script setup lang="ts">
-  /**
-   * @TODO: Criar uma propriedade para receber as imagens através do banco de dados
-   */
-
   import { computed, onMounted, ref, watch } from 'vue';
+
+  const props = defineProps<{
+    items: Slideshow[]
+  }>();
 
   const sliderIndex = ref(0);
   const sliderItemsEl = ref<HTMLDivElement>();
-  const sliderTotalItems = ref(0);
-
-  onMounted(() => {
-    sliderTotalItems.value = sliderItemsEl.value?.childElementCount || 0;
-  });
 
   function sliderPrev() {
     if (!sliderItemsEl.value) return;
@@ -30,7 +25,7 @@
   }
 
   const isInitialSlider = computed(() => sliderIndex.value === 0);
-  const isFinalSlider = computed(() => sliderIndex.value === sliderTotalItems.value - 1);
+  const isFinalSlider = computed(() => sliderIndex.value === props.items.length - 1);
 
   watch(sliderIndex, () => {
     if (!sliderItemsEl.value) return;
@@ -42,24 +37,10 @@
   <section class="slider group md:relative">
     <div ref="sliderItemsEl" class="slider-items flex overflow-x-auto snap-always snap-mandatory snap-x scroll-smooth">
       <img
-        src="https://dummyimage.com/1024x16:9&text=Banner 1"
+        v-for="slideshow in items"
         class="w-full flex-auto flex-shrink-0 snap-start"
-        alt="Banner 1"
-      />
-      <img
-        src="https://dummyimage.com/1024x16:9&text=Banner 2"
-        class="w-full flex-auto flex-shrink-0 snap-start"
-        alt="Banner 2"
-      />
-      <img
-        src="https://dummyimage.com/1024x16:9&text=Banner 3"
-        class="w-full flex-auto flex-shrink-0 snap-start"
-        alt="Banner 3"
-      />
-      <img
-        src="https://dummyimage.com/1024x16:9&text=Banner 4"
-        class="w-full flex-auto flex-shrink-0 snap-start"
-        alt="Banner 4"
+        :src="slideshow.image"
+        :alt="slideshow.alt"
       />
     </div>
 

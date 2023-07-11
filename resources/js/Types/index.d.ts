@@ -59,3 +59,9 @@ declare type FormReserveNumbers = {
   quantity: number,
   rifa: Rifa['id']
 }
+
+
+declare type Slideshow = {
+  image: string,
+  alt: string,
+}
