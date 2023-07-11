@@ -15,13 +15,9 @@ class Rifa implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $rifa = ModelsRifa::select('id')
-            ->where('id', $value)
-            ->where(function($query) {
-                $query->where('expired_at', '>', now()->format('Y-m-d H:i'))
-                    ->orWhereNull('expired_at');
-            })
-            ->where('status', ModelsRifa::STATUS_PUBLISHED);
+        $rifa = ModelsRifa::availables()
+            ->select('id')
+            ->where('id', $value);
 
         if ($rifa->count() === 0) {
             $fail('Rifa not found');

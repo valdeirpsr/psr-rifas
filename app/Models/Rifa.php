@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -62,5 +63,14 @@ class Rifa extends Model
             ->orderBy('total_numbers', 'desc')
             ->limit(self::MAX_RANKING)
             ->get();
+    }
+
+    public static function availables(): Builder
+    {
+        return static::where('status', Rifa::STATUS_PUBLISHED)
+            ->where(function($query) {
+                $query->where('expired_at', '>', now()->format('Y-m-d H:i'))
+                    ->orWhereNull('expired_at');
+            });
     }
 }

@@ -16,13 +16,9 @@ class RifasController extends Controller
      */
     public function index()
     {
-        $rifas = Rifa::latest()
+        $rifas = Rifa::availables()
+            ->latest()
             ->limit(20)
-            ->where('status', Rifa::STATUS_PUBLISHED)
-            ->where(function($query) {
-                $query->where('expired_at', '>', now()->format('Y-m-d H:i'))
-                    ->orWhereNull('expired_at');
-            })
             ->get()
             ->setHidden([
                 'created_at',
