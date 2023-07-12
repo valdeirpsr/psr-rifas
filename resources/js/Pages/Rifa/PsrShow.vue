@@ -10,6 +10,8 @@
   import ButtonListOrders from '@Components/ButtonListOrders.vue';
   import axios from 'axios';
 import { useSorted } from '@vueuse/core';
+import PsrHeader from '@Components/PsrHeader.vue';
+import PsrFooter from '@Components/PsrFooter.vue';
 
   const props = defineProps<{
     rifa: Rifa,
@@ -60,7 +62,9 @@ import { useSorted } from '@vueuse/core';
 </script>
 
 <template>
-  <div v-if="rifa" class="container max-w-[1024px] space-y-4 pt-10 pb-32">
+  <PsrHeader />
+
+  <div v-if="rifa" class="container max-w-[1024px] space-y-4 pt-10 pb-32 px-4">
     <div class="mb-4">
       <h1 class="text-2xl font-extrabold font-[Raleway] leading-none">{{ rifa.title }}</h1>
       <PsrBadge v-if="rifa.expired_at" type="warning">Compre até: {{ expireAt }}</PsrBadge>
@@ -125,7 +129,7 @@ import { useSorted } from '@vueuse/core';
         <div>🍀 {{ rifa.raffle }}</div>
       </PsrCard>
 
-      <PsrCard class="md:flex-auto">
+      <PsrCard class="flex-1 md:flex-auto">
         <template #heading>Consulte</template>
         <div><ButtonListOrders :rifa-slug="rifa.slug" /></div>
       </PsrCard>
@@ -135,4 +139,6 @@ import { useSorted } from '@vueuse/core';
       <FormReserveNumbers @confirm="onConfirmFormReserveNumbers" @dismiss="displayFormReserveNumbers = false" />
     </Teleport>
   </div>
+
+  <PsrFooter />
 </template>

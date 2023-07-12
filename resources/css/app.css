@@ -18,10 +18,6 @@ body {
     background-color: #f9fafb;
 }
 
-#app {
-    @apply px-4;
-}
-
 .container {
     margin: 0 auto;
 }

@@ -23,7 +23,7 @@
     <!--
       Content
     -->
-    <div class="px-5 py-12 mx-auto xl:px-0">
+    <div class="px-4 py-12 mx-auto xl:px-0">
       <PsrCard>
         <template #heading>//Rifas</template>
 
