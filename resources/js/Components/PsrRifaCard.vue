@@ -3,7 +3,7 @@
   import { computed } from 'vue';
 
   const props = defineProps<{
-    rifa: Rifa;
+    rifa: Pick<Rifa, 'expired_at' | 'price' | 'thumbnail' | 'slug' | 'title'>;
   }>();
 
   const expiredAt = computed(() => (props.rifa.expired_at ? useLocaleDateLong(props.rifa.expired_at) : ''));
