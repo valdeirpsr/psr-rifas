@@ -44,10 +44,10 @@ declare type Rifa = {
   buy_max: number,
   buy_min: number,
   raffle: string,
-  status: string,
+  status: 'draft' | 'published' | 'finished',
   expired_at: string|null,
   created_at: string,
-  updated_at: string,
+  updated_at: string
 }
 
 declare type FormReserveNumbers = {
@@ -60,8 +60,13 @@ declare type FormReserveNumbers = {
   rifa: Rifa['id']
 }
 
-
 declare type Slideshow = {
   image: string,
   alt: string,
+}
+
+declare type Winner = {
+  customer_fullname: Order['customer_fullname'],
+  video: string|null,
+  position: number
 }

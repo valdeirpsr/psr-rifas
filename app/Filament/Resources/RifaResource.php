@@ -23,7 +23,8 @@ class RifaResource extends Resource
     private const STATUS = [
         'draft' => 'Rascunho',
         'published' => 'Publicar',
-        'archived' => 'Archivar'
+        'archived' => 'Archivar',
+        'finished' => 'Finalizada'
     ];
 
     public static function form(Form $form): Form
