@@ -6,6 +6,7 @@ use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Rifa;
 use App\Models\Slideshow;
+use App\Models\Winner;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Inertia\Inertia;
 
@@ -39,9 +40,14 @@ class RifasController extends Controller
      */
     public function show(Rifa $rifa)
     {
+        $winners = $rifa->through('orders')
+            ->has('winners')
+            ->get(['orders.customer_fullname', 'winners.position', 'video']);
+
         return Inertia::render('Rifa/PsrShow', [
-            'rifa' => $rifa->toArray(),
-            'ranking' => $rifa->ranking()
+            'rifa' => $rifa,
+            'ranking' => $rifa->ranking(),
+            'winners' => $winners
         ]);
     }
 

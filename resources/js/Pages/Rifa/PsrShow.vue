@@ -9,10 +9,12 @@
   import FormReserveNumbers from '@Components/FormReserveNumbers.vue';
   import ButtonListOrders from '@Components/ButtonListOrders.vue';
   import axios from 'axios';
+import { useSorted } from '@vueuse/core';
 
   const props = defineProps<{
     rifa: Rifa,
-    ranking: Ranking[]
+    ranking: Ranking[],
+    winners: Winner[]
   }>();
 
   const displayFormReserveNumbers = ref(false);
@@ -24,6 +26,18 @@
 
   const price = computed(() =>
     props.rifa.price ? useLocaleCurrency(props.rifa.price) : ''
+  );
+
+  const isFinished = computed(() =>
+    !!props.winners.length
+      || props.rifa.status === 'finished'
+      || (props.rifa.expired_at && new Date(props.rifa.expired_at) >= new Date())
+  );
+
+  const listWinners = useSorted(props.winners, (prev, cur) => prev.position > cur.position ? 1 : -1);
+
+  const winnerVideo = computed(() =>
+    listWinners.value.filter((winner) => winner.video)
   );
 
   function onReserveNumbers(): void {
@@ -68,16 +82,37 @@
         <p v-html="rifa.description" />
       </PsrCard>
 
-      <PsrRanking class="sm:flex-auto md:flex-initial" :users="ranking" />
+      <PsrRanking v-if="ranking.length" class="sm:flex-auto md:flex-initial" :users="ranking" />
     </div>
 
     <ReserveNumbers
+      v-if="!isFinished"
       v-model:quantity="orderQuantitySelected"
       :price="rifa.price"
       :buy-max="rifa.buy_max"
       :buy-min="rifa.buy_min"
       @reserve-numbers="onReserveNumbers"
     />
+
+    <PsrCard v-if="listWinners.length">
+      <template #heading>Ganhadores</template>
+
+      <template #default>
+        <ol class="text-center" data-testid="winners-list">
+          <li v-for="winner in listWinners" :key="`winner-${winner.position}`">
+            {{ winner.position }}º Prêmio - {{ winner.customer_fullname }}
+          </li>
+        </ol>
+      </template>
+    </PsrCard>
+
+    <PsrCard v-if="winnerVideo.length">
+      <template #heading>Vídeo do Ganhador</template>
+
+      <template #default>
+        <video class="max-h-[570px] m-auto" controls controlslist="nodownload noremoteplayback" :src="(winnerVideo[0].video as string)" />
+      </template>
+    </PsrCard>
 
     <div class="flex flex-wrap gap-4 justify-between text-center">
       <PsrCard class="md:flex-auto">
