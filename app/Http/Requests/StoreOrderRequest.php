@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Rules\Rifa as RulesRifa;
+use App\Rules\RifaQuantity;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreOrderRequest extends FormRequest
@@ -25,10 +26,10 @@ class StoreOrderRequest extends FormRequest
         return [
             'fullname' => 'required|max:64|min:3|regex:/^(?:[A-zÀ-ü]{3,}).*(?:[A-zÀ-ü]{3,})$/i',
             'email' => 'required|email|max:100',
-            'telephone' => 'required|max:20',
+            'telephone' => 'required|min:10|max:20',
             'confirmTelephone' => 'required|same:telephone',
             'terms' => 'required|accepted',
-            'quantity' => 'required',
+            'quantity' => ['required', 'integer', new RifaQuantity],
             'rifa' => ['required', new RulesRifa]
         ];
     }

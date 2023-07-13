@@ -7,6 +7,7 @@ use App\Models\Rifa;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Inertia\Testing\AssertableInertia as Assert;
 
 class OrderControllerTest extends TestCase
 {
@@ -30,7 +31,7 @@ class OrderControllerTest extends TestCase
             'telephone' => $telephone,
             'confirmTelephone' => $telephone,
             'terms' => true,
-            'quantity' => 1,
+            'quantity' => $rifa->buy_min,
             'rifa' => $rifa->id
         ]);
 
@@ -43,7 +44,7 @@ class OrderControllerTest extends TestCase
         $rifa = $this->generateRifa();
         $this->generateDefaultOrder($rifa);
 
-        $response = $this->post('/orders', $this->generateBodyRequest($rifa));
+        $response = $this->post('/orders', $this->generateBodyRequest($rifa, ['quantity' => 5]));
         $orderId = $this->getOrderId($response);
 
         $orderCreated = Order::find($orderId);
@@ -117,6 +118,45 @@ class OrderControllerTest extends TestCase
         $this->assertEquals('00000000000', $orderCreated->customer_telephone);
     }
 
+    public function test_verifica_validacoes_da_requisicao_ao_tentar_reserver_numeros(): void
+    {
+        $rifa = $this->generateRifa(['buy_min' => 10]);
+
+        $invalidFormBody = [
+            "confirmTelephone" => "1234567",
+            "email" => "valdeir.dev",
+            "fullname" => "In va li do",
+            "quantity" => 1,
+            "rifa" => $rifa->id,
+            "telephone" => "12345678",
+            "terms" => false
+        ];
+
+        $response = $this->post(route('orders.store'), $invalidFormBody);
+
+        $response->assertInvalid([
+            'confirmTelephone',
+            'email',
+            'fullname',
+            'quantity',
+            'telephone',
+            'terms'
+        ]);
+    }
+
+    public function test_o_usuario_nao_pode_comprar_mais_bilhetes_que_o_maximo_definido(): void
+    {
+        $rifa = $this->generateRifa();
+
+        $invalidFormBody = $this->generateBodyRequest($rifa, [
+            'quantity' => $rifa->buy_max + 1
+        ]);
+
+        $response = $this->post(route('orders.store'), $invalidFormBody);
+
+        $response->assertInvalid('quantity');
+    }
+
     private function getOrderId(\Illuminate\Testing\TestResponse $response)
     {
         $content = json_decode($response->getContent());
@@ -156,7 +196,7 @@ class OrderControllerTest extends TestCase
             'telephone' => $telephone,
             'confirmTelephone' => $telephone,
             'terms' => true,
-            'quantity' => 5,
+            'quantity' => $rifa->buy_min,
             'rifa' => $rifa->id
         ], $replace);
     }
