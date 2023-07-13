@@ -30,8 +30,6 @@
         "@chenfengyuan/vue-countdown": "2",
         "@inertiajs/vue3": "^1.0.8",
         "@lottiefiles/lottie-player": "^2.0.2",
-        "@vuelidate/core": "^2.0.2",
-        "@vuelidate/validators": "^2.0.2",
         "@vueuse/core": "^10.2.0",
         "maska": "^2.1.9",
         "node-snackbar": "^0.1.16",
