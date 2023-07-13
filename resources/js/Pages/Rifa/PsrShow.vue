@@ -33,7 +33,7 @@ import PsrFooter from '@Components/PsrFooter.vue';
   const isFinished = computed(() =>
     !!props.winners.length
       || props.rifa.status === 'finished'
-      || (props.rifa.expired_at && new Date(props.rifa.expired_at) >= new Date())
+      || (props.rifa.expired_at && new Date(props.rifa.expired_at) < new Date())
   );
 
   const listWinners = useSorted(props.winners, (prev, cur) => prev.position > cur.position ? 1 : -1);
