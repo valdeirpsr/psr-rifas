@@ -148,7 +148,7 @@
         </div>
         <div class="text-sm leading-6">
           <label class="text-gray-500" for="terms">
-            Li e concordo com os <a href="#" class="underline-blue-400 underline-4 underline">Termos e Condições</a> e
+            Li e concordo com os <a class="underline-blue-400 underline-4 underline" :href="route('terms')" target="_blank">Termos e Condições</a> e
             estou ciente de que essa reserva me vincula apenas à esta campanha
           </label>
 

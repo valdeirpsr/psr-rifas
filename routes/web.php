@@ -33,3 +33,5 @@ Route::get('/payments/{payment:id}/check', [App\Http\Controllers\PaymentControll
 Route::post('/payments/notification', [App\Http\Controllers\PaymentController::class, 'update'])->name('payment.update');
 
 Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store'])->name('payment.store');
+
+Route::get('/terms', [App\Http\Controllers\TermsController::class, 'index'])->name('terms');
