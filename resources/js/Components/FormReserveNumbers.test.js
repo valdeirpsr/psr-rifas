@@ -1,11 +1,48 @@
-import { nextTick } from 'vue';
-import { describe, expect, it } from 'vitest';
+import { reactive } from 'vue';
+import { describe, expect, it, vi } from 'vitest';
 import { mount, flushPromises } from '@vue/test-utils';
 import FormReserveNumbers from './FormReserveNumbers.vue';
 
+vi.stubGlobal('route', vi.fn().mockReturnValue('/orders'));
+
+vi.mock('@inertiajs/vue3', (inertiaOriginal) => ({
+    ...inertiaOriginal,
+    useForm: (formData) => {
+        const form = reactive({
+            ...formData,
+            hasErrors: false,
+            errors: {
+                fullname: false,
+                email: false,
+                telephone: false,
+                confirmTelephone: false,
+                terms: false,
+            },
+            post: vi.fn(() => {
+                form.errors = {
+                    fullname: !form.fullname.match(/[a-záàâãéèêíïóôõöúçñü]{3,}\s[a-záàâãéèêíïóôõöúçñü\s]{3,}/gi),
+                    email: !form.email.match(/^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/),
+                    telephone: form.telephone.replace(/\D/g, '').match('/\d{11,12}/'),
+                    confirmTelephone: form.confirmTelephone.replace(/\D/g, '') !== form.telephone.replace(/\D/g, ''),
+                    terms: !form.terms,
+                }
+            })
+        });
+
+        return form;
+    }
+}));
+
 describe('Testa interação do formulário', () => {
     it('O nome e o sobrenome devem ter pelo menos 3 caracteres', async () => {
-        const wrapper = mount(FormReserveNumbers);
+        const wrapper = mount(FormReserveNumbers, {
+            props: {
+                rifa: 1,
+                quantity: 1
+            }
+        });
+
+        expect(wrapper.find('#error-fullname').exists()).toBeFalsy();
 
         await wrapper.get('[data-testid="input-full-name"]').setValue('Oi Hi');
         await wrapper.get('[data-testid="button-confirm"]').trigger('click');
@@ -14,7 +51,14 @@ describe('Testa interação do formulário', () => {
     });
 
     it('O email deve ser válido', async () => {
-        const wrapper = mount(FormReserveNumbers);
+        const wrapper = mount(FormReserveNumbers, {
+            props: {
+                rifa: 1,
+                quantity: 1
+            }
+        });
+
+        expect(wrapper.find('#error-email').exists()).toBeFalsy();
 
         await wrapper.get('[data-testid="input-email"]').setValue('test');
         await wrapper.get('[data-testid="button-confirm"]').trigger('click');
@@ -23,7 +67,14 @@ describe('Testa interação do formulário', () => {
     });
 
     it('A confirmação do telefone deve ser igual ao telefone', async () => {
-        const wrapper = mount(FormReserveNumbers);
+        const wrapper = mount(FormReserveNumbers, {
+            props: {
+                rifa: 1,
+                quantity: 1
+            }
+        });
+
+        expect(wrapper.find('#error-confirm-telephone').exists()).toBeFalsy();
 
         await wrapper.get('[data-testid="input-telephone"]').setValue('(00) 91234-5678');
         await wrapper.get('[data-testid="input-confirm-telephone"]').setValue('(00) 91234-56790');
@@ -33,7 +84,14 @@ describe('Testa interação do formulário', () => {
     });
 
     it('O usuário deve concordar com os termos', async () => {
-        const wrapper = mount(FormReserveNumbers);
+        const wrapper = mount(FormReserveNumbers, {
+            props: {
+                rifa: 1,
+                quantity: 1
+            }
+        });
+
+        expect(wrapper.find('#error-terms').exists()).toBeFalsy();
 
         await wrapper.get('[data-testid="input-terms"]').setValue(false);
         await wrapper.get('[data-testid="button-confirm"]').trigger('click');
@@ -50,7 +108,12 @@ describe('Testa interação do formulário', () => {
             terms: true,
         }
 
-        const wrapper = mount(FormReserveNumbers);
+        const wrapper = mount(FormReserveNumbers, {
+            props: {
+                rifa: 1,
+                quantity: 1
+            }
+        });
 
         await wrapper.get('[data-testid="input-full-name"]').setValue(form.fullname);
         await wrapper.get('[data-testid="input-email"]').setValue(form.email);
@@ -59,8 +122,6 @@ describe('Testa interação do formulário', () => {
         await wrapper.get('[data-testid="input-terms"]').setValue(form.terms);
         await wrapper.get('[data-testid="button-confirm"]').trigger('click');
 
-        await flushPromises();
-        const events = wrapper.emitted('confirm');
-        expect(events).toHaveLength(1);
+        expect(wrapper.findAll('[id^="error-"]').length).toBe(0);
     })
 });

@@ -1,10 +1,11 @@
 <script setup lang="ts">
   import { reactive } from 'vue';
   import { vMaska } from 'maska';
-  import { useVuelidate } from '@vuelidate/core';
-  import { email, required, sameAs } from '@vuelidate/validators';
+  import { useForm } from '@inertiajs/vue3';
+  /* import { useVuelidate } from '@vuelidate/core'; */
+  /* import { email, required, sameAs } from '@vuelidate/validators'; */
   import { IconSvgEmail, IconSvgPeople, IconSvgTelephone } from '@Assets/icons';
-  import { useFullname, useSameAs } from '../Composables/Validators';
+  /* import { useFullname, useSameAs } from '../Composables/Validators'; */
   import PsrDialog from './PsrDialog.vue';
 
   const emits = defineEmits<{
@@ -12,45 +13,34 @@
     (event: 'dismiss'): void;
   }>();
 
-  const form = reactive<Partial<FormReserveNumbers>>({
-    fullname: '',
-    email: '',
-    telephone: '',
+  const props = defineProps<{
+    rifa: Rifa['id'],
+    quantity: FormReserveNumbers['quantity']
+  }>();
+
+  const form = useForm<FormReserveNumbers>({
     confirmTelephone: '',
-    terms: false,
+    email: '',
+    fullname: '',
+    quantity: props.quantity,
+    rifa: props.rifa,
+    telephone: '',
+    terms: false
   });
 
-  const v$ = useVuelidate(
-    {
-      fullname: { required, regex: useFullname() },
-      email: { email, required },
-      telephone: { required },
-      confirmTelephone: {
-        required,
-        sameAsTelephone: useSameAs(form, 'telephone', 'Telefone'),
-      },
-      terms: {
-        required,
-        sameAsRawValue: sameAs(true),
-      },
-    },
-    form as FormReserveNumbers
-  );
-
-  async function isValid() {
-    if (!(await v$.value.$validate())) return;
-    emits('confirm', form);
+  function submitForm() {
+    form.post(route('orders.store'))
   }
 </script>
 
 <template>
-  <PsrDialog @confirm="isValid" @dismiss="$emit('dismiss')">
+  <PsrDialog @confirm="submitForm" @dismiss="$emit('dismiss')">
     <template #heading>Reservar Bilhetes</template>
 
     <template #default>
       <p>Preencha as informações para prosseguir</p>
 
-      <div class="text-start" :class="{ error: v$.fullname.$error }">
+      <div class="text-start" :class="{ error: form.errors.fullname }">
         <div class="rounded-md shadow-sm mt-4 relative">
           <div class="flex left-0 absolute top-0 bottom-0 items-center pl-2">
             <IconSvgPeople class="text-gray-400" height="24" width="24" />
@@ -65,14 +55,14 @@
             aria-label="Informe seu nome completo"
             required
             aria-errormessage="error-fullname"
-            :aria-invalid="v$.fullname.$error"
+            :aria-invalid="!!form.errors.fullname"
           />
         </div>
 
-        <span v-if="v$.fullname.$error" id="error-fullname" class="text-xs">Informe seu nome completo</span>
+        <span v-if="form.errors.fullname" id="error-fullname" class="text-xs">Informe seu nome completo</span>
       </div>
 
-      <div class="text-start" :class="{ error: v$.email.$error }">
+      <div class="text-start" :class="{ error: form.errors.email }">
         <div class="rounded-md shadow-sm mt-4 relative">
           <div class="flex left-0 absolute top-0 bottom-0 items-center pl-2">
             <IconSvgEmail class="text-gray-400" height="24" width="24" />
@@ -87,14 +77,14 @@
             aria-label="Informe seu e-mail de contato"
             aria-errormessage="error-email"
             required
-            :aria-invalid="v$.email.$error"
+            :aria-invalid="!!form.errors.email"
           />
         </div>
 
-        <span v-if="v$.email.$error" id="error-email" class="text-xs">Informe um e-mail válido</span>
+        <span v-if="form.errors.email" id="error-email" class="text-xs">Informe um e-mail válido</span>
       </div>
 
-      <div class="text-start" :class="{ error: v$.telephone.$error }">
+      <div class="text-start" :class="{ error: form.errors.telephone }">
         <div class="rounded-md shadow-sm mt-4 relative">
           <div class="flex left-0 absolute top-0 bottom-0 items-center pl-2">
             <IconSvgTelephone class="text-gray-400" height="24" width="24" />
@@ -111,14 +101,14 @@
             aria-errormessage="error-telephone"
             data-maska="(##) #####-####"
             required
-            :aria-invalid="v$.telephone.$error"
+            :aria-invalid="!!form.errors.telephone"
           />
         </div>
 
-        <span v-if="v$.telephone.$error" id="error-telephone" class="text-xs">Informe seu telefone</span>
+        <span v-if="form.errors.telephone" id="error-telephone" class="text-xs">Informe seu telefone</span>
       </div>
 
-      <div class="text-start" :class="{ error: v$.confirmTelephone.$error }">
+      <div class="text-start" :class="{ error: form.errors.confirmTelephone }">
         <div class="rounded-md shadow-sm mt-4 relative">
           <div class="flex left-0 absolute top-0 bottom-0 items-center pl-2">
             <IconSvgTelephone class="text-gray-400" height="24" width="24" />
@@ -135,16 +125,16 @@
             aria-errormessage="error-confirm-telephone"
             data-maska="(##) #####-####"
             required
-            :aria-invalid="v$.confirmTelephone.$error"
+            :aria-invalid="!!form.errors.confirmTelephone"
           />
         </div>
 
-        <span v-if="v$.confirmTelephone.$error" id="error-confirm-telephone" class="text-xs">
+        <span v-if="form.errors.confirmTelephone" id="error-confirm-telephone" class="text-xs">
           Confirme seu telefone
         </span>
       </div>
 
-      <div class="relative flex gap-x-3 text-start mt-4" :class="{ error: v$.terms.$error }">
+      <div class="relative flex gap-x-3 text-start mt-4" :class="{ error: form.errors.terms }">
         <div class="flex h-6 items-center">
           <input
             id="terms"
@@ -153,7 +143,7 @@
             data-testid="input-terms"
             class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
             aria-errormessage="error-terms"
-            :aria-invalid="v$.terms.$error"
+            :aria-invalid="!!form.errors.terms"
           />
         </div>
         <div class="text-sm leading-6">
@@ -162,7 +152,7 @@
             estou ciente de que essa reserva me vincula apenas à esta campanha
           </label>
 
-          <p v-if="v$.terms.$error" id="error-terms" class="text-xs">
+          <p v-if="form.errors.terms" id="error-terms" class="text-xs">
             É necessário concordar com os termos para prosseguir
           </p>
         </div>

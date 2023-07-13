@@ -1,17 +1,15 @@
 <script setup lang="ts">
   import { computed, ref } from 'vue';
   import { useLocaleCurrency, useLocaleDateLong } from '@Composables/Locale';
-  import { useDanger } from '@Composables/Snackbar';
+  import { useSorted } from '@vueuse/core';
   import PsrCard from '@Components/PsrCard.vue';
   import PsrRanking from '@Components/PsrRanking.vue';
   import ReserveNumbers from '@Components/ReserveNumbers.vue';
   import PsrBadge from '@Components/PsrBadge.vue';
   import FormReserveNumbers from '@Components/FormReserveNumbers.vue';
   import ButtonListOrders from '@Components/ButtonListOrders.vue';
-  import axios from 'axios';
-import { useSorted } from '@vueuse/core';
-import PsrHeader from '@Components/PsrHeader.vue';
-import PsrFooter from '@Components/PsrFooter.vue';
+  import PsrHeader from '@Components/PsrHeader.vue';
+  import PsrFooter from '@Components/PsrFooter.vue';
 
   const props = defineProps<{
     rifa: Rifa,
@@ -44,20 +42,6 @@ import PsrFooter from '@Components/PsrFooter.vue';
 
   function onReserveNumbers(): void {
     displayFormReserveNumbers.value = true;
-  }
-
-  async function onConfirmFormReserveNumbers(form: Partial<FormReserveNumbers>): Promise<void> {
-    form.quantity = orderQuantitySelected.value;
-    form.rifa = props.rifa.id;
-
-    const { data } = await axios.post(route('orders.store'), form)
-      .catch((err) => {
-        useDanger(err?.response?.data?.message || err?.message || err);
-
-        return { data: null };
-      });
-
-    if (data.redirect) return location.href = data.redirect;
   }
 </script>
 
@@ -136,7 +120,11 @@ import PsrFooter from '@Components/PsrFooter.vue';
     </div>
 
     <Teleport v-if="displayFormReserveNumbers" to="body">
-      <FormReserveNumbers @confirm="onConfirmFormReserveNumbers" @dismiss="displayFormReserveNumbers = false" />
+      <FormReserveNumbers
+        :rifa="rifa.id"
+        :quantity="orderQuantitySelected"
+        @dismiss="displayFormReserveNumbers = false"
+      />
     </Teleport>
   </div>
 
