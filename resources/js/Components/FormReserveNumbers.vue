@@ -2,10 +2,7 @@
   import { reactive } from 'vue';
   import { vMaska } from 'maska';
   import { useForm } from '@inertiajs/vue3';
-  /* import { useVuelidate } from '@vuelidate/core'; */
-  /* import { email, required, sameAs } from '@vuelidate/validators'; */
   import { IconSvgEmail, IconSvgPeople, IconSvgTelephone } from '@Assets/icons';
-  /* import { useFullname, useSameAs } from '../Composables/Validators'; */
   import PsrDialog from './PsrDialog.vue';
 
   const emits = defineEmits<{
