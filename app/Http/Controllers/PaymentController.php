@@ -6,6 +6,7 @@ use App\Http\Resources\PaymentStatusResource;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Services\MercadoPago as ServicesMercadoPago;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Client\RequestException;
@@ -30,14 +31,14 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $order = Order::with([
-            'rifa' => fn (HasOne $query) => $query->select('id', 'title', 'price'),
+            'rifa' => fn (BelongsTo $query) => $query->select('id', 'title', 'price'),
             'payment' => fn (HasOne $query) => $query->select('id', 'order_id'),
         ])
         ->where('id', $request->input('orderId', 0))
         ->first();
 
-        if ($order->payment()->first()) {
-            return redirect()->route('payment.show', ['payment' => $order->payment()->first()->id]);
+        if ($order->payment) {
+            return redirect()->route('payment.show', ['payment' => $order->payment->id]);
         }
 
         try {
