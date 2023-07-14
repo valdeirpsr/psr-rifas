@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,6 +18,9 @@ class Rifa extends Model
 
     /** @var string */
     public const STATUS_PUBLISHED = 'published';
+
+    /** @var string */
+    public const STATUS_FINISHED = 'finished';
 
     use HasFactory;
 
@@ -39,7 +41,7 @@ class Rifa extends Model
     public function thumbnail(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => Storage::disk('s3')->url($value)
+            get: fn (string $value) => Storage::url($value)
         );
     }
 
