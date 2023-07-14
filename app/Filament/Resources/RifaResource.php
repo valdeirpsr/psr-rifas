@@ -126,7 +126,6 @@ class RifaResource extends Resource
                  * Data de Expiração
                  */
                 Forms\Components\DateTimePicker::make('expired_at')
-                    ->required()
                     ->timezone('America/Sao_Paulo')
                     ->withoutSeconds(),
 
