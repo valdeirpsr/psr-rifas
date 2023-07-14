@@ -10,6 +10,8 @@ use Tests\TestCase;
 
 class CheckoutControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     private Rifa $rifa;
 
     protected function setUp(): void
