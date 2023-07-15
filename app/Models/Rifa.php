@@ -52,6 +52,13 @@ class Rifa extends Model
         );
     }
 
+    public function slug(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value, $attributes) => $attributes['slug'] ?? $value
+        );
+    }
+
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);

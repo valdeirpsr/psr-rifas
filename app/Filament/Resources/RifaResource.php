@@ -38,11 +38,7 @@ class RifaResource extends Resource
                          */
                         Forms\Components\TextInput::make('title')
                             ->maxLength(255)
-                            ->required()
-                            ->reactive()
-                            ->afterStateUpdated(fn (\Closure $set, $state) =>
-                                $set('slug', Str::slug($state) . '-' . Str::random(10))
-                            ),
+                            ->required(),
 
                         /**
                          * Thumbnail
@@ -138,7 +134,8 @@ class RifaResource extends Resource
                  * Slug
                  */
                 Forms\Components\TextInput::make('slug')
-                    ->disabled(),
+                    ->hidden(fn (string $context) => $context !== 'edit')
+                    ->disabled()
             ]);
     }
 
