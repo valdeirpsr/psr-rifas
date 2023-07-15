@@ -1,7 +1,10 @@
 import { reactive } from 'vue';
 import { describe, expect, it, vi } from 'vitest';
-import { mount, flushPromises } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
+import { ZiggyVue } from '../../../vendor/tightenco/ziggy/dist/vue.m';
+import { Ziggy } from '../ziggy';
 import FormReserveNumbers from './FormReserveNumbers.vue';
+import { beforeEach } from 'vitest';
 
 vi.stubGlobal('route', vi.fn().mockReturnValue('/orders'));
 
@@ -34,14 +37,21 @@ vi.mock('@inertiajs/vue3', (inertiaOriginal) => ({
 }));
 
 describe('Testa interação do formulário', () => {
-    it('O nome e o sobrenome devem ter pelo menos 3 caracteres', async () => {
-        const wrapper = mount(FormReserveNumbers, {
+    let wrapper;
+
+    beforeEach(() => {
+        wrapper = mount(FormReserveNumbers, {
             props: {
                 rifa: 1,
                 quantity: 1
-            }
+            },
+            global: {
+                plugins: [[ZiggyVue, Ziggy]]
+            },
         });
+    })
 
+    it('O nome e o sobrenome devem ter pelo menos 3 caracteres', async () => {
         expect(wrapper.find('#error-fullname').exists()).toBeFalsy();
 
         await wrapper.get('[data-testid="input-full-name"]').setValue('Oi Hi');
@@ -51,13 +61,6 @@ describe('Testa interação do formulário', () => {
     });
 
     it('O email deve ser válido', async () => {
-        const wrapper = mount(FormReserveNumbers, {
-            props: {
-                rifa: 1,
-                quantity: 1
-            }
-        });
-
         expect(wrapper.find('#error-email').exists()).toBeFalsy();
 
         await wrapper.get('[data-testid="input-email"]').setValue('test');
@@ -67,13 +70,6 @@ describe('Testa interação do formulário', () => {
     });
 
     it('A confirmação do telefone deve ser igual ao telefone', async () => {
-        const wrapper = mount(FormReserveNumbers, {
-            props: {
-                rifa: 1,
-                quantity: 1
-            }
-        });
-
         expect(wrapper.find('#error-confirm-telephone').exists()).toBeFalsy();
 
         await wrapper.get('[data-testid="input-telephone"]').setValue('(00) 91234-5678');
@@ -84,13 +80,6 @@ describe('Testa interação do formulário', () => {
     });
 
     it('O usuário deve concordar com os termos', async () => {
-        const wrapper = mount(FormReserveNumbers, {
-            props: {
-                rifa: 1,
-                quantity: 1
-            }
-        });
-
         expect(wrapper.find('#error-terms').exists()).toBeFalsy();
 
         await wrapper.get('[data-testid="input-terms"]').setValue(false);
@@ -107,13 +96,6 @@ describe('Testa interação do formulário', () => {
             confirmTelephone: '(00) 91234-5678',
             terms: true,
         }
-
-        const wrapper = mount(FormReserveNumbers, {
-            props: {
-                rifa: 1,
-                quantity: 1
-            }
-        });
 
         await wrapper.get('[data-testid="input-full-name"]').setValue(form.fullname);
         await wrapper.get('[data-testid="input-email"]').setValue(form.email);
