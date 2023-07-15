@@ -29,16 +29,6 @@ class RifaResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $inputThumbnail = Forms\Components\FileUpload::make('thumbnail')
-            ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
-            ->imagePreviewHeight(300)
-            ->required();
-
-        if (env('AWS_ACCESS_KEY_ID')) {
-            $inputThumbnail->disk('s3')
-                ->visibility('public');
-        }
-
         return $form
             ->schema([
                 Forms\Components\Grid::make(1)
@@ -57,7 +47,11 @@ class RifaResource extends Resource
                         /**
                          * Thumbnail
                          */
-                        $inputThumbnail,
+                        Forms\Components\FileUpload::make('thumbnail')
+                            ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
+                            ->imagePreviewHeight(300)
+                            ->required()
+                            ->disk(fn (): string => config('filesystems.default'))
                     ]),
 
                 /**
