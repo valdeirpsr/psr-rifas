@@ -13,7 +13,8 @@ class ManagePayments extends ManageRecords
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label(__('filament.action.create', ['label' => $this->getModelLabel()])),
         ];
     }
 }

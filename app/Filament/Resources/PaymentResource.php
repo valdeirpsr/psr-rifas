@@ -109,4 +109,9 @@ class PaymentResource extends Resource
             'index' => Pages\ManagePayments::route('/'),
         ];
     }
+
+    public static function getModelLabel(): string
+    {
+        return __('filament.resource.payment');
+    }
 }

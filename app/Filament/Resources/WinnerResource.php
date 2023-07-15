@@ -119,4 +119,9 @@ class WinnerResource extends Resource
             'edit' => Pages\EditWinner::route('/{record}/edit'),
         ];
     }
+
+    public static function getModelLabel(): string
+    {
+        return __('filament.resource.winner');
+    }
 }

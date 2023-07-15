@@ -203,4 +203,9 @@ class RifaResource extends Resource
             'edit' => Pages\EditRifa::route('/{record}/edit'),
         ];
     }
+
+    public static function getModelLabel(): string
+    {
+        return __('filament.resource.rifa');
+    }
 }
