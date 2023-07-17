@@ -9,7 +9,7 @@
       class="container max-w-[1024px] flex flex-wrap p-5 flex-col sm:flex-row sm:flex-nowrap sm:gap-4 sm:justify-between"
     >
       <a
-        href="https://github.com/valdeirpsr"
+        :href="route('home')"
         class="flex order-first m-auto lg:w-1/5 font-medium items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0 flex-1 flex-grow-0 sm:m-0"
       >
         <PsrLogo />

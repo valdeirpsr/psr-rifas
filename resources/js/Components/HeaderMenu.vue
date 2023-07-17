@@ -13,9 +13,10 @@
 <template>
   <div class="wrapper" :class="{ '-translate-x-full': !active }">
     <nav class="flex flex-col order-3 w-full md:w-max md:divide-x-2 md:flex-row">
-      <a href="#" class="menu-item">Rifas Finalizadas</a>
-      <a href="#" class="menu-item">Depoimentos</a>
-      <a href="#" class="menu-item">Contato</a>
+      <a :href="route('home')" class="menu-item">Página Inicial</a>
+      <a :href="route('rifas.finalizadas')" class="menu-item">Rifas Finalizadas</a>
+      <a :href="route('testimonials.list')" class="menu-item">Depoimentos</a>
+      <a :href="route('contact')" class="menu-item">Contato</a>
 
       <button
         type="button"
