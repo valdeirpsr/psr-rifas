@@ -35,3 +35,7 @@ Route::post('/payments/notification', [App\Http\Controllers\PaymentController::c
 Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store'])->name('payment.store');
 
 Route::get('/terms', [App\Http\Controllers\TermsController::class, 'index'])->name('terms');
+
+Route::get('/contato', [App\Http\Controllers\ContactController::class, 'index'])->name('contact');
+
+Route::post('/contato', [App\Http\Controllers\ContactController::class, 'send'])->name('contact.post');
