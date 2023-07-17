@@ -6,8 +6,8 @@ use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Rifa;
 use App\Models\Slideshow;
-use App\Models\Winner;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class RifasController extends Controller
@@ -43,6 +43,8 @@ class RifasController extends Controller
         $winners = $rifa->through('orders')
             ->has('winners')
             ->get(['orders.customer_fullname', 'winners.position', 'video']);
+
+        $rifa->thumbnail = Storage::url($rifa->thumbnail);
 
         return Inertia::render('Rifa/PsrShow', [
             'rifa' => $rifa,

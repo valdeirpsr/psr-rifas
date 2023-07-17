@@ -38,13 +38,6 @@ class Rifa extends Model
         'expired_at',
     ];
 
-    public function thumbnail(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => Storage::url($value)
-        );
-    }
-
     public function price(): Attribute
     {
         return Attribute::make(
