@@ -38,7 +38,7 @@
     <div ref="sliderItemsEl" class="slider-items flex overflow-x-auto snap-always snap-mandatory snap-x scroll-smooth">
       <img
         v-for="slideshow in items"
-        class="w-full flex-auto flex-shrink-0 snap-start"
+        class="flex-auto flex-shrink-0 max-h-[570px] object-cover snap-start w-full"
         :src="slideshow.image"
         :alt="slideshow.alt"
       />
