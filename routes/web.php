@@ -36,6 +36,8 @@ Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store'
 
 Route::get('/terms', [App\Http\Controllers\TermsController::class, 'index'])->name('terms');
 
+Route::get('/depoimentos', [App\Http\Controllers\TestimonialController::class, 'index'])->name('testimonials.list');
+
 Route::get('/contato', [App\Http\Controllers\ContactController::class, 'index'])->name('contact');
 
 Route::post('/contato', [App\Http\Controllers\ContactController::class, 'send'])->name('contact.post');
