@@ -3,12 +3,13 @@
   import PsrFooter from '@Components/PsrFooter.vue';
   import PsrHeader from '@Components/PsrHeader.vue';
   import PsrRifaCard from '@Components/PsrRifaCard.vue';
-  import PsrSlider from '@Components/PsrSlider.vue';
 
-  defineProps<{
+  withDefaults(defineProps<{
     values: Rifa[],
-    slideshows: Slideshow[];
-  }>();
+    title?: string
+  }>(), {
+    title: '//Rifas'
+  });
 </script>
 
 <template>
@@ -16,16 +17,11 @@
 
   <main class="container max-w-[1024px] min-h-screen">
     <!--
-      Slider
-     -->
-    <PsrSlider :items="slideshows" />
-
-    <!--
       Content
     -->
     <div class="px-4 py-12 mx-auto xl:px-0">
       <PsrCard>
-        <template #heading>//Rifas</template>
+        <template #heading>{{ title }}</template>
 
         <template #default>
           <section>

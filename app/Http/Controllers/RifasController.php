@@ -15,23 +15,29 @@ class RifasController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function list()
     {
-        $rifas = Rifa::availables()
+        $rifasModel = Rifa::where('status', Rifa::STATUS_FINISHED)
+            ->orWhere('expired_at', '>=', now())
             ->latest()
-            ->limit(20)
-            ->get()
+            ->limit(20);
+
+        $rifas = $rifasModel->get()
             ->setHidden([
                 'created_at',
                 'description',
                 'updated_at'
-            ]);
+            ])
+            ->map(function($rifa) {
+                $rifa->thumbnail = Storage::url($rifa->thumbnail);
+                return $rifa;
+            });
 
         $slideshows = Slideshow::orderBy('order')->get();
 
         return Inertia::render('Rifa/PsrList', [
             'values' => $rifas,
-            'slideshows' => $slideshows
+            'title' => '//Rifas Finalizadas'
         ]);
     }
 
