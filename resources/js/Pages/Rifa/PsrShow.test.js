@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import PsrShow from './PsrShow.vue';
+import { ZiggyVue } from '../../../../vendor/tightenco/ziggy/dist/vue.m';
+import { Ziggy } from '../../ziggy';
 import ReserveNumbers from '../../Components/ReserveNumbers.vue';
 
 describe('Teste com rifa expirada e finalizadas', () => {
@@ -10,7 +12,10 @@ describe('Teste com rifa expirada e finalizadas', () => {
                 rifa: {"id":1,"title":"First Draw","thumbnail":"J7P03ilHENBApaoVcUCX2dovCHqyON-metacG5nLnBuZw==-.png","price":0.54,"description":"<p>Vamos sortear <strong>5 telefones</strong> do 1 até o 5 <strong>prêmio</strong>, dias dos pais vamos poder da oportunidade ferver 5 ganhadores na ação dos dias dos pais, essa ação tem como <strong>objetivo </strong>a oportunidade do público apoiar a carreira do Andresson Costa o sucesso das ruas, o sorteio acontece dia 9 de agosto para dias dos pais , obrigado e boa sorte&nbsp;</p>","slug":"first-draw-KYNyqbCdDb","total_numbers_available":100000,"buy_max":300,"buy_min":1,"raffle":"Loteria Federal","status":"finished","expired_at":"1993-07-13"},
                 ranking: [],
                 winners: []
-            }
+            },
+            global: {
+                plugins: [[ZiggyVue, Ziggy]]
+            },
         });
 
         expect(wrapper.findComponent(ReserveNumbers).exists()).toBeFalsy();
@@ -33,7 +38,10 @@ describe('Teste com rifa expirada e finalizadas', () => {
                         position: 1
                     }
                 ]
-            }
+            },
+            global: {
+                plugins: [[ZiggyVue, Ziggy]]
+            },
         });
 
         expect(wrapper.get('[data-testid="winners-list"]').element.firstElementChild.textContent).toContain('Valdeir');
