@@ -64,7 +64,7 @@
     <PsrCard class="text-center font-semibold">Por apenas {{ price }}</PsrCard>
 
     <div class="space-y-4 sm:space-y-0 sm:flex sm:gap-4">
-      <PsrCard class="md:flex-auto lg:flex-1">
+      <PsrCard class="md:flex-auto">
         <template #heading>Descrição</template>
         <!-- eslint-disable-next-line -->
         <p v-html="rifa.description" />
