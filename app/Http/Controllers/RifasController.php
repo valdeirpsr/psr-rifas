@@ -33,8 +33,6 @@ class RifasController extends Controller
                 return $rifa;
             });
 
-        $slideshows = Slideshow::orderBy('order')->get();
-
         return Inertia::render('Rifa/PsrList', [
             'values' => $rifas,
             'title' => '//Rifas Finalizadas'
