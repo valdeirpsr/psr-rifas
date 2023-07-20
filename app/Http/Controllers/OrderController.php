@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Rifa;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\LazyCollection;
+use Inertia\Inertia;
 
 class OrderController extends Controller
 {
@@ -69,9 +70,7 @@ class OrderController extends Controller
         });
 
         if ($order instanceof Order) {
-            return response()->json([
-                'redirect' => route('checkout.show', [ $order->id ])
-            ], 201);
+            return Inertia::location(route('checkout.show', [ $order->id ]));
         }
 
         return abort(500);

@@ -35,7 +35,11 @@ class OrderControllerTest extends TestCase
             'rifa' => $rifa->id
         ]);
 
-        $response->assertStatus(201);
+        $orderId = $this->getOrderId($response);
+
+        $response->assertFound();
+        $response->assertLocation(route('checkout.show', ['id' => $orderId]));
+
         $this->assertDatabaseCount('orders', 1);
     }
 
@@ -159,8 +163,7 @@ class OrderControllerTest extends TestCase
 
     private function getOrderId(\Illuminate\Testing\TestResponse $response)
     {
-        $content = json_decode($response->getContent());
-        $locationParts = explode('/', $content->redirect);
+        $locationParts = explode('/', $response->headers->get('location'));
         return last($locationParts);
     }
 
