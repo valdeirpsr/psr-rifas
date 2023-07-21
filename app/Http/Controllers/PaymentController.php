@@ -31,7 +31,7 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $order = Order::with([
-            'rifa' => fn (BelongsTo $query) => $query->select('id', 'title', 'price'),
+            'rifa' => fn (BelongsTo $query) => $query->select('id', 'title', 'price', 'slug'),
             'payment' => fn (HasOne $query) => $query->select('id', 'order_id'),
         ])
         ->where('id', $request->input('orderId', 0))
@@ -39,6 +39,10 @@ class PaymentController extends Controller
 
         if ($order->payment) {
             return redirect()->route('payment.show', ['payment' => $order->payment->id]);
+        }
+
+        if (now() > Carbon::parse($order->expire_at)) {
+            return redirect()->route('rifas.show', ['rifa' => $order->rifa]);
         }
 
         try {
