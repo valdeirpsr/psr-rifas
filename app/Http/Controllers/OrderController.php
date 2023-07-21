@@ -30,6 +30,7 @@ class OrderController extends Controller
     {
         $result = Order::with([
             'rifa' => fn ($query) => $query->select('id', 'title', 'price', 'slug'),
+            'payment' => fn ($query) => $query->select('id', 'order_id')
         ])
         ->where('id', $id)
         ->first();
@@ -40,6 +41,10 @@ class OrderController extends Controller
 
         if (now() > Carbon::parse($result->expire_at)) {
             return redirect(route('rifas.show', ['rifa' => $result->rifa]));
+        }
+
+        if ($result->payment) {
+            return redirect(route('payment.show', ['payment' => $result->payment]));
         }
 
         $rifa = $result->rifa;
