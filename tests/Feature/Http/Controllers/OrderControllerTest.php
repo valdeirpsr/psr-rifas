@@ -38,7 +38,7 @@ class OrderControllerTest extends TestCase
         $orderId = $this->getOrderId($response);
 
         $response->assertFound();
-        $response->assertLocation(route('checkout.show', ['id' => $orderId]));
+        $response->assertLocation(route('orders.show', ['id' => $orderId]));
 
         $this->assertDatabaseCount('orders', 1);
     }
@@ -159,6 +159,36 @@ class OrderControllerTest extends TestCase
         $response = $this->post(route('orders.store'), $invalidFormBody);
 
         $response->assertInvalid('quantity');
+    }
+
+    /**
+     * A página deve retornar Status ode 200 quando o pedido estiver reservado
+     */
+    public function test_a_pagina_deve_retornar_ok_com_pedido_reservado(): void
+    {
+        $order = Order::factory()->for(Rifa::factory())->create();
+
+        $response = $this->get(route('orders.show', ['id' => $order->id]));
+
+        $response->assertStatus(200);
+    }
+
+    public function test_redirecionar_para_home_caso_pedido_nao_seja_encontrado(): void
+    {
+        $response = $this->get(route('orders.show', ['id' => 'invalid']));
+
+        $response->assertLocation('/');
+    }
+
+    public function test_o_usuario_deve_ser_redirecionado_para_rifa_quando_o_pedido_sem_pagamento_estiver_expirado(): void
+    {
+        $order = Order::factory()->for(Rifa::factory())->create([
+            'expire_at' => now()->subMinutes(60)
+        ]);
+
+        $response = $this->get(route('orders.show', ['id' => $order->id]));
+
+        $response->assertLocation(route('rifas.show', ['rifa' => $order->rifa]));
     }
 
     private function getOrderId(\Illuminate\Testing\TestResponse $response)

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from "@vue/test-utils";
-import PsrShow from './PsrShow.vue';
+import PsrShow from './PsrResume.vue';
 import PsrBadge from '@Components/PsrBadge.vue';
 
 const getValidData = () => {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOrderRequest;
 use App\Models\Order;
 use App\Models\Rifa;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\LazyCollection;
 use Inertia\Inertia;
@@ -20,6 +21,37 @@ class OrderController extends Controller
     public function index()
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $result = Order::with([
+            'rifa' => fn ($query) => $query->select('id', 'title', 'price', 'slug'),
+        ])
+        ->where('id', $id)
+        ->first();
+
+        if ($result === null) {
+            return redirect('/');
+        }
+
+        if (now() > Carbon::parse($result->expire_at)) {
+            return redirect(route('rifas.show', ['rifa' => $result->rifa]));
+        }
+
+        $rifa = $result->rifa;
+
+        $order = $result->makeHidden('rifa');
+        $order->transaction_amount = $rifa->price * count($order->numbers_reserved);
+        $order->expire_at = Carbon::parse($order->expire_at);
+
+        return inertia('Order/PsrResume', [
+            'order' => $order,
+            'rifa' => $rifa
+        ]);
     }
 
     /**
@@ -70,7 +102,7 @@ class OrderController extends Controller
         });
 
         if ($order instanceof Order) {
-            return Inertia::location(route('checkout.show', [ $order->id ]));
+            return Inertia::location(route('orders.show', [ $order->id ]));
         }
 
         return abort(500);

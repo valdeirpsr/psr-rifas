@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue';
-  import { useForm } from '@inertiajs/vue3';
+  import { useForm, router } from '@inertiajs/vue3';
   import { useLocaleCurrency, useLocaleDateLong, useLocaleTelephone } from '@Composables/Locale';
   import PsrBadge from '@Components/PsrBadge.vue';
   import PsrCard from '@Components/PsrCard.vue';
@@ -29,6 +29,10 @@
   const form = useForm({
     orderId: props.order.id
   });
+
+  function countdownEnd() {
+    location = route('rifas.show', [props.rifa.slug]);
+  }
 </script>
 
 <template>
@@ -106,7 +110,13 @@
   <div class="fixed bottom-0 left-0 w-screen !m-0 p-4 space-y-2 bg-white text-center">
     <p class="text-xs text-center">
       <span>Pague em até: </span>
-      <PsrCountdown v-if="!checkIsPaid" :time="(order.expire_at as string)" class="inline-block" data-testid="countdown" />
+      <PsrCountdown
+        v-if="!checkIsPaid"
+        class="inline-block"
+        data-testid="countdown"
+        :time="(order.expire_at as string)"
+        @end="countdownEnd"
+      />
     </p>
 
     <PsrButton

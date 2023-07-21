@@ -34,9 +34,11 @@ Route::prefix('payments')->group(function () {
     Route::post('/', [App\Http\Controllers\PaymentController::class, 'store'])->name('payment.store');
 });
 
-Route::post('/orders', [App\Http\Controllers\OrderController::class, 'store'])->name('orders.store');
+Route::prefix('orders')->group(function () {
+    Route::post('/', [App\Http\Controllers\OrderController::class, 'store'])->name('orders.store');
 
-Route::get('/checkout/{id}', [App\Http\Controllers\CheckoutController::class, 'show'])->name('checkout.show');
+    Route::get('/{id}', [App\Http\Controllers\OrderController::class, 'show'])->name('orders.show');
+});
 
 Route::get('/terms', [App\Http\Controllers\TermsController::class, 'index'])->name('terms');
 
