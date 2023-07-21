@@ -123,10 +123,11 @@
       v-if="!checkIsPaid"
       class="w-full max-w-[558px]"
       data-testid="button-payment"
-      :disabled="expired"
+      :disabled="expired || form.processing"
       @click="form.post(route('payment.store'))"
     >
-      {{ expired ? 'Expirado' : 'Pagar' }}
+      <span v-if="form.processing" class="text-white">Aguarde</span>
+      <span v-else class="text-white">{{ expired ? 'Expirado' : 'Pagar' }}</span>
     </PsrButton>
   </div>
 </template>

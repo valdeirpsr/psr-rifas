@@ -1,7 +1,9 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { mount } from "@vue/test-utils";
 import PsrShow from './PsrResume.vue';
 import PsrBadge from '@Components/PsrBadge.vue';
+import { ZiggyVue } from '../../../../vendor/tightenco/ziggy/dist/vue.m';
+import { Ziggy } from '../../ziggy';
 
 const getValidData = () => {
     const expire_at = new Date(Date.now() + 3600).toLocaleString('af');
@@ -24,6 +26,8 @@ const getValidData = () => {
         },
     }
 }
+
+const selectorButtonPay = '[data-testid="button-payment"]';
 
 describe('Testa renderização do layout', () => {
     const selectorNumbers = '[data-testid="numbers"]';
@@ -63,6 +67,23 @@ describe('Testa renderização do layout', () => {
 
         expect(wrapper.find('[data-testid="expire"]').exists()).toBeFalsy();
         expect(wrapper.find('[data-testid="countdown"]').exists()).toBeFalsy();
-        expect(wrapper.find('[data-testid="button-payment"]').exists()).toBeFalsy();
+        expect(wrapper.find(selectorButtonPay).exists()).toBeFalsy();
+    });
+});
+
+describe('Teste de interação', () => {
+    it('O botão Pagar deverá ser bloqueado após clique', async () => {
+        const wrapper = mount(PsrShow, {
+            props: getValidData(),
+            global: {
+                plugins: [
+                    [ZiggyVue, Ziggy]
+                ]
+            }
+        });
+
+        await wrapper.get(selectorButtonPay).trigger('click');
+        expect(wrapper.get(selectorButtonPay).attributes('disabled')).not.toBeUndefined();
+        expect(wrapper.get(selectorButtonPay).text()).toEqual('Aguarde');
     });
 });
