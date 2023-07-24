@@ -13,7 +13,8 @@ declare type Order = {
 
 declare type Payment = {
   ticket_url: string,
-  order_id: number
+  order_id: number,
+  id: number
 }
 
 declare type OrderWithPayment = Order & {

@@ -6,6 +6,7 @@ use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Rifa;
 use App\Models\Slideshow;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -63,11 +64,24 @@ class RifasController extends Controller
     public function showOrders(Rifa $rifa, string $telephone)
     {
         $orders = Order::with([
-            'payment' => fn (HasOne $query) => $query->select(['ticket_url', 'order_id'])
+            'payment' => fn (HasOne $query) => $query->select(['ticket_url', 'order_id', 'id'])
         ])
         ->where('rifa_id', $rifa->id)
         ->where('customer_telephone', $telephone)
-        ->get();
+        ->where(function ($query) {
+            $query->where('status', Order::STATUS_PAID)
+                ->orWhere(function ($query) {
+                    $query->where('status', Order::STATUS_RESERVED)
+                        ->where('expire_at', '>', now());
+                });
+        })
+        ->get()
+        ->map(function (Order $order) {
+            $order->expire_at = Carbon::parse($order->expire_at);
+            $order->created_at = now();
+            return $order;
+        })
+        ->all();
 
         return new OrderResource($orders);
     }

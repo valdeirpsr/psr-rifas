@@ -36,7 +36,7 @@
 </script>
 
 <template>
-  <div class="container max-w-[558px] space-y-4 pt-10 pb-32">
+  <div class="container max-w-[558px] space-y-4 pt-10 pb-32 px-4">
     <div class="mb-4" data-testid="heading">
       <h1 class="text-2xl font-extrabold font-[Raleway] leading-none">Resumo do Pedido</h1>
       <PsrBadge

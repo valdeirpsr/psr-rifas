@@ -24,7 +24,7 @@
   const allOrders = computed(() =>
     props.orders.map((order) => ({
       ...order,
-      paymentLink: order.payment ? route('payment.show', [order.payment.order_id]) : route('orders.show', [order.id]),
+      paymentLink: order.payment ? route('payment.show', [order.payment.id]) : route('orders.show', [order.id]),
     }))
   );
 </script>
