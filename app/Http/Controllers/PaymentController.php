@@ -37,6 +37,10 @@ class PaymentController extends Controller
         ->where('id', $request->input('orderId', 0))
         ->first();
 
+        if (!$order) {
+            return back();
+        }
+
         if ($order->payment) {
             return redirect()->route('payment.show', ['payment' => $order->payment->id]);
         }
