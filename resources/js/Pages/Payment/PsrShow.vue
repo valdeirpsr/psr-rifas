@@ -2,9 +2,9 @@
   import { computed, onMounted, ref } from 'vue';
   import { useTimeoutFn } from '@vueuse/core';
   import axios from 'axios';
-  import Approved from './Approved.vue';
-  import Confirm from './Confirm.vue';
-  import Expired from './Expired.vue';
+  import Approved from './PsrApproved.vue';
+  import Confirm from './PsrConfirm.vue';
+  import Expired from './PsrExpired.vue';
 
   const props = defineProps<{
     payment: {
