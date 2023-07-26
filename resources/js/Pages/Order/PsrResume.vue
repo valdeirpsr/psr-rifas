@@ -8,26 +8,22 @@
   import PsrButton from '@Components/PsrButton.vue';
 
   const props = defineProps<{
-    order: Order & { transaction_amount: number },
-    rifa: Partial<Rifa>
+    order: Order & { transaction_amount: number };
+    rifa: Partial<Rifa>;
   }>();
 
   const showNumbers = ref(false);
-  const expireAt = computed(() =>
-    props.order.expire_at ? useLocaleDateLong(props.order.expire_at) : ''
-  );
-  const transactionAmount = computed(() =>
-    useLocaleCurrency(props.order.transaction_amount)
-  );
+  const expireAt = computed(() => (props.order.expire_at ? useLocaleDateLong(props.order.expire_at) : ''));
+  const transactionAmount = computed(() => useLocaleCurrency(props.order.transaction_amount));
   const telephone = useLocaleTelephone(props.order.customer_telephone);
 
-  const expired  = ref(false);
+  const expired = ref(false);
 
-  const isPaid  = ref(false);
+  const isPaid = ref(false);
   const checkIsPaid = computed(() => isPaid.value || props.order.status === 'paid');
 
   const form = useForm({
-    orderId: props.order.id
+    orderId: props.order.id,
   });
 
   function countdownEnd() {
@@ -39,11 +35,7 @@
   <div class="container max-w-[558px] space-y-4 pt-10 pb-32 px-4">
     <div class="mb-4" data-testid="heading">
       <h1 class="text-2xl font-extrabold font-[Raleway] leading-none">Resumo do Pedido</h1>
-      <PsrBadge
-        v-if="!checkIsPaid && order.expire_at"
-        type="warning"
-        data-testid="expire"
-      >
+      <PsrBadge v-if="!checkIsPaid && order.expire_at" type="warning" data-testid="expire">
         Expira em: {{ expireAt }}
       </PsrBadge>
     </div>
@@ -100,7 +92,9 @@
 
         <Transition name="fade">
           <div v-if="showNumbers" class="flex flex-wrap gap-2 mt-8" data-testid="numbers">
-            <PsrBadge v-for="number in order.numbers_reserved" :key="`n-${number}`" type="default">{{ number }}</PsrBadge>
+            <PsrBadge v-for="number in order.numbers_reserved" :key="`n-${number}`" type="default">
+              {{ number }}
+            </PsrBadge>
           </div>
         </Transition>
       </div>
@@ -133,11 +127,12 @@
 </template>
 
 <style scoped>
-b {
-  @apply font-semibold;
-}
+  b {
+    @apply font-semibold;
+  }
 
-.fixed {
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-}
+  .fixed {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  }
 </style>

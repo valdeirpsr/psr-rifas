@@ -2,7 +2,7 @@
   withDefaults(
     defineProps<{
       type?: 'primary' | 'link';
-      disabled?: boolean
+      disabled?: boolean;
     }>(),
     {
       type: 'primary',

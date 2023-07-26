@@ -2,11 +2,11 @@
   import PsrLogo from './PsrLogo.vue';
 
   defineEmits<{
-    (event: 'update:active', value: boolean): void
+    (event: 'update:active', value: boolean): void;
   }>();
 
   defineProps<{
-    active: boolean
+    active: boolean;
   }>();
 </script>
 
@@ -41,8 +41,8 @@
 </template>
 
 <style scoped>
-.wrapper {
-  @apply flex
+  .wrapper {
+    @apply flex
   items-center
   bg-white
   absolute
@@ -57,8 +57,8 @@
   md:static
   md:gap-3
   md:translate-x-0;
-}
-.menu-item {
-  @apply p-4 border-b-2 border-b-slate-50 w-full md:p-0 md:px-4 md:border-0 md:w-auto;
-}
+  }
+  .menu-item {
+    @apply p-4 border-b-2 border-b-slate-50 w-full md:p-0 md:px-4 md:border-0 md:w-auto;
+  }
 </style>

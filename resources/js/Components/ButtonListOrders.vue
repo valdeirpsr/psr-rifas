@@ -10,7 +10,7 @@
   import PsrLoading from './PsrLoading.vue';
 
   const props = defineProps<{
-    rifaSlug: string
+    rifaSlug: string;
   }>();
 
   const opened = ref(false);

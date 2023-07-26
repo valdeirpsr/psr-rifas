@@ -6,13 +6,7 @@
 <template>
   <div class="flex-col flex fixed h-screen inset-0 items-stretch">
     <div class="bg-[#029ef2] flex-auto flex-shrink-0 h-[70vh] pb-32">
-      <lottie-player
-        class="m-auto"
-        autoplay
-        loop
-        mode="normal"
-        src="/anim8_.json"
-      />
+      <lottie-player class="m-auto" autoplay loop mode="normal" src="/anim8_.json" />
 
       <p class="text-center text-2xl font-bold text-white animate-bounce">Pagamento Aprovado</p>
     </div>

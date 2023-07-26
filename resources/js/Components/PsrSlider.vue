@@ -2,7 +2,7 @@
   import { computed, ref, watch } from 'vue';
 
   const props = defineProps<{
-    items: Slideshow[]
+    items: Slideshow[];
   }>();
 
   const sliderIndex = ref(0);
@@ -68,4 +68,3 @@
     </div>
   </section>
 </template>
-

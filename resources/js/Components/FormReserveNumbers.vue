@@ -10,8 +10,8 @@
   }>();
 
   const props = defineProps<{
-    rifa: Rifa['id'],
-    quantity: FormReserveNumbers['quantity']
+    rifa: Rifa['id'];
+    quantity: FormReserveNumbers['quantity'];
   }>();
 
   const form = useForm<FormReserveNumbers>({
@@ -21,7 +21,7 @@
     quantity: props.quantity,
     rifa: props.rifa,
     telephone: '',
-    terms: false
+    terms: false,
   });
 
   function submitForm() {
@@ -144,8 +144,14 @@
         </div>
         <div class="text-sm leading-6">
           <label class="text-gray-500" for="terms">
-            Li e concordo com os <a class="underline-blue-400 underline-4 underline" :href="route('terms')" target="_blank">Termos e Condições</a> e
-            estou ciente de que essa reserva me vincula apenas à esta campanha
+            Li e concordo com os
+            <!-- prettier-ignore -->
+            <a
+              class="underline-blue-400 underline-4 underline"
+              :href="route('terms')"
+              target="_blank"
+            >Termos e Condições</a>
+            e estou ciente de que essa reserva me vincula apenas à esta campanha
           </label>
 
           <p v-if="form.errors.terms" id="error-terms" class="text-xs">

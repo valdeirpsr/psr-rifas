@@ -20,7 +20,7 @@
   }>();
 
   defineEmits<{
-    (event: 'end'): void,
+    (event: 'end'): void;
   }>();
 
   const copying = ref(false);

@@ -4,12 +4,15 @@
   import PsrHeader from '@Components/PsrHeader.vue';
   import PsrRifaCard from '@Components/PsrRifaCard.vue';
 
-  withDefaults(defineProps<{
-    values: Rifa[],
-    title?: string
-  }>(), {
-    title: '//Rifas'
-  });
+  withDefaults(
+    defineProps<{
+      values: Rifa[];
+      title?: string;
+    }>(),
+    {
+      title: '//Rifas',
+    }
+  );
 </script>
 
 <template>

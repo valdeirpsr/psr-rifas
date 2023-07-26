@@ -6,7 +6,7 @@
   import PsrSlider from '@Components/PsrSlider.vue';
 
   defineProps<{
-    values: Rifa[],
+    values: Rifa[];
     slideshows: Slideshow[];
   }>();
 </script>

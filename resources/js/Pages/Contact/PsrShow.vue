@@ -5,11 +5,14 @@
   import PsrHeader from '@Components/PsrHeader.vue';
   import { useForm } from '@inertiajs/vue3';
 
-  withDefaults(defineProps<{
-    success: boolean
-  }>(), {
-    success: false
-  });
+  withDefaults(
+    defineProps<{
+      success: boolean;
+    }>(),
+    {
+      success: false,
+    }
+  );
 
   const form = useForm({
     name: '',
@@ -19,7 +22,7 @@
 
   function submit() {
     form.post(route('contact.post'), {
-      onSuccess: () => form.reset()
+      onSuccess: () => form.reset(),
     });
   }
 </script>
@@ -42,7 +45,9 @@
               <div class="flex flex-col text-center w-full mb-12">
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Contato</h1>
                 <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum culpa perferendis ad ut incidunt delectus. Possimus doloribus quidem dolorum tenetur molestias, ipsam non reiciendis ducimus nesciunt eius vel quam ad!.
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum culpa perferendis ad ut incidunt
+                  delectus. Possimus doloribus quidem dolorum tenetur molestias, ipsam non reiciendis ducimus nesciunt
+                  eius vel quam ad!.
                 </p>
               </div>
 
@@ -63,10 +68,9 @@
                 <span class="block sm:inline">Formulário enviado com sucesso.</span>
               </div>
 
-
               <div class="lg:w-1/2 md:w-2/3 mx-auto">
                 <form method="post" class="flex flex-wrap -m-2" @submit.prevent="submit">
-                  <div class="p-2 w-1/2" :class="{ 'error': form.errors.name }">
+                  <div class="p-2 w-1/2" :class="{ error: form.errors.name }">
                     <div class="relative">
                       <label for="name" class="leading-7 text-sm text-gray-600">Nome</label>
                       <input
@@ -83,7 +87,7 @@
                       </span>
                     </div>
                   </div>
-                  <div class="p-2 w-1/2" :class="{ 'error': form.errors.email }">
+                  <div class="p-2 w-1/2" :class="{ error: form.errors.email }">
                     <div class="relative">
                       <label for="email" class="leading-7 text-sm text-gray-600">E-mail</label>
                       <input
@@ -100,7 +104,7 @@
                       </span>
                     </div>
                   </div>
-                  <div class="p-2 w-full" :class="{ 'error': form.errors.message }">
+                  <div class="p-2 w-full" :class="{ error: form.errors.message }">
                     <div class="relative">
                       <label for="message" class="leading-7 text-sm text-gray-600">Mensagem</label>
                       <textarea
@@ -142,8 +146,9 @@
 </template>
 
 <style>
-input, textarea {
-  @apply w-full
+  input,
+  textarea {
+    @apply w-full
   bg-gray-100
   bg-opacity-50
   rounded
@@ -162,11 +167,11 @@ input, textarea {
   transition-colors
   duration-200
   ease-in-out;
-}
+  }
 
-textarea {
-  @apply h-32 resize-none leading-6 transition-colors duration-200 ease-in-out;
-}
+  textarea {
+    @apply h-32 resize-none leading-6 transition-colors duration-200 ease-in-out;
+  }
 
   div.error input,
   div.error input::placeholder,

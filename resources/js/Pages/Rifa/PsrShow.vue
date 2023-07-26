@@ -12,33 +12,28 @@
   import PsrFooter from '@Components/PsrFooter.vue';
 
   const props = defineProps<{
-    rifa: Rifa,
-    ranking: Ranking[],
-    winners: Winner[]
+    rifa: Rifa;
+    ranking: Ranking[];
+    winners: Winner[];
   }>();
 
   const displayFormReserveNumbers = ref(false);
   const orderQuantitySelected = ref(1);
 
-  const expireAt = computed(() =>
-    props.rifa.expired_at ? useLocaleDateLong(props.rifa.expired_at) : ''
+  const expireAt = computed(() => (props.rifa.expired_at ? useLocaleDateLong(props.rifa.expired_at) : ''));
+
+  const price = computed(() => (props.rifa.price ? useLocaleCurrency(props.rifa.price) : ''));
+
+  const isFinished = computed(
+    () =>
+      !!props.winners.length ||
+      props.rifa.status === 'finished' ||
+      (props.rifa.expired_at && new Date(props.rifa.expired_at) < new Date())
   );
 
-  const price = computed(() =>
-    props.rifa.price ? useLocaleCurrency(props.rifa.price) : ''
-  );
+  const listWinners = useSorted(props.winners, (prev, cur) => (prev.position > cur.position ? 1 : -1));
 
-  const isFinished = computed(() =>
-    !!props.winners.length
-    || props.rifa.status === 'finished'
-    || (props.rifa.expired_at && new Date(props.rifa.expired_at) < new Date())
-  );
-
-  const listWinners = useSorted(props.winners, (prev, cur) => prev.position > cur.position ? 1 : -1);
-
-  const winnerVideo = computed(() =>
-    listWinners.value.filter((winner) => winner.video)
-  );
+  const winnerVideo = computed(() => listWinners.value.filter((winner) => winner.video));
 
   function onReserveNumbers(): void {
     displayFormReserveNumbers.value = true;
@@ -98,7 +93,12 @@
       <template #heading>Vídeo do Ganhador</template>
 
       <template #default>
-        <video class="max-h-[570px] m-auto" controls controlslist="nodownload noremoteplayback" :src="(winnerVideo[0].video as string)" />
+        <video
+          class="max-h-[570px] m-auto"
+          controls
+          controlslist="nodownload noremoteplayback"
+          :src="(winnerVideo[0].video as string)"
+        />
       </template>
     </PsrCard>
 

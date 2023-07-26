@@ -3,11 +3,11 @@
   import VueCountdown from '@chenfengyuan/vue-countdown';
 
   defineEmits<{
-    (event: 'end'): void
+    (event: 'end'): void;
   }>();
 
   const props = defineProps<{
-    time: Date|number|string
+    time: Date | number | string;
   }>();
 
   const time = computed((): number => {

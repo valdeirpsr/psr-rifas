@@ -59,7 +59,9 @@
           class="bg-[#1e7dd4] uppercase px-3 py-2 rounded text-white text-sm w-full"
           data-test="pay"
           :href="order.paymentLink"
-        >Pagar</a>
+        >
+          Pagar
+        </a>
       </p>
     </div>
   </div>

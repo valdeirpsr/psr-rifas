@@ -14,9 +14,7 @@
         src="https://assets8.lottiefiles.com/packages/lf20_5tl1xxnz.json"
       />
 
-      <p class="animate-bounce text-center text-2xl font-bold">
-        Estamos verificando<br />o sistema
-      </p>
+      <p class="animate-bounce text-center text-2xl font-bold">Estamos verificando<br />o sistema</p>
     </div>
 
     <div class="flex flex-initial h-full items-center justify-center text-center">
