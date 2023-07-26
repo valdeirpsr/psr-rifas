@@ -15,6 +15,6 @@ class RifaSeeder extends Seeder
      */
     public function run(): void
     {
-        Rifa::factory(20)->create();
+        Rifa::factory(20)->generateImage()->create();
     }
 }

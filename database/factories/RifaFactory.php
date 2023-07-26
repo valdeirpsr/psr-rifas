@@ -18,15 +18,12 @@ class RifaFactory extends Factory
      */
     public function definition(): array
     {
-        $thumbnailTemp = fake()->image(width: 1280, height: 720);
-        $thumbnailPath = Storage::putFile($thumbnailTemp);
-
         return [
             'title' => fake()->sentences(2, true),
-            'thumbnail' => $thumbnailPath,
+            'thumbnail' => 'not-found.png',
             'price' => fake()->randomFloat(2, 0.1, 2),
             'description' => fake()->paragraphs(3, true),
-            'slug' => 'rifa-publicada-' . fake()->uuid(),
+            'slug' => 'rifa-' . fake()->uuid(),
             'total_numbers_available' => 100000,
             'buy_max' => 300,
             'buy_min' => fake()->randomDigitNotNull(),
@@ -34,5 +31,13 @@ class RifaFactory extends Factory
             'status' => fake()->randomElement(['published', 'draft']),
             'expired_at' => fake()->randomElement([null, now()->addMonth(1)]),
         ];
+    }
+
+    public function generateImage(): Factory
+    {
+        $thumbnailTemp = fake()->image(width: 1280, height: 720);
+        $thumbnailPath = Storage::putFile($thumbnailTemp);
+
+        return $this->state(fn () => ['thumbnail' => $thumbnailPath]);
     }
 }
