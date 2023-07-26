@@ -69,5 +69,8 @@
                 "indent": "off"
             }
         }
+    ],
+    "ignorePatterns": [
+        "resources/js/ziggy.js"
     ]
 }
