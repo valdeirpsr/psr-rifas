@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Compara snapshot > Testa mudança no html 1`] = `
+"<div class=\\"border border-gray-300 bg-white p-4 rounded-2xl space-y-4 sm:p-6\\">
+  <p class=\\"uppercase text-center font-bold font-[Raleway] text-xs sm:text-sm\\">Ranking dos compradores</p>
+  <div class=\\"flex flex-wrap justify-around gap-4 mx-auto sm:max-w-xl text-center\\">
+    <div for=\\"ranking-1000\\" class=\\"flex-initial w-full sm:flex-auto sm:w-auto\\" data-test=\\"ranking-user\\"><span class=\\"text-[32px]\\">🥇</span>
+      <p class=\\"text-sm mt-3\\">Valdeir Sant'Anna<br><b>1000</b> bilhetes </p>
+    </div>
+    <div for=\\"ranking-500\\" class=\\"flex-none sm:flex-auto\\" data-test=\\"ranking-user\\"><span class=\\"text-[32px]\\">🥈</span>
+      <p class=\\"text-sm mt-3\\">Valdeir PSR<br><b>500</b> bilhetes </p>
+    </div>
+    <div for=\\"ranking-1\\" class=\\"flex-none sm:flex-auto\\" data-test=\\"ranking-user\\"><span class=\\"text-[32px]\\">🥉</span>
+      <p class=\\"text-sm mt-3\\">Valdeir<br><b>1</b> bilhetes </p>
+    </div>
+  </div>
+</div>"
+`;
