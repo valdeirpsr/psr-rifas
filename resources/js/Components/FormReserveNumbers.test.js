@@ -29,11 +29,11 @@ vi.mock('@inertiajs/vue3', (inertiaOriginal) => ({
           confirmTelephone: form.confirmTelephone.replace(/\D/g, '') !== form.telephone.replace(/\D/g, ''),
           terms: !form.terms,
         };
-      })
+      }),
     });
 
     return form;
-  }
+  },
 }));
 
 describe('Testa interação do formulário', () => {
@@ -43,10 +43,10 @@ describe('Testa interação do formulário', () => {
     wrapper = mount(FormReserveNumbers, {
       props: {
         rifa: 1,
-        quantity: 1
+        quantity: 1,
       },
       global: {
-        plugins: [[ZiggyVue, Ziggy]]
+        plugins: [[ZiggyVue, Ziggy]],
       },
     });
   });

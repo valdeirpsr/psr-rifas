@@ -26,7 +26,7 @@ describe('Testa eventos do modal', () => {
       props: {
         buttonCancel: false,
         buttonConfirm: false,
-      }
+      },
     });
 
     expect(wrapper.find('[data-testid="button-cancel"]').exists()).toBeFalsy();

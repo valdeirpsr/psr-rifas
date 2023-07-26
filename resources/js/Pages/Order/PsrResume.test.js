@@ -10,19 +10,19 @@ const getValidData = () => {
 
   return {
     order: {
-      'id':535,
-      'customer_fullname': 'Valdeir Psr',
-      'customer_email': 'test@test.com',
-      'customer_telephone': '11111111111',
-      'numbers_reserved': ['2290','29400','49869','58339','84963'],
-      'status': 'reserved',
-      'expire_at': expire_at,
-      'transaction_amount': 2.7
+      id: 535,
+      customer_fullname: 'Valdeir Psr',
+      customer_email: 'test@test.com',
+      customer_telephone: '11111111111',
+      numbers_reserved: ['2290', '29400', '49869', '58339', '84963'],
+      status: 'reserved',
+      expire_at: expire_at,
+      transaction_amount: 2.7,
     },
     rifa: {
-      'id':1,
-      'title': 'First Draw',
-      'price': 0.54
+      id: 1,
+      title: 'First Draw',
+      price: 0.54,
     },
   };
 };
@@ -35,7 +35,7 @@ describe('Testa renderização do layout', () => {
 
   it('Testa se os números são exibidos ao clicar em "Ver números"', async () => {
     const wrapper = mount(PsrShow, {
-      props: getValidData()
+      props: getValidData(),
     });
 
     expect(wrapper.find(selectorNumbers).exists()).toBeFalsy();
@@ -45,7 +45,7 @@ describe('Testa renderização do layout', () => {
 
   it('Verifica se os números são renderizados corretamente', async () => {
     const wrapper = mount(PsrShow, {
-      props: getValidData()
+      props: getValidData(),
     });
 
     await wrapper.get(selectorButtonToggleNumbers).trigger('click');
@@ -60,9 +60,18 @@ describe('Testa renderização do layout', () => {
   it('A expiração, o cronômetro e o botão de pagar não devem aparecer quando o pedido estiver pago', () => {
     const wrapper = mount(PsrShow, {
       props: {
-        order: {'id':535,'customer_fullname':'Valdeir Psr','customer_email':'test@test.com','customer_telephone':'11111111111','numbers_reserved':['2290','29400','49869','58339','84963'],'status':'paid','expire_at':'2023-07-04 23:59:59','transaction_amount':2.7},
-        rifa: {'id':1,'title':'First Draw','price':0.54},
-      }
+        order: {
+          id: 535,
+          customer_fullname: 'Valdeir Psr',
+          customer_email: 'test@test.com',
+          customer_telephone: '11111111111',
+          numbers_reserved: ['2290', '29400', '49869', '58339', '84963'],
+          status: 'paid',
+          expire_at: '2023-07-04 23:59:59',
+          transaction_amount: 2.7,
+        },
+        rifa: { id: 1, title: 'First Draw', price: 0.54 },
+      },
     });
 
     expect(wrapper.find('[data-testid="expire"]').exists()).toBeFalsy();
@@ -76,10 +85,8 @@ describe('Teste de interação', () => {
     const wrapper = mount(PsrShow, {
       props: getValidData(),
       global: {
-        plugins: [
-          [ZiggyVue, Ziggy]
-        ]
-      }
+        plugins: [[ZiggyVue, Ziggy]],
+      },
     });
 
     await wrapper.get(selectorButtonPay).trigger('click');

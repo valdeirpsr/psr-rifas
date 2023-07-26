@@ -20,8 +20,8 @@ describe('Teste de renderização do componente', () => {
   it('O botão de pesquisar deve aparecer quando o usuário informar o número de telefone', async () => {
     const wrapper = mount(ButtonListOrders, {
       props: {
-        rifaSlug: 'rifa-slug'
-      }
+        rifaSlug: 'rifa-slug',
+      },
     });
 
     await wrapper.get('button').trigger('click');
@@ -35,8 +35,8 @@ describe('Teste de renderização do componente', () => {
   it('Ao clicar em Buscar, o componente de loading deverá ser exibido', async () => {
     const wrapper = mount(ButtonListOrders, {
       props: {
-        rifaSlug: 'rifa-slug'
-      }
+        rifaSlug: 'rifa-slug',
+      },
     });
 
     axios.get.mockResolvedValue({
@@ -55,12 +55,12 @@ describe('Teste de renderização do componente', () => {
   it('Ao clicar em buscar, o componente deverá solicitar os dados para API', async () => {
     const wrapper = mount(ButtonListOrders, {
       props: {
-        rifaSlug: 'rifa-slug'
-      }
+        rifaSlug: 'rifa-slug',
+      },
     });
 
     axios.get.mockResolvedValue({
-      data: { data: [] }
+      data: { data: [] },
     });
 
     await wrapper.get('button').trigger('click');

@@ -5,13 +5,13 @@ import ReserveNumbers from './ReserveNumbers.vue';
 const propsDefault = {
   price: 0.3,
   buyMax: 10,
-  buyMin: 1
+  buyMin: 1,
 };
 
 describe('Teste de interação do componente', () => {
   it('Verifica as funções de incrementar e diminuir a quantidade através dos botoões + e -', async () => {
     const wrapper = mount(ReserveNumbers, {
-      props: propsDefault
+      props: propsDefault,
     });
 
     // Valor inicial
@@ -30,8 +30,8 @@ describe('Teste de interação do componente', () => {
     const wrapper = mount(ReserveNumbers, {
       props: {
         ...propsDefault,
-        buyMin: 3
-      }
+        buyMin: 3,
+      },
     });
 
     // Valor inicial
@@ -43,7 +43,7 @@ describe('Teste de interação do componente', () => {
 
   it('O preço total deve ser alterado quando o usuário preencher diretamente o campo', async () => {
     const wrapper = mount(ReserveNumbers, {
-      props: propsDefault
+      props: propsDefault,
     });
 
     // Valor inicial
@@ -55,7 +55,7 @@ describe('Teste de interação do componente', () => {
 
   it('Ao confirmar, o componente deve emitir a quantidade escolhida pelo usuário', async () => {
     const wrapper = mount(ReserveNumbers, {
-      props: propsDefault
+      props: propsDefault,
     });
 
     await wrapper.get('[data-testid="quantity"]').setValue(3);
@@ -69,7 +69,7 @@ describe('Teste de interação do componente', () => {
 
   it('O campo não pode receber letras ou caracteres especiais', async () => {
     const wrapper = mount(ReserveNumbers, {
-      props: propsDefault
+      props: propsDefault,
     });
 
     await wrapper.get('[data-testid="quantity"]').setValue('6a*8');
@@ -85,7 +85,7 @@ describe('Teste de interação do componente', () => {
 describe('Compara snapshot', () => {
   it('Testa mudança no html', async () => {
     const wrapper = mount(ReserveNumbers, {
-      props: propsDefault
+      props: propsDefault,
     });
 
     expect(wrapper.html()).toMatchSnapshot();
