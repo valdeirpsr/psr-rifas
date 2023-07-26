@@ -71,3 +71,9 @@ declare type Winner = {
   video: string|null,
   position: number
 }
+
+declare type Testimonial = {
+  id: number,
+  testimonial: string,
+  order: Pick<Order, 'customer_fullname'>
+}
