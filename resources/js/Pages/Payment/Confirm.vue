@@ -81,7 +81,7 @@
 
         <p class="mt-4 space-x-4">
           <small>Pagamento processado por</small>
-          <img src="/mercado-pago.png" alt="Mercado pago" class="!m-auto" />
+          <img src="@Assets/images/mercado-pago.png" alt="Mercado pago" class="!m-auto" />
         </p>
       </div>
     </PsrCard>
