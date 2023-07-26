@@ -22,6 +22,9 @@ class Rifa extends Model
     /** @var string */
     public const STATUS_FINISHED = 'finished';
 
+    /** @var string */
+    public const STATUS_DRAFT = 'draft';
+
     use HasFactory;
 
     protected $fillable = [

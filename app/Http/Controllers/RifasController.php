@@ -18,9 +18,9 @@ class RifasController extends Controller
      */
     public function list()
     {
-        $rifasModel = Rifa::where('status', Rifa::STATUS_FINISHED)
-            ->orWhere('expired_at', '>=', now())
-            ->latest()
+        $rifasModel = Rifa::latest()
+            ->where('status', Rifa::STATUS_FINISHED)
+            ->orWhere('expired_at', '<', now())
             ->limit(20);
 
         $rifas = $rifasModel->get()
