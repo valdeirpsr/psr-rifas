@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue';
-  import { useForm, router } from '@inertiajs/vue3';
+  import { useForm } from '@inertiajs/vue3';
   import { useLocaleCurrency, useLocaleDateLong, useLocaleTelephone } from '@Composables/Locale';
   import PsrBadge from '@Components/PsrBadge.vue';
   import PsrCard from '@Components/PsrCard.vue';

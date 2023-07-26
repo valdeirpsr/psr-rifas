@@ -18,7 +18,7 @@
     <!--
       Slider
      -->
-     <PsrSlider :items="slideshows" />
+    <PsrSlider :items="slideshows" />
   </div>
 
   <main class="container max-w-[1024px] min-h-screen">

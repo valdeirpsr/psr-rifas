@@ -20,7 +20,7 @@
   function submit() {
     form.post(route('contact.post'), {
       onSuccess: () => form.reset()
-    })
+    });
   }
 </script>
 
@@ -70,12 +70,12 @@
                     <div class="relative">
                       <label for="name" class="leading-7 text-sm text-gray-600">Nome</label>
                       <input
-                        type="text"
                         id="name"
+                        v-model="form.name"
+                        type="text"
                         required
                         :aria-invalid="!!form.errors.name"
                         :disabled="form.processing"
-                        v-model="form.name"
                       />
 
                       <span v-if="form.errors.name" id="error-name" class="text-xs" role="status">
@@ -87,12 +87,12 @@
                     <div class="relative">
                       <label for="email" class="leading-7 text-sm text-gray-600">E-mail</label>
                       <input
-                        type="email"
                         id="email"
+                        v-model="form.email"
+                        type="email"
                         required
                         :aria-invalid="!!form.errors.email"
                         :disabled="form.processing"
-                        v-model="form.email"
                       />
 
                       <span v-if="form.errors.name" id="error-email" class="text-xs" role="status">
@@ -105,11 +105,11 @@
                       <label for="message" class="leading-7 text-sm text-gray-600">Mensagem</label>
                       <textarea
                         id="message"
+                        v-model="form.message"
                         required
                         :disabled="form.processing"
                         :aria-invalid="!!form.errors.message"
-                        v-model="form.message"
-                      ></textarea>
+                      />
                     </div>
 
                     <span v-if="form.errors.message" id="error-name" class="text-xs" role="status">
@@ -124,8 +124,9 @@
                   </div>
                   <div class="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
                     <a class="text-indigo-500">example@email.com</a>
-                    <p class="leading-normal my-5">49 Smith St.
-                      <br>Saint Cloud, MN 56301
+                    <p class="leading-normal my-5">
+                      49 Smith St.
+                      <br />Saint Cloud, MN 56301
                     </p>
                   </div>
                 </form>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { Link as PsrLink } from '@inertiajs/vue3';
-  import "@lottiefiles/lottie-player";
+  import '@lottiefiles/lottie-player';
 </script>
 
 <template>
@@ -15,7 +15,7 @@
       />
 
       <p class="animate-bounce text-center text-2xl font-bold">
-        Estamos verificando<br>o sistema
+        Estamos verificando<br />o sistema
       </p>
     </div>
 
@@ -24,7 +24,9 @@
         class="bg-[#1e7dd4] border-transparent uppercase px-3 py-2 rounded-md text-sm text-white"
         title="Ir para a página inicial"
         :href="route('home')"
-      >Página Inicial</PsrLink>
+      >
+        Página Inicial
+      </PsrLink>
     </div>
   </div>
 </template>

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-  import { reactive } from 'vue';
   import { vMaska } from 'maska';
   import { useForm } from '@inertiajs/vue3';
   import { IconSvgEmail, IconSvgPeople, IconSvgTelephone } from '@Assets/icons';
   import PsrDialog from './PsrDialog.vue';
 
-  const emits = defineEmits<{
+  defineEmits<{
     (event: 'confirm', value: Partial<FormReserveNumbers>): Promise<void>;
     (event: 'dismiss'): void;
   }>();
@@ -26,7 +25,7 @@
   });
 
   function submitForm() {
-    form.post(route('orders.store'))
+    form.post(route('orders.store'));
   }
 </script>
 

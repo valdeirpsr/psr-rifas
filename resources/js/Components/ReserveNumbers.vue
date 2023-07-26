@@ -24,7 +24,7 @@
   watch(count, (newValue) => {
     if(!newValue) count.value = 1;
     emits('update:quantity', count.value);
-  })
+  });
 </script>
 
 <template>

@@ -2,8 +2,6 @@
   import PsrCard from '@Components/PsrCard.vue';
   import PsrFooter from '@Components/PsrFooter.vue';
   import PsrHeader from '@Components/PsrHeader.vue';
-  import PsrRifaCard from '@Components/PsrRifaCard.vue';
-  import PsrSlider from '@Components/PsrSlider.vue';
 
   defineProps<{
     testimonials: any[],

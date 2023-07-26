@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed, onMounted, ref, watch } from 'vue';
+  import { computed, ref, watch } from 'vue';
 
   const props = defineProps<{
     items: Slideshow[]
@@ -38,6 +38,7 @@
     <div ref="sliderItemsEl" class="slider-items flex overflow-x-auto snap-always snap-mandatory snap-x scroll-smooth">
       <img
         v-for="slideshow in items"
+        :key="slideshow.image"
         class="flex-auto flex-shrink-0 max-h-[570px] object-cover snap-start w-full"
         :src="slideshow.image"
         :alt="slideshow.alt"
