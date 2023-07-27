@@ -1,66 +1,173 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://valdeir.dev" target="_blank"><img src="https://svgshare.com/i/vqm.svg" width="400" alt="Logo do Projeto"></a></p>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<a href="https://github.com/valdeirpsr/psr-rifas/blob/main/LICENSE"><img src="https://img.shields.io/github/license/valdeirpsr/psr-rifas?logo=github&color=green&label=License" alt="License" /></a>
+<a href="https://github.com/valdeirpsr/psr-rifas/actions/workflows/tests.yml"><img src="https://github.com/valdeirpsr/psr-rifas/actions/workflows/tests.yml/badge.svg" alt="Actions tests with vitest and PHPUnit" /></a>
+<a href="https://github.com/valdeirpsr/psr-rifas/actions/workflows/check-codes.yml"><img src="https://github.com/valdeirpsr/psr-rifas/actions/workflows/check-codes.yml/badge.svg" alt="Actions Check Code" /></a>
+<a href="https://twitter.com/valdeirpsr"><img src="https://img.shields.io/twitter/follow/valdeirpsr" alt="Follow me on Twitter: valdeirpsr" /></a>
 </p>
 
-## About Laravel
+# PSRifas
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Hoje eu quero compartilhar com vocês um projeto de estudo incrível que eu desenvolvi: um sistema de rifa digital, que permite que você crie e gerencie suas próprias rifas online.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Com esse sistema, você pode escolher sua forma de pagamento preferida, criar rifas personalizadas, definir o ganhador e ter uma página exclusiva para vender seus bilhetes.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+É muito fácil, rápido e divertido! Você pode usar esse sistema para arrecadar dinheiro para uma causa nobre, para realizar um sonho, para estudar o funcionamento do projeto ou simplesmente para se divertir com seus amigos. O sistema é seguro, confiável e transparente. Você pode acompanhar todas as informações das suas rifas em tempo real e receber o pagamento diretamente na sua conta.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Demonstração
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+<table border="0">
+<tr>
+<td><b>Comprando bilhetes</b></td>
+<td><b>Definindo bilhete premiado</b></td>
+</tr>
+<tr>
+<td><a href="https://youtube.com/shorts/DoeD1DB_Jo8" target="_blank"><img src="https://img.youtube.com/vi/DoeD1DB_Jo8/hqdefault.jpg" alt="Vídeo de demonstração - Parte 1" /></a></td>
+<td><a href="https://youtube.com/shorts/GmjgG-M2XDI" target="_blank"><img src="https://img.youtube.com/vi/GmjgG-M2XDI/hqdefault.jpg" alt="Vídeo de demonstração - Parte 2" /></a></td>
+</tr>
+</table>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## Variáveis de Ambiente
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
 
-### Premium Partners
+```
+# Prazo de pagamento
+# Caso o prazo seja atingido e o pagamento não seja feito,
+# o pedido será removido e os números liberados
+RIFA_EXPIRE_AT_MINUTES=60
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```
+# Access Token do MercadoPago para gerenciar seu pagamento
+MERCADOPAGO_ACCESS_TOKEN=<string>
+```
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Rodando localmente
 
-## Code of Conduct
+Clone o projeto
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+  git clone https://github.com/valdeirpsr/psr-rifas.git
+```
 
-## Security Vulnerabilities
+Entre no diretório do projeto
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+  cd psr-rifas
+```
 
-## License
+Instale as dependências do PHP
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+  composer require
+```
+
+Crie a estrutura do banco de dados
+
+```bash
+  php artisan migrate
+
+  # Com dados fakes (opcional)
+  php artisan migrate --seed
+```
+
+Instale as dependências do javascript
+
+```bash
+  pnpm i
+```
+
+Inicie o servidor do PHP
+
+```bash
+  php artisan serve
+```
+
+Inicie vite
+
+```bash
+  pnpm dev
+```
+## Rodando localmente com Docker Compose
+
+Clone o projeto
+
+```bash
+  git clone https://github.com/valdeirpsr/psr-rifas.git
+```
+
+Entre no diretório do projeto
+
+```bash
+  cd psr-rifas
+```
+
+Execute o comando abaixo no seu terminal
+
+```bash
+  docker run --rm --volume "$PWD:/app" composer require --ignore-platform-reqs;
+  docker-compose up -d
+```
+
+Caso seja necessário, acesse o container `laravel.test` e execute o vite
+
+```bash
+  docker-compose exec laravel.test sh -c "pnpm dev"
+```
+## Rodando os testes
+
+Para rodar os testes do *JavaScript*, rode o seguinte comando
+
+```bash
+  npx vitest
+```
+
+Para rodar os testes do *Laravel*, rode o seguinte comando
+
+```bash
+  php artisan test
+```
+## Deploy
+
+Leia [Deployment com Laravel](https://laravel.com/docs/10.x/deployment)
+## Stack utilizada
+
+**Front-end:** Vue 3, Vite, Typescript, InertiaJs, TailwindCSS
+
+**Back-end:** PHP 8.2, Laravel 10.10.x
+
+## Roadmap
+
+- [ ] Utilizar Repositories para realizar busca através dos Models
+
+- [ ] Integrar o sistema com o mecanismo de busca Meilisearch
+
+- [ ] Criar uma página para visualização das informações de rifa no painel de controle: número de bilhetes vendidos, gráfico com vendas por data, ranking dos compradores. <sup>Nota 1</sup>
+
+- [ ] Adicionar suporte para desconto por quantidade
+
+- [ ] Adicionar agendamento para publicação das rifas
+
+- [ ] Adicionar outras formas de pagamento
+
+- [ ] Adicionar mecanismo de  análise de código PHP
+
+## Aprendizados
+
+Durante a construção deste projeto, aprendi muito sobre a estrutura e o funcionamento do Laravel, que é um framework PHP poderoso e flexível para o desenvolvimento web.
+Entendi melhor alguns padrões que podem ser usados no Laravel e o funcionamento de alguns deles.
+
+Além disso, aprofundei meus conhecimentos sobre testes no Laravel, explorando diversas abordagens para garantir a qualidade do código e a estabilidade do projeto. Tanto testes de integração quanto testes diretamente no models. Ainda não testei o PHPest, mas não fará oportunidade para conhecê-lo e usá-lo.
+
+Um dos maiores desafios que enfrentei foi entender completamente o funcionamento do Eloquent ORM, mas foi resolvido com o fácil suporte em queries complexas.
+
+Outro desafio que encontrei foi a integração direta do Laravel com o Vue.js. No início, cogitei transformar o Laravel em um sistema de API e usar requisições no Vue 3 para exibir os dados para o usuário. No entanto, fui capaz de superar esse obstáculo com o uso do pacote Inertia.js.
+
+Ademais, o Filament me ajudou a criar toda estrutura do painel de controle. Foi uma oportunidade de aprender como integrar soluções externas ao projeto, aproveitando suas funcionalidades para economizar tempo e esforço no desenvolvimento.
+
+No geral, o processo de construção deste projeto foi muito enriquecedor. Conheci algumas limitações e pude aprender a superá-las. Ao final, sinto que ganhei um conhecimento valioso sobre o ecossistema Laravel e sua integração com tecnologias.
