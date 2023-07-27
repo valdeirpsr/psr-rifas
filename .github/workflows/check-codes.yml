@@ -1,0 +1,54 @@
+name: Check Code
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Captura diretório do pnpm
+        id: pnpm-cache
+        run: echo "dir=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.dir }}
+          key: ${{ runner.os }}-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-cache-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-cache-
+      - name: Instala dependência do JavaScript
+        run: pnpm install
+      - name: Executa teste
+        run: pnpm eslint resources/js/{Components,Pages}
+
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Captura diretório do pnpm
+        id: pnpm-cache
+        run: echo "dir=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.dir }}
+          key: ${{ runner.os }}-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-cache-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-cache-
+      - name: Instala dependência do JavaScript
+        run: pnpm install
+      - name: Executa teste
+        run: pnpm prettier --check resources/js/{Components,Pages}
