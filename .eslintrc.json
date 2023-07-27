@@ -29,10 +29,6 @@
         ],
         "no-console": ["error"],
         "no-debugger": ["error"],
-        "quotes": [
-            "error",
-            "single"
-        ],
         "semi": [
             "error",
             "always"
