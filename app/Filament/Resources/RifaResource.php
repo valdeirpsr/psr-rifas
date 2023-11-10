@@ -41,7 +41,7 @@ class RifaResource extends Resource
                             ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
                             ->imagePreviewHeight(300)
                             ->required()
-                            ->disk(fn (): string => config('filesystems.default'))
+                            ->disk(env('FILAMENT_FILESYSTEM_DISK', config('filesystems.default')))
                     ]),
 
                 /**
@@ -135,16 +135,19 @@ class RifaResource extends Resource
                     ->money('BRL'),
                 Tables\Columns\TextColumn::make('status')
                     ->label(__('filament.column.status'))
-                    ->formatStateUsing(fn (?string $state) => RifaStatus::tryFrom($state)->getLabel()),
+                    ->formatStateUsing(fn (?string $state) => RifaStatus::tryFrom($state)->getLabel())
+                    ->badge()
+                    ->color(fn (?string $state) => match ($state) {
+                        RifaStatus::PUBLISHED->value => 'success',
+                        RifaStatus::DRAFT->value => 'warning',
+                        RifaStatus::ARCHIVED->value => 'danger',
+                    }),
                 Tables\Columns\TextColumn::make('expired_at')
                     ->label(__('filament.column.expired_at'))
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('filament.column.created_at'))
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('filament.column.updated_at'))
                     ->dateTime(),
             ])
             ->filters([

@@ -63,7 +63,8 @@ class WinnerResource extends Resource
 
                 Forms\Components\FileUpload::make('video')
                     ->acceptedFileTypes(['video/mp4'])
-                    ->hidden(fn (\Filament\Forms\Get $get) => !$get('position')),
+                    ->hidden(fn (\Filament\Forms\Get $get) => !$get('position'))
+                    ->disk(env('FILAMENT_FILESYSTEM_DISK', config('filesystems.default'))),
             ])
             ->columns(1);
     }

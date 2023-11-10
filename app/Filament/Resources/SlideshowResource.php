@@ -22,20 +22,14 @@ class SlideshowResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $image = Forms\Components\FileUpload::make('image')
-            ->required()
-            ->image();
-
-        if (env('AWS_ACCESS_KEY_ID')) {
-            $image->disk('s3')
-                ->visibility('public');
-        }
-
         return $form
             ->schema([
                 Grid::make('Image')
                     ->schema([
-                        $image
+                        Forms\Components\FileUpload::make('image')
+                            ->required()
+                            ->image()
+                            ->disk(env('FILAMENT_FILESYSTEM_DISK', config('filesystems.default')))
                     ])
                     ->columns(1),
                 Forms\Components\TextInput::make('alt')
@@ -51,7 +45,7 @@ class SlideshowResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('image')
-                    ->disk(fn () => env('AWS_ACCESS_KEY_ID') ? 's3' : 'local')
+                    ->disk(env('FILAMENT_FILESYSTEM_DISK', config('filesystems.default')))
                     ->size(100),
                 Tables\Columns\TextColumn::make('order'),
                 Tables\Columns\TextColumn::make('created_at')
