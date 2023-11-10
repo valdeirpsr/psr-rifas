@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\RifaStatus;
 use App\Filament\Resources\RifaResource\Pages;
 use App\Models\Rifa;
 use Filament\Forms;
@@ -19,13 +20,6 @@ class RifaResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?int $navigationSort = 0;
-
-    private const STATUS = [
-        'draft' => 'Rascunho',
-        'published' => 'Publicar',
-        'archived' => 'Archivar',
-        'finished' => 'Finalizada'
-    ];
 
     public static function form(Form $form): Form
     {
@@ -54,14 +48,9 @@ class RifaResource extends Resource
                  * Price
                  */
                 Forms\Components\TextInput::make('price')
-                    ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
-                        ->patternBlocks([
-                            'money' => fn (Forms\Components\TextInput\Mask $mask) => $mask
-                                ->numeric()
-                                ->thousandsSeparator('')
-                                ->decimalSeparator('.'),
-                        ])
-                        ->pattern('money')
+                    ->currencyMask(
+                        thousandSeparator: '.',
+                        decimalSeparator: ','
                     )
                     ->required(),
 
@@ -69,13 +58,7 @@ class RifaResource extends Resource
                  * Total de bilhetes disponíveis
                  */
                 Forms\Components\TextInput::make('total_numbers_available')
-                    ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
-                        ->numeric()
-                        ->integer()
-                        ->thousandsSeparator('.')
-                        ->minValue(1)
-                        ->maxValue(100_000)
-                    )
+                    ->numeric()
                     ->required(),
 
                 /**
@@ -109,7 +92,7 @@ class RifaResource extends Resource
                  */
                 Forms\Components\Select::make('status')
                     ->required()
-                    ->options(self::STATUS)
+                    ->options(RifaStatus::class)
                     ->default('draft'),
 
                 /**
@@ -117,7 +100,7 @@ class RifaResource extends Resource
                  */
                 Forms\Components\DateTimePicker::make('expired_at')
                     ->timezone('America/Sao_Paulo')
-                    ->withoutSeconds(),
+                    ->seconds(false),
 
                 /**
                  * Descrição
@@ -152,7 +135,7 @@ class RifaResource extends Resource
                     ->money('BRL'),
                 Tables\Columns\TextColumn::make('status')
                     ->label(__('filament.column.status'))
-                    ->enum(self::STATUS),
+                    ->formatStateUsing(fn (?string $state) => RifaStatus::tryFrom($state)->getLabel()),
                 Tables\Columns\TextColumn::make('expired_at')
                     ->label(__('filament.column.expired_at'))
                     ->dateTime()

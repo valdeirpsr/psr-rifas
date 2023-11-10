@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\OrderStatus;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
@@ -22,13 +23,6 @@ class OrderResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
-    private const STATUS = [
-        'archived' => 'Arquivado',
-        'expired' => 'Expirado',
-        'paid' => 'Pago',
-        'reserved' => 'Reservado',
-    ];
-
     public static function form(Form $form): Form
     {
         return $form
@@ -45,13 +39,12 @@ class OrderResource extends Resource
                     ->required()
                     ->maxLength(100),
                 Forms\Components\TextInput::make('customer_telephone')
-                    ->mask(fn (Forms\Components\TextInput\Mask $mask) =>
-                        $mask->pattern('(00) 00000-0000')
-                    )
+                    ->mask('(00) 00000-0000')
                     ->required()
                     ->tel()
                     ->maxLength(20),
                 Forms\Components\TagsInput::make('numbers_reserved')
+                    ->hint('Informe o número e aperte ENTER')
                     ->rules([
                         fn() => fn(string $attribute, $values, \Closure $fail) =>
                             !collect($values)->every(fn (string $value) =>
@@ -61,7 +54,7 @@ class OrderResource extends Resource
                 Forms\Components\Select::make('status')
                     ->default('reserved')
                     ->required()
-                    ->options(self::STATUS),
+                    ->options(OrderStatus::class),
             ]);
     }
 
@@ -83,7 +76,7 @@ class OrderResource extends Resource
                     ->words(3),
                 Tables\Columns\TextColumn::make('status')
                     ->label(__('filament.column.status'))
-                    ->enum(self::STATUS),
+                    ->formatStateUsing(fn (?string $state) => OrderStatus::tryFrom($state)->getLabel()),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d/m/Y \à\s H:i')
                     ->label(__('filament.column.created_at')),
