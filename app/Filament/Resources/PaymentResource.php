@@ -44,23 +44,20 @@ class PaymentResource extends Resource
                     ->maxLength(40),
                 Forms\Components\DateTimePicker::make('date_of_expiration')
                     ->required()
-                    ->timezone('America/Sao_Paulo'),
+                    ->timezone('America/Sao_Paulo')
+                    ->default(now()),
                 Forms\Components\TextInput::make('transaction_amount')
-                    ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
-                        ->patternBlocks([
-                            'money' => fn (Forms\Components\TextInput\Mask $mask) => $mask
-                                ->numeric()
-                                ->thousandsSeparator('')
-                                ->decimalSeparator('.'),
-                        ])
-                        ->pattern('money')
+                    ->currencyMask(
+                        thousandSeparator: '.',
+                        decimalSeparator: ','
                     )
                     ->required(),
                 Forms\Components\TextInput::make('qr_code')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\DateTimePicker::make('date_approved')
-                    ->timezone('America/Sao_Paulo'),
+                    ->timezone('America/Sao_Paulo')
+                    ->default(now()),
             ]);
     }
 

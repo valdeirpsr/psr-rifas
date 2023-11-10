@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\WinnerPosition;
 use App\Filament\Resources\WinnerResource\Pages;
 use App\Filament\Resources\WinnerResource\RelationManagers;
 use App\Models\Order;
@@ -23,15 +24,6 @@ class WinnerResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?int $navigationSort = 2;
-
-    private const POSITION = [
-        1 => '1º Prêmio',
-        2 => '2º Prêmio',
-        3 => '3º Prêmio',
-        4 => '4º Prêmio',
-        5 => '5º Prêmio',
-        6 => '6º Prêmio',
-    ];
 
     public static function form(Form $form): Form
     {
@@ -62,7 +54,7 @@ class WinnerResource extends Resource
 
                 Forms\Components\Select::make('position')
                     ->hidden(fn (\Filament\Forms\Get $get) => !$get('order_id'))
-                    ->options(self::POSITION)
+                    ->options(WinnerPosition::class)
                     ->required(),
 
                 Forms\Components\Textarea::make('testimonial')
@@ -88,7 +80,7 @@ class WinnerResource extends Resource
                     ->label(__('filament.column.drawn_number')),
                 Tables\Columns\TextColumn::make('position')
                     ->label(__('filament.column.position'))
-                    ->enum(self::POSITION)
+                    ->formatStateUsing(fn (?string $state) => WinnerPosition::tryFrom($state)->getLabel())
             ])
             ->filters([
                 //
