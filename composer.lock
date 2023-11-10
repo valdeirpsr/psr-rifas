@@ -4,8 +4,157 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "65c15ee8d63727953726a06c1bdc4a68",
+    "content-hash": "c5c3d7f4544235c23e198c977628bd16",
     "packages": [
+        {
+            "name": "akaunting/laravel-money",
+            "version": "5.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akaunting/laravel-money.git",
+                "reference": "193fcc98e9ab829952e4a1b075a8845e89d15e8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akaunting/laravel-money/zipball/193fcc98e9ab829952e4a1b075a8845e89d15e8d",
+                "reference": "193fcc98e9ab829952e4a1b075a8845e89d15e8d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.0|^10.0",
+                "illuminate/support": "^9.0|^10.0",
+                "illuminate/validation": "^9.0|^10.0",
+                "illuminate/view": "^9.0|^10.0",
+                "php": "^8.0",
+                "vlucas/phpdotenv": "^5.4.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7.4|^8.0",
+                "phpunit/phpunit": "^9.5|^10.0",
+                "vimeo/psalm": "^4.23"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Akaunting\\Money\\Provider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Akaunting\\Money\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Denis Duliçi",
+                    "email": "info@akaunting.com",
+                    "homepage": "https://akaunting.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Currency formatting and conversion package for Laravel",
+            "keywords": [
+                "convert",
+                "currency",
+                "format",
+                "laravel",
+                "money"
+            ],
+            "support": {
+                "issues": "https://github.com/akaunting/laravel-money/issues",
+                "source": "https://github.com/akaunting/laravel-money/tree/5.1.2"
+            },
+            "time": "2023-07-28T06:57:28+00:00"
+        },
+        {
+            "name": "ariaieboy/filament-currency",
+            "version": "1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ariaieboy/filament-currency.git",
+                "reference": "387894e7261563df751e0ebe6ea54d2de93f319c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ariaieboy/filament-currency/zipball/387894e7261563df751e0ebe6ea54d2de93f319c",
+                "reference": "387894e7261563df751e0ebe6ea54d2de93f319c",
+                "shasum": ""
+            },
+            "require": {
+                "akaunting/laravel-money": "^1.2|^2.0|^3.0|^4.0|^5.1",
+                "filament/tables": "^3.0",
+                "illuminate/contracts": "^10.0",
+                "php": "~8.1|~8.2|~8.3",
+                "spatie/laravel-package-tools": "^1.15.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.9",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^8.0",
+                "pestphp/pest": "^2.0",
+                "pestphp/pest-plugin-arch": "^2.0",
+                "pestphp/pest-plugin-laravel": "^2.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Ariaieboy\\FilamentCurrency\\FilamentCurrencyServiceProvider"
+                    ],
+                    "aliases": {
+                        "FilamentCurrency": "Ariaieboy\\FilamentCurrency\\Facades\\FilamentCurrency"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ariaieboy\\FilamentCurrency\\": "src/",
+                    "Ariaieboy\\FilamentCurrency\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AriaieBOY",
+                    "email": "ariaieboy.ir@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This is my package filament-currency",
+            "homepage": "https://github.com/ariaieboy/filament-currency",
+            "keywords": [
+                "ariaieboy",
+                "filament-currency",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/ariaieboy/filament-currency/issues",
+                "source": "https://github.com/ariaieboy/filament-currency"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/ariaieboy",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-10-15T09:29:18+00:00"
+        },
         {
             "name": "aws/aws-crt-php",
             "version": "v1.2.3",
