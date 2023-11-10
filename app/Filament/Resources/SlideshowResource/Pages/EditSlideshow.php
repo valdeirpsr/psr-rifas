@@ -10,7 +10,7 @@ class EditSlideshow extends EditRecord
 {
     protected static string $resource = SlideshowResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Actions\DeleteAction::make(),
