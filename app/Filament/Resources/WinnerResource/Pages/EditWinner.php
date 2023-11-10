@@ -10,7 +10,7 @@ class EditWinner extends EditRecord
 {
     protected static string $resource = WinnerResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Actions\DeleteAction::make(),

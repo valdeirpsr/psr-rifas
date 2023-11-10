@@ -7,9 +7,9 @@ use App\Filament\Resources\SlideshowResource\RelationManagers;
 use App\Models\Slideshow;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -18,7 +18,7 @@ class SlideshowResource extends Resource
 {
     protected static ?string $model = Slideshow::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {

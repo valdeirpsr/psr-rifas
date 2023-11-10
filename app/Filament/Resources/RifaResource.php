@@ -5,9 +5,9 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\RifaResource\Pages;
 use App\Models\Rifa;
 use Filament\Forms;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
@@ -16,7 +16,7 @@ class RifaResource extends Resource
 {
     protected static ?string $model = Rifa::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?int $navigationSort = 0;
 

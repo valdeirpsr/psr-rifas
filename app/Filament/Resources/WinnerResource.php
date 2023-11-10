@@ -8,9 +8,9 @@ use App\Models\Order;
 use App\Models\Rifa;
 use App\Models\Winner;
 use Filament\Forms;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -20,7 +20,7 @@ class WinnerResource extends Resource
 {
     protected static ?string $model = Winner::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?int $navigationSort = 2;
 
@@ -43,13 +43,13 @@ class WinnerResource extends Resource
                     ->required(),
 
                 Forms\Components\TextInput::make('drawn_number')
-                    ->hidden(fn (\Closure $get) => !$get('rifa_id'))
+                    ->hidden(fn (\Filament\Forms\Get $get) => !$get('rifa_id'))
                     ->reactive()
                     ->required(),
 
                 Forms\Components\Select::make('order_id')
                     ->reactive()
-                    ->options(function (\Closure $get) {
+                    ->options(function (\Filament\Forms\Get $get) {
                         $drawNumber = '"' . preg_replace('/\D/', '', $get('drawn_number')) . '"';
 
                         return Order::select('customer_fullname', 'id')
@@ -57,21 +57,21 @@ class WinnerResource extends Resource
                             ->whereRaw('JSON_CONTAINS(`numbers_reserved`, ?)', [$drawNumber])
                             ->pluck('customer_fullname', 'id');
                     })
-                    ->hidden(fn (\Closure $get) => !$get('drawn_number'))
+                    ->hidden(fn (\Filament\Forms\Get $get) => !$get('drawn_number'))
                     ->required(),
 
                 Forms\Components\Select::make('position')
-                    ->hidden(fn (\Closure $get) => !$get('order_id'))
+                    ->hidden(fn (\Filament\Forms\Get $get) => !$get('order_id'))
                     ->options(self::POSITION)
                     ->required(),
 
                 Forms\Components\Textarea::make('testimonial')
-                    ->hidden(fn (\Closure $get) => !$get('position'))
+                    ->hidden(fn (\Filament\Forms\Get $get) => !$get('position'))
                     ->maxLength(16777215),
 
                 Forms\Components\FileUpload::make('video')
                     ->acceptedFileTypes(['video/mp4'])
-                    ->hidden(fn (\Closure $get) => !$get('position')),
+                    ->hidden(fn (\Filament\Forms\Get $get) => !$get('position')),
             ])
             ->columns(1);
     }

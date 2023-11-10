@@ -10,7 +10,7 @@ class ListRifas extends ListRecords
 {
     protected static string $resource = RifaResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Actions\CreateAction::make()
