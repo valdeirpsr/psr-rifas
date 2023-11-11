@@ -1,7 +1,7 @@
 <x-filament-panels::page>
     <div x-load-js="['https://cdn.tailwindcss.com/3.3.5']"></div>
 
-    <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 -mt-8">
         <div>
             <div class="flex flex-col">
                 <div class="relative flex h-[430px] w-full flex-col rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-0 dark:bg-gray-900 dark:text-white dark:shadow-none">
