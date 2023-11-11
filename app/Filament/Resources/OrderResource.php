@@ -39,7 +39,7 @@ class OrderResource extends Resource
                     ->required()
                     ->maxLength(100),
                 Forms\Components\TextInput::make('customer_telephone')
-                    ->mask('(00) 00000-0000')
+                    ->mask('(99) 99999-9999')
                     ->required()
                     ->tel()
                     ->maxLength(20),
