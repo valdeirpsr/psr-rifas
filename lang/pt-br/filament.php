@@ -39,5 +39,14 @@ return [
         'order' => 'Pedidos',
         'payment' => 'Pagamento',
         'winner' => 'Ganhadores'
+    ],
+
+    'input' => [
+        'rifa_id' => 'Selecione a rifa',
+        'drawn_number' => 'Informe o número sorteado',
+        'select_order_id' => 'Selecione o vencedor',
+        'select_position' => 'Selecione o prêmio',
+        'testimonial' => 'Depoimento do vencedor',
+        'testimonial_video' => 'Vídeo de Depoimento'
     ]
 ];
