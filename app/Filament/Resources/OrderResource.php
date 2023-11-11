@@ -93,6 +93,8 @@ class OrderResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->label(__('filament.action.edit')),
+                Tables\Actions\ViewAction::make()
+                    ->label(__('filament.action.view')),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -112,6 +114,7 @@ class OrderResource extends Resource
             'index' => Pages\ListOrders::route('/'),
             'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
+            'view' => Pages\ViewOrder::route('/{record}'),
         ];
     }
 
