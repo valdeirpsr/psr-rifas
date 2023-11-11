@@ -23,6 +23,9 @@ class ViewRifa extends ViewRecord
             RifaResource\Widgets\OrderStatsOverview::make([
                 'rifa' => $this->getRecord()
             ]),
+            RifaResource\Widgets\WinnersListOverview::make([
+                'rifa' => $this->getRecord()
+            ]),
         ];
     }
 

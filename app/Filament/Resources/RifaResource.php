@@ -185,6 +185,7 @@ class RifaResource extends Resource
     return [
         RifaResource\Widgets\OrderStatsOverview::class,
         RifaResource\Widgets\LastOrdersTable::class,
+        RifaResource\Widgets\WinnersListOverview::class,
     ];
 }
 

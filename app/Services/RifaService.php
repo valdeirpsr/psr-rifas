@@ -28,4 +28,14 @@ class RifaService
         ->orderBy('total', 'desc')
         ->get();
     }
+
+    public function winners(Rifa $rifa)
+    {
+        return $rifa->winners()->with('order')->get();
+    }
+
+    public function hasWinner(Rifa $rifa)
+    {
+        return (bool) $rifa->winners()->count();
+    }
 }
