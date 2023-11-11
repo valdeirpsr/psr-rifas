@@ -20,4 +20,15 @@ enum OrderStatus: string implements HasLabel
             default => 'Arquivado'
         };
     }
+
+    public function getColor(): string
+    {
+        return match ($this) {
+            self::PAID => 'success',
+            self::ARCHIVED => 'danger',
+            self::RESERVED => 'warning',
+            self::EXPIRED => 'danger',
+            default => 'warning'
+        };
+    }
 }
