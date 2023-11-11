@@ -24,7 +24,7 @@ class SlideshowResource extends Resource
     {
         return $form
             ->schema([
-                Grid::make('Image')
+                Grid::make('image')
                     ->schema([
                         Forms\Components\FileUpload::make('image')
                             ->required()

@@ -30,16 +30,19 @@ class WinnerResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('rifa_id')
+                    ->label(__('filament.input.rifa_id'))
                     ->options(Rifa::all(['title', 'id'])->pluck('title', 'id'))
                     ->reactive()
                     ->required(),
 
                 Forms\Components\TextInput::make('drawn_number')
+                    ->label(__('filament.input.drawn_number'))
                     ->hidden(fn (\Filament\Forms\Get $get) => !$get('rifa_id'))
                     ->reactive()
                     ->required(),
 
                 Forms\Components\Select::make('order_id')
+                    ->label(__('filament.input.select_order_id'))
                     ->reactive()
                     ->options(function (\Filament\Forms\Get $get) {
                         $drawNumber = '"' . preg_replace('/\D/', '', $get('drawn_number')) . '"';
@@ -53,15 +56,18 @@ class WinnerResource extends Resource
                     ->required(),
 
                 Forms\Components\Select::make('position')
+                    ->label(__('filament.input.select_position'))
                     ->hidden(fn (\Filament\Forms\Get $get) => !$get('order_id'))
                     ->options(WinnerPosition::class)
                     ->required(),
 
                 Forms\Components\Textarea::make('testimonial')
+                    ->label(__('filament.input.testimonial'))
                     ->hidden(fn (\Filament\Forms\Get $get) => !$get('position'))
                     ->maxLength(16777215),
 
                 Forms\Components\FileUpload::make('video')
+                    ->label(__('filament.input.testimonial_video'))
                     ->acceptedFileTypes(['video/mp4'])
                     ->hidden(fn (\Filament\Forms\Get $get) => !$get('position'))
                     ->disk(env('FILAMENT_FILESYSTEM_DISK', config('filesystems.default'))),
