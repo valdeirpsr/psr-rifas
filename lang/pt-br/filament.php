@@ -30,7 +30,8 @@ return [
     'action' => [
         'edit' => 'Editar',
         'delete' => 'Apagar',
-        'create' => 'Criar :label'
+        'create' => 'Criar :label',
+        'view' => 'Visualizar',
     ],
 
     'resource' => [

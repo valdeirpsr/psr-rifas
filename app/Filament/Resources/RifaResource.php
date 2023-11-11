@@ -137,11 +137,7 @@ class RifaResource extends Resource
                     ->label(__('filament.column.status'))
                     ->formatStateUsing(fn (?string $state) => RifaStatus::tryFrom($state)->getLabel())
                     ->badge()
-                    ->color(fn (?string $state) => match ($state) {
-                        RifaStatus::PUBLISHED->value => 'success',
-                        RifaStatus::DRAFT->value => 'warning',
-                        RifaStatus::ARCHIVED->value => 'danger',
-                    }),
+                    ->color(fn (?string $state) => RifaStatus::tryFrom($state)->getColor()),
                 Tables\Columns\TextColumn::make('expired_at')
                     ->label(__('filament.column.expired_at'))
                     ->dateTime()
@@ -158,6 +154,8 @@ class RifaResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->label(__('filament.action.edit')),
+                Tables\Actions\ViewAction::make()
+                    ->label(__('filament.action.view'))
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()
@@ -178,8 +176,17 @@ class RifaResource extends Resource
             'index' => Pages\ListRifas::route('/'),
             'create' => Pages\CreateRifa::route('/create'),
             'edit' => Pages\EditRifa::route('/{record}/edit'),
+            'view' => Pages\ViewRifa::route('/{record}'),
         ];
     }
+
+    public static function getWidgets(): array
+{
+    return [
+        RifaResource\Widgets\OrderStatsOverview::class,
+        RifaResource\Widgets\LastOrdersTable::class,
+    ];
+}
 
     public static function getModelLabel(): string
     {

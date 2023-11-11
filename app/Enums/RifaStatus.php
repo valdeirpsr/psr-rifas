@@ -21,4 +21,14 @@ enum RifaStatus: string implements HasLabel
             default => 'Rascunho'
         };
     }
+
+    public function getColor(): ?string
+    {
+        return match ($this) {
+            RifaStatus::PUBLISHED->value => 'success',
+            RifaStatus::DRAFT->value => 'warning',
+            RifaStatus::ARCHIVED->value => 'danger',
+            default => 'warning'
+        };
+    }
 }
