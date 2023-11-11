@@ -15,4 +15,9 @@ class RifaServiceTest extends TestCase
     {
         $this->markTestSkipped();
     }
+
+    public function testValidaORankingDeCompradoresRetornados(): void
+    {
+        $this->markTestSkipped();
+    }
 }
