@@ -1,11 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Compara snapshot > Testa mudança no html 1`] = `
-"<div data-v-f947370e=\\"\\" class=\\"border border-gray-300 bg-white p-4 rounded-2xl space-y-4 sm:p-6\\">
-  <p class=\\"uppercase text-center font-bold font-[Raleway] text-xs sm:text-sm\\">Selecione a quantidade de bilhetes</p>
-  <div data-v-f947370e=\\"\\" class=\\"grid grid-cols-4 gap-2 w-full mx-auto sm:max-w-xl\\"><button data-v-f947370e=\\"\\" class=\\"button-qntd\\" data-testid=\\"quantity-1\\">+1</button><button data-v-f947370e=\\"\\" class=\\"button-qntd\\" data-testid=\\"quantity-10\\">+10</button><button data-v-f947370e=\\"\\" class=\\"button-qntd\\" data-testid=\\"quantity-50\\">+50</button><button data-v-f947370e=\\"\\" class=\\"button-qntd\\" data-testid=\\"quantity-100\\">+100</button></div>
-  <div data-v-f947370e=\\"\\" class=\\"flex justify-between gap-2 mx-auto w-full sm:max-w-xl\\"><button data-v-f947370e=\\"\\" class=\\"button-qntd\\" data-testid=\\"decrement\\">-</button><input data-v-f947370e=\\"\\" type=\\"number\\" class=\\"border border-gray-300 rounded-md text-center flex-1 w-full\\" data-testid=\\"quantity\\" aria-label=\\"Escolha quantos números você quer comprar. Mínimo: 1. Máximo: 10\\"><button data-v-f947370e=\\"\\" class=\\"button-qntd\\" data-testid=\\"increment\\">+</button></div>
-  <p data-v-f947370e=\\"\\" class=\\"w-full mx-auto text-end text-sm sm:max-w-xl\\" data-testid=\\"price-total\\">Valor total: R$0,30</p>
-  <div data-v-f947370e=\\"\\" class=\\"w-full max-w-xl mx-auto\\"><button data-v-9ab42fc5=\\"\\" data-v-f947370e=\\"\\" class=\\"primary w-full\\" data-testid=\\"confirm\\"> Reservar Bilhetes </button></div>
+"<div data-v-f947370e="" class="border border-gray-300 bg-white p-4 rounded-2xl space-y-4 sm:p-6">
+  <p class="uppercase text-center font-bold font-[Raleway] text-xs sm:text-sm">Selecione a quantidade de bilhetes</p>
+  <div data-v-f947370e="" class="grid grid-cols-4 gap-2 w-full mx-auto sm:max-w-xl"><button data-v-f947370e="" class="button-qntd" data-testid="quantity-1">+1</button><button data-v-f947370e="" class="button-qntd" data-testid="quantity-10">+10</button><button data-v-f947370e="" class="button-qntd" data-testid="quantity-50">+50</button><button data-v-f947370e="" class="button-qntd" data-testid="quantity-100">+100</button></div>
+  <div data-v-f947370e="" class="flex justify-between gap-2 mx-auto w-full sm:max-w-xl"><button data-v-f947370e="" class="button-qntd" data-testid="decrement">-</button><input data-v-f947370e="" type="number" class="border border-gray-300 rounded-md text-center flex-1 w-full" data-testid="quantity" aria-label="Escolha quantos números você quer comprar. Mínimo: 1. Máximo: 10"><button data-v-f947370e="" class="button-qntd" data-testid="increment">+</button></div>
+  <p data-v-f947370e="" class="w-full mx-auto text-end text-sm sm:max-w-xl" data-testid="price-total">Valor total: R$0,30</p>
+  <div data-v-f947370e="" class="w-full max-w-xl mx-auto"><button data-v-9ab42fc5="" data-v-f947370e="" class="primary w-full" data-testid="confirm"> Reservar Bilhetes </button></div>
 </div>"
 `;
