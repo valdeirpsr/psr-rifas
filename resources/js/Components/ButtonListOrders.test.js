@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi, beforeEach } from 'vitest';
 import axios from 'axios';
 import ButtonListOrders from './ButtonListOrders.vue';
 import PsrDialog from './PsrDialog.vue';

@@ -97,7 +97,7 @@
           class="max-h-[570px] m-auto"
           controls
           controlslist="nodownload noremoteplayback"
-          :src="(winnerVideo[0].video as string)"
+          :src="winnerVideo[0].video as string"
         />
       </template>
     </PsrCard>
