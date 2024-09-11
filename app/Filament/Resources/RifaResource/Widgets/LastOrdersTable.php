@@ -12,12 +12,18 @@ use Illuminate\Support\Str;
 
 class LastOrdersTable extends BaseWidget
 {
+    public $record = null;
+
     protected static ?string $heading = 'Pedidos Recentes';
 
     public function table(Table $table): Table
     {
+        $query = Order::query()
+            ->where('rifa_id', $this->record->id)
+            ->latest();
+
         return $table
-            ->query(Order::query()->latest())
+            ->query($query)
             ->columns([
                 TextColumn::make('id')
                     ->label('ID'),

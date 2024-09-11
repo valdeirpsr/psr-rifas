@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Http\File;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -35,8 +36,9 @@ class RifaFactory extends Factory
 
     public function generateImage(): Factory
     {
-        $thumbnailTemp = fake()->image(width: 1280, height: 720);
-        $thumbnailPath = Storage::putFile($thumbnailTemp);
+        $url = 'https://picsum.photos/1280/720';
+        $thumbnailPath = Storage::putFile(tempnam(sys_get_temp_dir(), ''));
+        Http::sink($thumbnailPath)->get($url);
 
         return $this->state(fn () => ['thumbnail' => $thumbnailPath]);
     }

@@ -13,6 +13,7 @@ use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Number;
 
 class StatsOverview extends BaseWidget
 {
@@ -29,15 +30,40 @@ class StatsOverview extends BaseWidget
 
         $paid = $rifaService->countOrdersByStatus($this->rifa, OrderStatus::PAID);
         $reserved = $rifaService->countOrdersByStatus($this->rifa, OrderStatus::RESERVED);
-        $percent = number_format(($paid / $this->rifa->total_numbers_available) * 100, 3);
+        $totalReservedAndPaid = $paid->total + $reserved->total;
 
-        $totalPaid = Money::BRL($paid * $this->rifa->price);
-        $totalReserved = Money::BRL($reserved * $this->rifa->price);
+        $totalPaid = $this->formatNumber($paid->total * $this->rifa->price, 'currency');
+        $totalReserved = $this->formatNumber($reserved->total * $this->rifa->price, 'currency');
+        $percent = $this->formatNumber(100 - ($totalReservedAndPaid / $this->rifa->total_numbers_available) * 100, 'percentage');
 
         return [
             Stat::make('Total Vendido', $totalPaid),
             Stat::make('Total de bilhetes pendentes', $totalReserved),
-            Stat::make('Total de bilhetes disponíveis', "{$percent}%"),
+            Stat::make('Total de bilhetes disponíveis', $percent),
         ];
+    }
+
+    /**
+     * Formata os números de acordo com o tipo
+     *
+     * @param int|float $value
+     * @param string $type
+     *
+     * @return mixed
+     */
+    private function formatNumber($value, $type)
+    {
+        $flags = match ($type) {
+            'currency' => [
+                'in' => 'BRL',
+            ],
+            'percentage' => [
+                'precision' => 2,
+            ]
+        };
+
+        $flags['locale'] = config('app.locale');
+
+        return Number::{$type}($value, ...$flags);
     }
 }

@@ -181,13 +181,13 @@ class RifaResource extends Resource
     }
 
     public static function getWidgets(): array
-{
-    return [
-        RifaResource\Widgets\OrderStatsOverview::class,
-        RifaResource\Widgets\LastOrdersTable::class,
-        RifaResource\Widgets\WinnersListOverview::class,
-    ];
-}
+    {
+        return [
+            RifaResource\Widgets\OrderStatsOverview::class,
+            RifaResource\Widgets\LastOrdersTable::class,
+            RifaResource\Widgets\WinnersListOverview::class,
+        ];
+    }
 
     public static function getModelLabel(): string
     {

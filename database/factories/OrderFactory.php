@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Rifa;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,6 +23,7 @@ class OrderFactory extends Factory
             'customer_telephone' => fake()->numerify(),
             'numbers_reserved' => $this->generateNumbersReserved(fake()->randomDigitNotNull()),
             'status' => fake()->randomElement(['paid', 'reserved']),
+            'rifa_id' => Rifa::factory(),
         ];
     }
 
