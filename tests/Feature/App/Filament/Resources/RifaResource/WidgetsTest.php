@@ -8,8 +8,10 @@ use App\Filament\Resources\RifaResource\Pages\ViewRifa;
 use App\Filament\Resources\RifaResource\Widgets\LastOrdersTable;
 use App\Filament\Resources\RifaResource\Widgets\OrderStatsOverview;
 use App\Filament\Resources\RifaResource\Widgets\StatsOverview;
+use App\Filament\Resources\RifaResource\Widgets\WinnersListOverview;
 use App\Models\Order;
 use App\Models\Rifa;
+use App\Models\Winner;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -126,5 +128,23 @@ class WidgetsTest extends TestCase
             ->assertCanRenderTableColumn('customer_telephone')
             ->assertCanRenderTableColumn('numbers_reserved')
             ->assertCanRenderTableColumn('status');
+    }
+
+    /**
+     * Valida a lista de vencedores
+     */
+    public function test_renderizacao_lista_vencedores(): void
+    {
+        $winner = Winner::factory()->createOneQuietly([
+            'position' => 1,
+        ]);
+        $order = $winner->order()->first();
+
+        Livewire::test(WinnersListOverview::class, [
+            'rifa' => $winner->rifa()->first(),
+        ])
+            ->assertSeeText("1º Prêmio")
+            ->assertSeeText($order->customer_fullname)
+            ->assertSeeText($order->customer_telephone);
     }
 }
