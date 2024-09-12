@@ -2,14 +2,9 @@
 
 namespace App\Filament\Resources\RifaResource\Pages;
 
-use App\Enums\OrderStatus;
 use App\Filament\Resources\RifaResource;
-use App\Models\Order;
 use App\Services\RifaService;
-use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
-use Filament\Tables\Table;
-use Illuminate\Support\Facades\DB;
 
 class ViewRifa extends ViewRecord
 {
@@ -21,10 +16,10 @@ class ViewRifa extends ViewRecord
     {
         return [
             RifaResource\Widgets\OrderStatsOverview::make([
-                'rifa' => $this->getRecord()
+                'rifa' => $this->getRecord(),
             ]),
             RifaResource\Widgets\WinnersListOverview::make([
-                'rifa' => $this->getRecord()
+                'rifa' => $this->getRecord(),
             ]),
         ];
     }
@@ -36,7 +31,8 @@ class ViewRifa extends ViewRecord
         ];
     }
 
-    public function getFooterWidgetsColumns(): int|string|array {
+    public function getFooterWidgetsColumns(): int|string|array
+    {
         return 1;
     }
 

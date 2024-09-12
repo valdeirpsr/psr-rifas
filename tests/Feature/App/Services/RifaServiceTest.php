@@ -7,12 +7,9 @@ use App\Models\Order;
 use App\Models\Rifa;
 use App\Models\Winner;
 use App\Services\RifaService;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertTrue;
 
 class RifaServiceTest extends TestCase
 {

@@ -3,8 +3,6 @@
 namespace Tests\Feature\Models;
 
 use App\Models\Rifa;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class RifaTest extends TestCase
@@ -19,7 +17,7 @@ class RifaTest extends TestCase
         $rifa->save();
 
         $this->assertDatabaseMissing('rifas', [
-            'slug' => 'changed'
+            'slug' => 'changed',
         ]);
     }
 }

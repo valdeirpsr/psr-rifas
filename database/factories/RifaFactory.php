@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Http\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,7 +23,7 @@ class RifaFactory extends Factory
             'thumbnail' => 'not-found.png',
             'price' => fake()->randomFloat(2, 0.1, 2),
             'description' => fake()->paragraphs(3, true),
-            'slug' => 'rifa-' . fake()->uuid(),
+            'slug' => 'rifa-'.fake()->uuid(),
             'total_numbers_available' => 100000,
             'buy_max' => 300,
             'buy_min' => fake()->randomDigitNotNull(),

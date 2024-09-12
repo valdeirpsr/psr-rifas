@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class Rifa extends Model
 {
@@ -79,7 +78,7 @@ class Rifa extends Model
     public static function availables(): Builder
     {
         return static::where('status', Rifa::STATUS_PUBLISHED)
-            ->where(function($query) {
+            ->where(function ($query) {
                 $query->where('expired_at', '>', now()->format('Y-m-d H:i'))
                     ->orWhereNull('expired_at');
             });

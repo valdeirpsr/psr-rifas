@@ -24,7 +24,7 @@ return [
     'filter' => [
         'is_expired' => 'Expirado',
         'is_paid' => 'Pago',
-        'is_reserved' => 'Reservado'
+        'is_reserved' => 'Reservado',
     ],
 
     'action' => [
@@ -38,7 +38,7 @@ return [
         'rifa' => 'Rifa',
         'order' => 'Pedidos',
         'payment' => 'Pagamento',
-        'winner' => 'Ganhadores'
+        'winner' => 'Ganhadores',
     ],
 
     'input' => [
@@ -47,6 +47,6 @@ return [
         'select_order_id' => 'Selecione o vencedor',
         'select_position' => 'Selecione o prêmio',
         'testimonial' => 'Depoimento do vencedor',
-        'testimonial_video' => 'Vídeo de Depoimento'
-    ]
+        'testimonial_video' => 'Vídeo de Depoimento',
+    ],
 ];

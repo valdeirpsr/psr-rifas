@@ -22,7 +22,7 @@ class Payment extends Model
     ];
 
     protected $casts = [
-        'transaction_amount' => 'float'
+        'transaction_amount' => 'float',
     ];
 
     public function order(): BelongsTo

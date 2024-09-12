@@ -2,8 +2,8 @@
 
 namespace App\Rules;
 
-use Closure;
 use App\Models\Rifa;
+use Closure;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
 
@@ -32,18 +32,21 @@ class RifaQuantity implements DataAwareRule, ValidationRule
     {
         $rifa = Rifa::find($this->data['rifa']);
 
-        if (!$rifa) {
+        if (! $rifa) {
             $fail('Rifa inválida');
+
             return;
         }
 
         if ($value < $rifa->buy_min) {
             $fail("O pedido deve ser de no mínimo {$rifa->buy_min} bilhetes");
+
             return;
         }
 
         if ($value > $rifa->buy_max) {
             $fail("O pedido deve ser de no máximo {$rifa->buy_max} bilhetes");
+
             return;
         }
     }

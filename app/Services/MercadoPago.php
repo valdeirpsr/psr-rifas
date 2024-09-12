@@ -13,7 +13,8 @@ class MercadoPago
 
     private string $accessToken = '';
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->accessToken = env('MERCADOPAGO_ACCESS_TOKEN');
     }
 
@@ -43,7 +44,7 @@ class MercadoPago
                     'email' => $order->customer_email,
                     'first_name' => $customerNameParts->first(),
                     'last_name' => $customerNameParts->last(),
-                ]
+                ],
             ]);
 
         if ($response->failed()) {
@@ -62,15 +63,11 @@ class MercadoPago
 
     /**
      * Busca as informações de um pedido através da API
-     *
-     * @param int $paymentId
-     *
-     * @return object
      */
     public function getPayment(int $paymentId): object
     {
         $response = Http::withToken($this->accessToken)
-            ->get(self::API_URL . "/{$paymentId}");
+            ->get(self::API_URL."/{$paymentId}");
 
         if ($response->failed()) {
             return $response->throw();

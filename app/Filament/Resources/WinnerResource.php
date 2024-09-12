@@ -4,18 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Enums\WinnerPosition;
 use App\Filament\Resources\WinnerResource\Pages;
-use App\Filament\Resources\WinnerResource\RelationManagers;
 use App\Models\Order;
 use App\Models\Rifa;
 use App\Models\Winner;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Log;
+use Filament\Tables\Table;
 
 class WinnerResource extends Resource
 {
@@ -37,7 +33,7 @@ class WinnerResource extends Resource
 
                 Forms\Components\TextInput::make('drawn_number')
                     ->label(__('filament.input.drawn_number'))
-                    ->hidden(fn (\Filament\Forms\Get $get) => !$get('rifa_id'))
+                    ->hidden(fn (\Filament\Forms\Get $get) => ! $get('rifa_id'))
                     ->reactive()
                     ->required(),
 
@@ -45,31 +41,31 @@ class WinnerResource extends Resource
                     ->label(__('filament.input.select_order_id'))
                     ->reactive()
                     ->options(function (\Filament\Forms\Get $get) {
-                        $drawNumber = '"' . preg_replace('/\D/', '', $get('drawn_number')) . '"';
+                        $drawNumber = '"'.preg_replace('/\D/', '', $get('drawn_number')).'"';
 
                         return Order::select('customer_fullname', 'id')
                             ->where('rifa_id', $get('rifa_id'))
                             ->whereRaw('JSON_CONTAINS(`numbers_reserved`, ?)', [$drawNumber])
                             ->pluck('customer_fullname', 'id');
                     })
-                    ->hidden(fn (\Filament\Forms\Get $get) => !$get('drawn_number'))
+                    ->hidden(fn (\Filament\Forms\Get $get) => ! $get('drawn_number'))
                     ->required(),
 
                 Forms\Components\Select::make('position')
                     ->label(__('filament.input.select_position'))
-                    ->hidden(fn (\Filament\Forms\Get $get) => !$get('order_id'))
+                    ->hidden(fn (\Filament\Forms\Get $get) => ! $get('order_id'))
                     ->options(WinnerPosition::class)
                     ->required(),
 
                 Forms\Components\Textarea::make('testimonial')
                     ->label(__('filament.input.testimonial'))
-                    ->hidden(fn (\Filament\Forms\Get $get) => !$get('position'))
+                    ->hidden(fn (\Filament\Forms\Get $get) => ! $get('position'))
                     ->maxLength(16777215),
 
                 Forms\Components\FileUpload::make('video')
                     ->label(__('filament.input.testimonial_video'))
                     ->acceptedFileTypes(['video/mp4'])
-                    ->hidden(fn (\Filament\Forms\Get $get) => !$get('position'))
+                    ->hidden(fn (\Filament\Forms\Get $get) => ! $get('position'))
                     ->disk(env('FILAMENT_FILESYSTEM_DISK', config('filesystems.default'))),
             ])
             ->columns(1);
@@ -87,7 +83,7 @@ class WinnerResource extends Resource
                     ->label(__('filament.column.drawn_number')),
                 Tables\Columns\TextColumn::make('position')
                     ->label(__('filament.column.position'))
-                    ->formatStateUsing(fn (?string $state) => WinnerPosition::tryFrom($state)->getLabel())
+                    ->formatStateUsing(fn (?string $state) => WinnerPosition::tryFrom($state)->getLabel()),
             ])
             ->filters([
                 //

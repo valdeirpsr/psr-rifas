@@ -30,7 +30,7 @@ class Order extends Model
 
     protected $casts = [
         'numbers_reserved' => 'array',
-        'total_numbers' => 'int'
+        'total_numbers' => 'int',
     ];
 
     public function customerTelephone(): Attribute
@@ -56,4 +56,3 @@ class Order extends Model
         return $this->hasMany(Winner::class);
     }
 }
-

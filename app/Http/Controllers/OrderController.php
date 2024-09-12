@@ -7,7 +7,6 @@ use App\Models\Order;
 use App\Models\Rifa;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\LazyCollection;
 use Inertia\Inertia;
 
 class OrderController extends Controller
@@ -30,10 +29,10 @@ class OrderController extends Controller
     {
         $result = Order::with([
             'rifa' => fn ($query) => $query->select('id', 'title', 'price', 'slug'),
-            'payment' => fn ($query) => $query->select('id', 'order_id')
+            'payment' => fn ($query) => $query->select('id', 'order_id'),
         ])
-        ->where('id', $id)
-        ->first();
+            ->where('id', $id)
+            ->first();
 
         if ($result === null) {
             return redirect('/');
@@ -55,7 +54,7 @@ class OrderController extends Controller
 
         return inertia('Order/PsrResume', [
             'order' => $order,
-            'rifa' => $rifa
+            'rifa' => $rifa,
         ]);
     }
 
@@ -89,7 +88,7 @@ class OrderController extends Controller
         }
 
         $rifaRandomNumbers = $rifaNumbersAvailable->splice(0, $quantity)
-            ->map(fn ($number) => str_pad($number, 4, "0", STR_PAD_LEFT))
+            ->map(fn ($number) => str_pad($number, 4, '0', STR_PAD_LEFT))
             ->sort();
 
         $order = false;
@@ -107,7 +106,7 @@ class OrderController extends Controller
         });
 
         if ($order instanceof Order) {
-            return Inertia::location(route('orders.show', [ $order->id ]));
+            return Inertia::location(route('orders.show', [$order->id]));
         }
 
         return abort(500);

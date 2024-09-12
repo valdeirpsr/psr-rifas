@@ -24,7 +24,7 @@ class WinnerResourceTest extends TestCase
             ->for(Rifa::factory(['status' => Rifa::STATUS_PUBLISHED]))
             ->hasPayment(['date_approved' => now()])
             ->create([
-                'status' => Order::STATUS_PAID
+                'status' => Order::STATUS_PAID,
             ]);
 
         Livewire::test(WinnerResource\Pages\CreateWinner::class)

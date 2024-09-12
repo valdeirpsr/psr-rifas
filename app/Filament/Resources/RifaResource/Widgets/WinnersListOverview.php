@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 class WinnersListOverview extends Widget
 {
-    protected int | string | array $columnSpan = 2;
+    protected int|string|array $columnSpan = 2;
 
     protected static string $view = 'filament.resources.rifa-resource.widgets.winners-list-overview';
 

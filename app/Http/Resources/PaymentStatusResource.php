@@ -17,8 +17,8 @@ class PaymentStatusResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'is_approved' => $this->order->status === Order::STATUS_PAID && !!$this->date_approved,
-            'date_approved' => $this->when(!!$this->date_approved, Carbon::parse($this->date_approved))
+            'is_approved' => $this->order->status === Order::STATUS_PAID && (bool) $this->date_approved,
+            'date_approved' => $this->when((bool) $this->date_approved, Carbon::parse($this->date_approved)),
         ];
     }
 }

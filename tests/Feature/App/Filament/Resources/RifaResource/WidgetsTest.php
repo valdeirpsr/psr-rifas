@@ -4,7 +4,6 @@ namespace Tests\Feature\App\Filament\Resources\RifaResource;
 
 use App\Enums\OrderStatus;
 use App\Enums\RifaStatus;
-use App\Filament\Resources\RifaResource\Pages\ViewRifa;
 use App\Filament\Resources\RifaResource\Widgets\LastOrdersTable;
 use App\Filament\Resources\RifaResource\Widgets\OrderStatsOverview;
 use App\Filament\Resources\RifaResource\Widgets\StatsOverview;
@@ -12,7 +11,6 @@ use App\Filament\Resources\RifaResource\Widgets\WinnersListOverview;
 use App\Models\Order;
 use App\Models\Rifa;
 use App\Models\Winner;
-use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -42,7 +40,7 @@ class WidgetsTest extends TestCase
                 'status' => OrderStatus::RESERVED,
                 'rifa_id' => $rifa->id,
                 'numbers_reserved' => range(31, 48),
-            ]
+            ],
         ]);
 
         Livewire::test(OrderStatsOverview::class, [
@@ -77,7 +75,7 @@ class WidgetsTest extends TestCase
                 'status' => OrderStatus::RESERVED,
                 'rifa_id' => $rifa->id,
                 'numbers_reserved' => range(31, 48),
-            ]
+            ],
         ]);
 
         Livewire::test(StatsOverview::class, [
@@ -112,7 +110,7 @@ class WidgetsTest extends TestCase
                 'status' => OrderStatus::RESERVED,
                 'rifa_id' => $rifa->id,
                 'numbers_reserved' => range(31, 48),
-            ]
+            ],
         ]);
 
         $anothersOrders = Order::factory()->count(4)->createQuietly();
@@ -143,7 +141,7 @@ class WidgetsTest extends TestCase
         Livewire::test(WinnersListOverview::class, [
             'rifa' => $winner->rifa()->first(),
         ])
-            ->assertSeeText("1º Prêmio")
+            ->assertSeeText('1º Prêmio')
             ->assertSeeText($order->customer_fullname)
             ->assertSeeText($order->customer_telephone);
     }

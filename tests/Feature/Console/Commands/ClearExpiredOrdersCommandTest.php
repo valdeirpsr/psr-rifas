@@ -18,24 +18,24 @@ class ClearExpiredOrdersCommandTest extends TestCase
     {
         $removed = Order::factory()->for(Rifa::factory())->create([
             'status' => Order::STATUS_RESERVED,
-            'expire_at' => now()->subHour(1)
+            'expire_at' => now()->subHour(1),
         ]);
 
         $notRemoved = Order::factory()->for(Rifa::factory())->create([
             'status' => Order::STATUS_RESERVED,
-            'expire_at' => now()
+            'expire_at' => now(),
         ]);
 
         $paid = Order::factory()->for(Rifa::factory())->create([
             'status' => Order::STATUS_PAID,
-            'expire_at' => null
+            'expire_at' => null,
         ]);
 
         $this->assertDatabaseCount('orders', 3);
         $this->artisan('app:clear-expired-orders-command');
 
-        $this->assertDatabaseMissing('orders', [ 'id' => $removed->id ]);
-        $this->assertDatabaseHas('orders', [ 'id' => $notRemoved->id ]);
-        $this->assertDatabaseHas('orders', [ 'id' => $paid->id ]);
+        $this->assertDatabaseMissing('orders', ['id' => $removed->id]);
+        $this->assertDatabaseHas('orders', ['id' => $notRemoved->id]);
+        $this->assertDatabaseHas('orders', ['id' => $paid->id]);
     }
 }

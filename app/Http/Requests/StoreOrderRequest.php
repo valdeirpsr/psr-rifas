@@ -30,7 +30,7 @@ class StoreOrderRequest extends FormRequest
             'confirmTelephone' => 'required|same:telephone',
             'terms' => 'required|accepted',
             'quantity' => ['required', 'integer', new RifaQuantity],
-            'rifa' => ['required', new RulesRifa]
+            'rifa' => ['required', new RulesRifa],
         ];
     }
 }

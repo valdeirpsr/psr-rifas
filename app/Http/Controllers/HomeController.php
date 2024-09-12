@@ -21,10 +21,11 @@ class HomeController extends Controller
             ->setHidden([
                 'created_at',
                 'description',
-                'updated_at'
+                'updated_at',
             ])
-            ->map(function(Rifa $model) {
+            ->map(function (Rifa $model) {
                 $model->thumbnail = Storage::url($model->thumbnail);
+
                 return $model;
             });
 
@@ -32,7 +33,7 @@ class HomeController extends Controller
 
         return Inertia::render('Home/PsrList', [
             'values' => $rifas,
-            'slideshows' => $slideshows
+            'slideshows' => $slideshows,
         ]);
     }
 }

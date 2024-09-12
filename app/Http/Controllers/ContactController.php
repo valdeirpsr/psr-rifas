@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SendContactRequest;
+use App\Mail\ContactMailable;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Mail\ContactMailable;
 
 class ContactController extends Controller
 {
@@ -20,7 +20,7 @@ class ContactController extends Controller
         Mail::to(config('mail.from.address'))->send(new ContactMailable($request));
 
         return Inertia::render('Contact/PsrShow', [
-            'success' => true
+            'success' => true,
         ]);
     }
 }

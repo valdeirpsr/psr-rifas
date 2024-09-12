@@ -3,8 +3,6 @@
 namespace App\Filament\Resources\RifaResource\Widgets;
 
 use App\Enums\OrderStatus;
-use App\Filament\Resources\RifaResource\Pages\ViewRifa;
-use App\Models\Order;
 use App\Models\Rifa;
 use App\Services\RifaService;
 use Filament\Widgets\Concerns\InteractsWithPageTable;
@@ -36,8 +34,7 @@ class OrderStatsOverview extends BaseWidget
     /**
      * Formata os números de acordo com o tipo
      *
-     * @param int|float $value
-     *
+     * @param  int|float  $value
      * @return string
      */
     private function formatNumber($value)

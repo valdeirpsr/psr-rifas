@@ -2,17 +2,11 @@
 
 namespace App\Filament\Resources\RifaResource\Widgets;
 
-use Akaunting\Money\Money;
 use App\Enums\OrderStatus;
-use App\Filament\Resources\RifaResource\Pages\ViewRifa;
-use App\Models\Order;
 use App\Models\Rifa;
 use App\Services\RifaService;
-use Filament\Widgets\Concerns\InteractsWithPageTable;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Number;
 
 class StatsOverview extends BaseWidget
@@ -46,9 +40,8 @@ class StatsOverview extends BaseWidget
     /**
      * Formata os números de acordo com o tipo
      *
-     * @param int|float $value
-     * @param string $type
-     *
+     * @param  int|float  $value
+     * @param  string  $type
      * @return mixed
      */
     private function formatNumber($value, $type)

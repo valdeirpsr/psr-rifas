@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Enums;
+
 use Filament\Support\Contracts\HasLabel;
 
 enum WinnerPosition: int implements HasLabel
@@ -14,7 +15,7 @@ enum WinnerPosition: int implements HasLabel
 
     public function getLabel(): ?string
     {
-        return match($this) {
+        return match ($this) {
             self::ONE => '1º Prêmio',
             self::TWO => '2º Prêmio',
             self::THREE => '3º Prêmio',

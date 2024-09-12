@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Rifa;
-use App\Models\Slideshow;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Storage;
@@ -27,16 +26,17 @@ class RifasController extends Controller
             ->setHidden([
                 'created_at',
                 'description',
-                'updated_at'
+                'updated_at',
             ])
-            ->map(function($rifa) {
+            ->map(function ($rifa) {
                 $rifa->thumbnail = Storage::url($rifa->thumbnail);
+
                 return $rifa;
             });
 
         return Inertia::render('Rifa/PsrList', [
             'values' => $rifas,
-            'title' => '//Rifas Finalizadas'
+            'title' => '//Rifas Finalizadas',
         ]);
     }
 
@@ -54,7 +54,7 @@ class RifasController extends Controller
         return Inertia::render('Rifa/PsrShow', [
             'rifa' => $rifa,
             'ranking' => $rifa->ranking(),
-            'winners' => $winners
+            'winners' => $winners,
         ]);
     }
 
@@ -64,24 +64,25 @@ class RifasController extends Controller
     public function showOrders(Rifa $rifa, string $telephone)
     {
         $orders = Order::with([
-            'payment' => fn (HasOne $query) => $query->select(['ticket_url', 'order_id', 'id'])
+            'payment' => fn (HasOne $query) => $query->select(['ticket_url', 'order_id', 'id']),
         ])
-        ->where('rifa_id', $rifa->id)
-        ->where('customer_telephone', $telephone)
-        ->where(function ($query) {
-            $query->where('status', Order::STATUS_PAID)
-                ->orWhere(function ($query) {
-                    $query->where('status', Order::STATUS_RESERVED)
-                        ->where('expire_at', '>', now());
-                });
-        })
-        ->get()
-        ->map(function (Order $order) {
-            $order->expire_at = Carbon::parse($order->expire_at);
-            $order->created_at = now();
-            return $order;
-        })
-        ->all();
+            ->where('rifa_id', $rifa->id)
+            ->where('customer_telephone', $telephone)
+            ->where(function ($query) {
+                $query->where('status', Order::STATUS_PAID)
+                    ->orWhere(function ($query) {
+                        $query->where('status', Order::STATUS_RESERVED)
+                            ->where('expire_at', '>', now());
+                    });
+            })
+            ->get()
+            ->map(function (Order $order) {
+                $order->expire_at = Carbon::parse($order->expire_at);
+                $order->created_at = now();
+
+                return $order;
+            })
+            ->all();
 
         return new OrderResource($orders);
     }

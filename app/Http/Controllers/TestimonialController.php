@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Winner;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class TestimonialController extends Controller
@@ -16,13 +15,13 @@ class TestimonialController extends Controller
     {
         $testimonials = Winner::latest()
             ->with([
-                'order' => fn (BelongsTo $query) => $query->select('id', 'customer_fullname')
+                'order' => fn (BelongsTo $query) => $query->select('id', 'customer_fullname'),
             ])
             ->limit(20)
             ->get()
             ->setVisible([
                 'testimonial',
-                'order'
+                'order',
             ]);
 
         return Inertia::render('Testimonials/PsrList', [

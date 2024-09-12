@@ -33,7 +33,7 @@ class LastOrdersTable extends BaseWidget
                     ->label('Telefone'),
                 TextColumn::make('numbers_reserved')
                     ->label('Qdte. de Números')
-                    ->formatStateUsing(fn ($state) => Str::of($state)->explode(',')->count() ),
+                    ->formatStateUsing(fn ($state) => Str::of($state)->explode(',')->count()),
                 TextColumn::make('status')
                     ->label('Situação')
                     ->badge()

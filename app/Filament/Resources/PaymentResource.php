@@ -3,16 +3,14 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PaymentResource\Pages;
-use App\Filament\Resources\PaymentResource\RelationManagers;
 use App\Models\Order;
 use App\Models\Payment;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PaymentResource extends Resource
 {
@@ -31,9 +29,8 @@ class PaymentResource extends Resource
                 Forms\Components\Select::make('order_id')
                     ->required()
                     ->searchable()
-                    ->options(fn () =>
-                        Order::all('id')
-                            ->pluck('id', 'id')
+                    ->options(fn () => Order::all('id')
+                        ->pluck('id', 'id')
                     ),
                 Forms\Components\TextInput::make('ticket_url')
                     ->required()

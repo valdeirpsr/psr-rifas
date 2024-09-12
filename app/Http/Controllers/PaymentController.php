@@ -23,7 +23,8 @@ class PaymentController extends Controller
 
     public function __construct(
         private ServicesMercadoPago $paymentGateway
-    ) {}
+    ) {
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -34,10 +35,10 @@ class PaymentController extends Controller
             'rifa' => fn (BelongsTo $query) => $query->select('id', 'title', 'price', 'slug'),
             'payment' => fn (HasOne $query) => $query->select('id', 'order_id'),
         ])
-        ->where('id', $request->input('orderId', 0))
-        ->first();
+            ->where('id', $request->input('orderId', 0))
+            ->first();
 
-        if (!$order) {
+        if (! $order) {
             return back();
         }
 
@@ -91,18 +92,14 @@ class PaymentController extends Controller
                 'ticket_url',
                 'transaction_amount',
                 'date_of_expiration',
-                'date_approved'
-            ])
+                'date_approved',
+            ]),
         ]);
     }
 
     /**
      * Recebe notificação via WebHook, consulta o pagamento e atualiza os dados
      * se necessário
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function update(Request $request): Response
     {
@@ -131,8 +128,6 @@ class PaymentController extends Controller
     /**
      * Realiza uma conexão SSE com o cliente e envia informações periódicas sobre
      * um determinado pedido.
-     *
-     * @param Payment $payment
      */
     public function check(Payment $payment)
     {

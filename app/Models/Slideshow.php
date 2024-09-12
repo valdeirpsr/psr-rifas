@@ -16,7 +16,7 @@ class Slideshow extends Model
     protected $fillable = [
         'image',
         'alt',
-        'order'
+        'order',
     ];
 
     public function image(): Attribute

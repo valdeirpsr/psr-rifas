@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+
 use App\Enums\OrderStatus;
 use App\Models\Order;
 use App\Models\Rifa;
@@ -24,20 +25,19 @@ class RifaService
 
     /**
      * Captura o ranking de compradores
-     *
      */
     public function getRanking(Rifa $rifa): Collection
     {
         return Order::query()->select([
             'customer_fullname',
             'customer_telephone',
-            DB::raw('SUM(JSON_LENGTH(numbers_reserved)) AS total')
+            DB::raw('SUM(JSON_LENGTH(numbers_reserved)) AS total'),
         ])
-        ->where('status', OrderStatus::PAID)
-        ->where('rifa_id', $rifa->id)
-        ->groupBy('customer_telephone')
-        ->orderBy('total', 'desc')
-        ->get();
+            ->where('status', OrderStatus::PAID)
+            ->where('rifa_id', $rifa->id)
+            ->groupBy('customer_telephone')
+            ->orderBy('total', 'desc')
+            ->get();
     }
 
     /**

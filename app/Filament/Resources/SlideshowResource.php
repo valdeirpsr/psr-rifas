@@ -3,14 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SlideshowResource\Pages;
-use App\Filament\Resources\SlideshowResource\RelationManagers;
 use App\Models\Slideshow;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -29,7 +28,7 @@ class SlideshowResource extends Resource
                         Forms\Components\FileUpload::make('image')
                             ->required()
                             ->image()
-                            ->disk(env('FILAMENT_FILESYSTEM_DISK', config('filesystems.default')))
+                            ->disk(env('FILAMENT_FILESYSTEM_DISK', config('filesystems.default'))),
                     ])
                     ->columns(1),
                 Forms\Components\TextInput::make('alt')
@@ -60,7 +59,7 @@ class SlideshowResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

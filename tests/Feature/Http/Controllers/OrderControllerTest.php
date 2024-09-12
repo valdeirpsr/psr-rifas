@@ -7,7 +7,6 @@ use App\Models\Rifa;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Inertia\Testing\AssertableInertia as Assert;
 
 class OrderControllerTest extends TestCase
 {
@@ -20,7 +19,7 @@ class OrderControllerTest extends TestCase
     public function test_create_order(): void
     {
         $rifa = Rifa::factory()->create([
-            'status' => 'published'
+            'status' => 'published',
         ]);
 
         $telephone = $this->faker()->numerify('(##) # ####-####');
@@ -32,7 +31,7 @@ class OrderControllerTest extends TestCase
             'confirmTelephone' => $telephone,
             'terms' => true,
             'quantity' => $rifa->buy_min,
-            'rifa' => $rifa->id
+            'rifa' => $rifa->id,
         ]);
 
         $orderId = $this->getOrderId($response);
@@ -54,7 +53,7 @@ class OrderControllerTest extends TestCase
         $orderCreated = Order::find($orderId);
 
         $this->assertEqualsCanonicalizing(
-            json_encode(["0000", "0002", "0003", "0005", "0007"]),
+            json_encode(['0000', '0002', '0003', '0005', '0007']),
             json_encode($orderCreated->numbers_reserved),
         );
     }
@@ -64,7 +63,7 @@ class OrderControllerTest extends TestCase
         $rifa = $this->generateRifa();
         $this->generateDefaultOrder($rifa);
 
-        $response = $this->post('/orders', $this->generateBodyRequest($rifa, [ 'quantity' => 10 ]));
+        $response = $this->post('/orders', $this->generateBodyRequest($rifa, ['quantity' => 10]));
 
         $response->assertStatus(409);
     }
@@ -72,12 +71,12 @@ class OrderControllerTest extends TestCase
     public function test_gerar_erro_caso_a_rifa_tenha_expirado(): void
     {
         $rifa = $this->generateRifa([
-            'expired_at' => now()->subMinutes(60)
+            'expired_at' => now()->subMinutes(60),
         ]);
 
         $this->generateDefaultOrder($rifa);
 
-        $response = $this->post('/orders', $this->generateBodyRequest($rifa, [ 'quantity' => 1 ]));
+        $response = $this->post('/orders', $this->generateBodyRequest($rifa, ['quantity' => 1]));
 
         $response->assertInvalid(['rifa']);
     }
@@ -85,12 +84,12 @@ class OrderControllerTest extends TestCase
     public function test_gerar_erro_caso_a_rifa_nao_esteja_publicada(): void
     {
         $rifa = $this->generateRifa([
-            'status' => 'draft'
+            'status' => 'draft',
         ]);
 
         $this->generateDefaultOrder($rifa);
 
-        $response = $this->post('/orders', $this->generateBodyRequest($rifa, [ 'quantity' => 1 ]));
+        $response = $this->post('/orders', $this->generateBodyRequest($rifa, ['quantity' => 1]));
 
         $response->assertInvalid(['rifa']);
     }
@@ -101,7 +100,7 @@ class OrderControllerTest extends TestCase
 
         $this->generateDefaultOrder($rifa);
 
-        $response = $this->post('/orders', $this->generateBodyRequest($rifa, [ 'rifa' => -1 ]));
+        $response = $this->post('/orders', $this->generateBodyRequest($rifa, ['rifa' => -1]));
 
         $response->assertInvalid(['rifa']);
     }
@@ -127,13 +126,13 @@ class OrderControllerTest extends TestCase
         $rifa = $this->generateRifa(['buy_min' => 10]);
 
         $invalidFormBody = [
-            "confirmTelephone" => "1234567",
-            "email" => "valdeir.dev",
-            "fullname" => "In va li do",
-            "quantity" => 1,
-            "rifa" => $rifa->id,
-            "telephone" => "12345678",
-            "terms" => false
+            'confirmTelephone' => '1234567',
+            'email' => 'valdeir.dev',
+            'fullname' => 'In va li do',
+            'quantity' => 1,
+            'rifa' => $rifa->id,
+            'telephone' => '12345678',
+            'terms' => false,
         ];
 
         $response = $this->post(route('orders.store'), $invalidFormBody);
@@ -144,7 +143,7 @@ class OrderControllerTest extends TestCase
             'fullname',
             'quantity',
             'telephone',
-            'terms'
+            'terms',
         ]);
     }
 
@@ -153,7 +152,7 @@ class OrderControllerTest extends TestCase
         $rifa = $this->generateRifa();
 
         $invalidFormBody = $this->generateBodyRequest($rifa, [
-            'quantity' => $rifa->buy_max + 1
+            'quantity' => $rifa->buy_max + 1,
         ]);
 
         $response = $this->post(route('orders.store'), $invalidFormBody);
@@ -183,7 +182,7 @@ class OrderControllerTest extends TestCase
     public function test_o_usuario_deve_ser_redirecionado_para_rifa_quando_o_pedido_sem_pagamento_estiver_expirado(): void
     {
         $order = Order::factory()->for(Rifa::factory())->create([
-            'expire_at' => now()->subMinutes(60)
+            'expire_at' => now()->subMinutes(60),
         ]);
 
         $response = $this->get(route('orders.show', ['id' => $order->id]));
@@ -194,6 +193,7 @@ class OrderControllerTest extends TestCase
     private function getOrderId(\Illuminate\Testing\TestResponse $response)
     {
         $locationParts = explode('/', $response->headers->get('location'));
+
         return last($locationParts);
     }
 
@@ -202,7 +202,7 @@ class OrderControllerTest extends TestCase
         return Rifa::factory()->create(array_merge([
             'status' => 'published',
             'total_numbers_available' => 10,
-            'buy_min' => 1
+            'buy_min' => 1,
         ], $replace));
     }
 
@@ -212,14 +212,14 @@ class OrderControllerTest extends TestCase
             'customer_fullname' => 'Valdeir Psr',
             'customer_email' => $this->faker()->safeEmail(),
             'customer_telephone' => '00000000000',
-            'numbers_reserved' => ["1", "4", "6", "8", "9", "10"],
+            'numbers_reserved' => ['1', '4', '6', '8', '9', '10'],
             'status' => 'paid',
             'expire_at' => null,
-            'rifa_id' => $rifa->id
+            'rifa_id' => $rifa->id,
         ]);
     }
 
-    private function generateBodyRequest(Rifa $rifa, array $replace = []): Array
+    private function generateBodyRequest(Rifa $rifa, array $replace = []): array
     {
         $telephone = $this->faker()->numerify('(##) # ####-####');
 
@@ -230,7 +230,7 @@ class OrderControllerTest extends TestCase
             'confirmTelephone' => $telephone,
             'terms' => true,
             'quantity' => $rifa->buy_min,
-            'rifa' => $rifa->id
+            'rifa' => $rifa->id,
         ], $replace);
     }
 }

@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\Order;
 use App\Models\Rifa;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Winner>

@@ -4,16 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Enums\OrderStatus;
 use App\Filament\Resources\OrderResource\Pages;
-use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
 use App\Models\Rifa;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OrderResource extends Resource
 {
@@ -46,10 +44,8 @@ class OrderResource extends Resource
                 Forms\Components\TagsInput::make('numbers_reserved')
                     ->hint('Informe o número e aperte ENTER')
                     ->rules([
-                        fn() => fn(string $attribute, $values, \Closure $fail) =>
-                            !collect($values)->every(fn (string $value) =>
-                                !!preg_match('/^\d+$/', $value) !== false
-                            ) && $fail('Informe apenas números')
+                        fn () => fn (string $attribute, $values, \Closure $fail) => ! collect($values)->every(fn (string $value) => (bool) preg_match('/^\d+$/', $value) !== false
+                        ) && $fail('Informe apenas números'),
                     ]),
                 Forms\Components\Select::make('status')
                     ->default('reserved')

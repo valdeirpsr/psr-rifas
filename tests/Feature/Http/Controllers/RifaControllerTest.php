@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Rifa;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
@@ -19,19 +18,18 @@ class RifaControllerTest extends TestCase
     {
         Rifa::factory(1)->create([
             'status' => Rifa::STATUS_DRAFT,
-            'expired_at' => now()->addDay(1)
+            'expired_at' => now()->addDay(1),
         ]);
 
         Rifa::factory(1)->create([
             'status' => Rifa::STATUS_FINISHED,
-            'expired_at' => now()->subMinutes(120)
+            'expired_at' => now()->subMinutes(120),
         ]);
 
         $response = $this->get(route('rifas.finalizadas'));
 
-        $response->assertInertia(fn (Assert $page) =>
-            $page->component('Rifa/PsrList')
-                ->count('values', 1)
+        $response->assertInertia(fn (Assert $page) => $page->component('Rifa/PsrList')
+            ->count('values', 1)
         );
     }
 }

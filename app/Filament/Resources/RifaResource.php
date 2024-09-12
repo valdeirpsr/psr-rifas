@@ -8,10 +8,9 @@ use App\Models\Rifa;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Str;
 
 class RifaResource extends Resource
 {
@@ -41,7 +40,7 @@ class RifaResource extends Resource
                             ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
                             ->imagePreviewHeight(300)
                             ->required()
-                            ->disk(env('FILAMENT_FILESYSTEM_DISK', config('filesystems.default')))
+                            ->disk(env('FILAMENT_FILESYSTEM_DISK', config('filesystems.default'))),
                     ]),
 
                 /**
@@ -118,7 +117,7 @@ class RifaResource extends Resource
                  */
                 Forms\Components\TextInput::make('slug')
                     ->hidden(fn (string $context) => $context !== 'edit')
-                    ->disabled()
+                    ->disabled(),
             ]);
     }
 
@@ -149,13 +148,13 @@ class RifaResource extends Resource
             ->filters([
                 Tables\Filters\Filter::make('is_expired')
                     ->label(__('filament.filter.is_expired'))
-                    ->query(fn (Builder $query): Builder => $query->where('expired_at', '<', now()))
+                    ->query(fn (Builder $query): Builder => $query->where('expired_at', '<', now())),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->label(__('filament.action.edit')),
                 Tables\Actions\ViewAction::make()
-                    ->label(__('filament.action.view'))
+                    ->label(__('filament.action.view')),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()

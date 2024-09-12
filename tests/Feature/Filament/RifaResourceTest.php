@@ -5,7 +5,6 @@ namespace Tests\Feature\Filament;
 use App\Filament\Resources\RifaResource;
 use App\Models\Rifa;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -38,7 +37,7 @@ class RifaResourceTest extends TestCase
             /* Valores padrão */
             'buy_max' => 300,
             'buy_min' => 1,
-            'status' => 'draft'
+            'status' => 'draft',
         ]);
     }
 
@@ -58,7 +57,7 @@ class RifaResourceTest extends TestCase
             ->assertHasFormErrors([
                 'title' => 'required',
                 'thumbnail' => 'required',
-                'price' => 'required'
+                'price' => 'required',
             ]);
     }
 }

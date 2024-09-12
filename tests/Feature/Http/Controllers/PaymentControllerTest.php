@@ -7,7 +7,6 @@ use App\Models\Payment;
 use App\Models\Rifa;
 use App\Services\MercadoPago;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class PaymentControllerTest extends TestCase
@@ -34,15 +33,15 @@ class PaymentControllerTest extends TestCase
 
         $this->mock(MercadoPago::class, function ($mock) use ($resultFake) {
             $mock->shouldReceive('generatePix')->once()
-                ->andReturn((object)$resultFake);
+                ->andReturn((object) $resultFake);
         });
 
-        $response = $this->post("/payments", [
-            'orderId' => $order->id
+        $response = $this->post('/payments', [
+            'orderId' => $order->id,
         ]);
 
         $this->assertDatabaseHas('payments', [
-            'id' => $resultFake['id']
+            'id' => $resultFake['id'],
         ]);
 
         $response->assertLocation("payments/{$resultFake['id']}");
@@ -58,7 +57,7 @@ class PaymentControllerTest extends TestCase
                     )
             )
             ->create([
-                'status' => 'reserved'
+                'status' => 'reserved',
             ])
             ->first();
 
@@ -68,29 +67,29 @@ class PaymentControllerTest extends TestCase
 
         $resultFake = [
             'date_approved' => $date_approved,
-            'status' => 'approved'
+            'status' => 'approved',
         ];
 
         $this->mock(MercadoPago::class, function ($mock) use ($resultFake) {
             $mock->shouldReceive('getPayment')->once()
-                ->andReturn((object)$resultFake);
+                ->andReturn((object) $resultFake);
         });
 
-        $this->post("/payments/notification", [
+        $this->post('/payments/notification', [
             'action' => 'payment.updated',
             'data' => [
-                'id' => $payment->id
-            ]
+                'id' => $payment->id,
+            ],
         ]);
 
         $this->assertDatabaseHas('payments', [
             'id' => $payment->id,
-            'date_approved' => $date_approved
+            'date_approved' => $date_approved,
         ]);
 
         $this->assertDatabaseHas('orders', [
             'id' => $payment->order_id,
-            'status' => 'paid'
+            'status' => 'paid',
         ]);
     }
 
@@ -109,7 +108,7 @@ class PaymentControllerTest extends TestCase
                     )
             )
             ->create([
-                'status' => 'reserved'
+                'status' => 'reserved',
             ])
             ->first();
 
@@ -120,8 +119,8 @@ class PaymentControllerTest extends TestCase
             $mock->shouldReceive('generatePix')->never();
         });
 
-        $response = $this->post("/payments", [
-            'orderId' => $order->id
+        $response = $this->post('/payments', [
+            'orderId' => $order->id,
         ]);
 
         $response->assertLocation("/payments/{$payment->id}");

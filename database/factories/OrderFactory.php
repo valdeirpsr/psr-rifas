@@ -34,7 +34,7 @@ class OrderFactory extends Factory
         for ($i = 0; count($numbers) < $total; $i++) {
             $randomNumber = fake()->randomNumber(6);
 
-            if (!array_search($randomNumber, $numbers)) {
+            if (! array_search($randomNumber, $numbers)) {
                 $numbers[] = $randomNumber;
             }
         }
