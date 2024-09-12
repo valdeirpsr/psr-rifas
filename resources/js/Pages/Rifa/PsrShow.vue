@@ -18,7 +18,7 @@
   }>();
 
   const displayFormReserveNumbers = ref(false);
-  const orderQuantitySelected = ref(1);
+  const orderQuantitySelected = ref(props.rifa.buy_min || 1);
 
   const expireAt = computed(() => (props.rifa.expired_at ? useLocaleDateLong(props.rifa.expired_at) : ''));
 
