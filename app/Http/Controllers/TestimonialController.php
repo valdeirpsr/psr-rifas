@@ -17,6 +17,7 @@ class TestimonialController extends Controller
             ->with([
                 'order' => fn (BelongsTo $query) => $query->select('id', 'customer_fullname'),
             ])
+            ->whereNotNull('testimonial')
             ->limit(20)
             ->get()
             ->setVisible([
