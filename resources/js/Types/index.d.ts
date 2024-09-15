@@ -46,6 +46,7 @@ declare type Rifa = {
   buy_min: number;
   raffle: string;
   status: 'draft' | 'published' | 'finished';
+  ranking_buyer: boolean;
   expired_at: string | null;
   created_at: string;
   updated_at: string;

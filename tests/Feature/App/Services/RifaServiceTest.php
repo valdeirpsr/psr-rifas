@@ -7,12 +7,15 @@ use App\Models\Order;
 use App\Models\Rifa;
 use App\Models\Winner;
 use App\Services\RifaService;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 
 class RifaServiceTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Valida o retorno da contagem de pedidos filtrados pelo status de pagamento
      */

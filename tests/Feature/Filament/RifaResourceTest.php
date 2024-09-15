@@ -25,6 +25,7 @@ class RifaResourceTest extends TestCase
             'price' => $rifa->price,
             'total_numbers_available' => $rifa->total_numbers_available,
             'description' => $rifa->description,
+            'ranking_buyer' => $rifa->ranking_buyer,
         ];
 
         Livewire::test(RifaResource\Pages\CreateRifa::class)

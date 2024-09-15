@@ -102,6 +102,14 @@ class RifaResource extends Resource
                     ->seconds(false),
 
                 /**
+                 * Exibir ranking de compradores
+                 */
+                Forms\Components\Radio::make('ranking_buyer')
+                    ->boolean('Show', 'Hidden')
+                    ->gridDirection('row')
+                    ->required(),
+
+                /**
                  * Descrição
                  */
                 Forms\Components\Grid::make()

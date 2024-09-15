@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import PsrShow from './PsrShow.vue';
+import PsrRanking from '../../Components/PsrRanking.vue';
 import { ZiggyVue } from '../../../../vendor/tightenco/ziggy/dist/vue.m';
 import { Ziggy } from '../../ziggy';
 import ReserveNumbers from '../../Components/ReserveNumbers.vue';
@@ -74,4 +75,48 @@ describe('Teste com rifa expirada e finalizadas', () => {
 
     expect(wrapper.get('[data-testid="winners-list"]').element.firstElementChild.textContent).toContain('Valdeir');
   });
+});
+
+describe('Teste com o componente de ranking de compradores', () => {
+    it.each([
+        true,
+        false
+    ])('O componente PsrRanking deve aparecer somente quando a propriedade ranking_buyer for true', (rankingBuyerBoolean) => {
+        const wrapper = mount(PsrShow, {
+            props: {
+                rifa: {
+                    id: 1,
+                    title: 'First Draw',
+                    thumbnail: 'J7P03ilHENBApaoVcUCX2dovCHqyON-metacG5nLnBuZw==-.png',
+                    price: 0.54,
+                    description:'',
+                    slug: 'first-draw-KYNyqbCdDb',
+                    total_numbers_available: 100000,
+                    buy_max: 300,
+                    buy_min: 1,
+                    ranking_buyer: rankingBuyerBoolean,
+                    raffle: 'Loteria Federal',
+                    status: 'finished',
+                    expired_at: '1993-07-13',
+                },
+                ranking: [
+                    {
+                        customer_fullname: 'Customer Name',
+                        total_numbers: 1234,
+                    }
+                ],
+                winners: [],
+            },
+            global: {
+                plugins: [[ZiggyVue, Ziggy]],
+            },
+
+        });
+
+        if (rankingBuyerBoolean) {
+            expect(wrapper.findComponent(PsrRanking).exists()).toBeTruthy();
+        } else {
+            expect(wrapper.findComponent(PsrRanking).exists()).toBeFalsy();
+        }
+    });
 });

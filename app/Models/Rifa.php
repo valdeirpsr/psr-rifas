@@ -38,6 +38,7 @@ class Rifa extends Model
         'raffle',
         'status',
         'expired_at',
+        'ranking_buyer',
     ];
 
     public function price(): Attribute
