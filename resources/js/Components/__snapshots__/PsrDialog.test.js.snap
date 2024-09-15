@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Compara snapshot > Testa mudança no html 1`] = `
-"<div data-v-96737f60="" class="fixed h-screen left-0 top-0 w-screen" role="dialog" aria-modal="true" aria-labelledby="modal-heading" aria-describedby="modal-content">
+"<div data-v-96737f60="" class="fixed h-screen left-0 top-0 w-screen z-10" role="dialog" aria-modal="true" aria-labelledby="modal-heading" aria-describedby="modal-content">
   <div data-v-96737f60="" class="fixed inset-0 bg-gray-600 bg-opacity-75 transition-opacity" data-testid="modal-overlay"></div>
   <div data-v-96737f60="" class="top-0 overflow-y-auto">
     <div data-v-96737f60="" class="flex min-h-screen justify-center p-4 text-center items-center sm:p-0">

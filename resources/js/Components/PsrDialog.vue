@@ -30,7 +30,7 @@
 
 <template>
   <div
-    class="fixed h-screen left-0 top-0 w-screen"
+    class="fixed h-screen left-0 top-0 w-screen z-10"
     role="dialog"
     aria-modal="true"
     aria-labelledby="modal-heading"

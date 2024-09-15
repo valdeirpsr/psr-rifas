@@ -4,6 +4,22 @@ import PsrShow from './PsrResume.vue';
 import PsrBadge from '@Components/PsrBadge.vue';
 import { ZiggyVue } from '../../../../vendor/tightenco/ziggy/dist/vue.m';
 import { Ziggy } from '../../ziggy';
+import { ref } from 'vue';
+
+vi.stubGlobal('route', vi.fn());
+
+vi.mock('@inertiajs/vue3', (inertiaOriginal) => ({
+    ...inertiaOriginal,
+    useForm: function (formData) {
+        return {
+            ...formData,
+            processing: ref(false),
+            post: function () {
+                this.processing.value = true;
+            },
+        }
+    }
+}));
 
 const getValidData = () => {
   const expire_at = new Date(Date.now() + 3600).toLocaleString('af');

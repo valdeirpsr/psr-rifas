@@ -7,6 +7,8 @@ use App\Models\Payment;
 use App\Models\Rifa;
 use App\Services\MercadoPago;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class PaymentControllerTest extends TestCase
@@ -124,5 +126,24 @@ class PaymentControllerTest extends TestCase
         ]);
 
         $response->assertLocation("/payments/{$payment->id}");
+    }
+
+    /**
+     * Se houver um erro de comunicação com o gateway de pagamento, um erro
+     * deve ser retornado para o usuário
+     */
+    public function test_se_houver_um_erro_com_o_gateway_de_pagamento_um_erro_deve_ser_retornado()
+    {
+        Http::fake(fn () => Http::response(status: Response::HTTP_FORBIDDEN));
+
+        $order = Order::factory()->createOneQuietly();
+
+        $response = $this->post('/payments', [
+            'orderId' => $order->id,
+        ]);
+
+        $response->assertInvalid([
+            'warning',
+        ]);
     }
 }

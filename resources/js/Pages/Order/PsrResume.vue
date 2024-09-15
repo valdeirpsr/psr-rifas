@@ -6,12 +6,14 @@
   import PsrCard from '@Components/PsrCard.vue';
   import PsrCountdown from '@Components/PsrCountdown.vue';
   import PsrButton from '@Components/PsrButton.vue';
+  import PsrDialog from '@Components/PsrDialog.vue';
 
   const props = defineProps<{
     order: Order & { transaction_amount: number };
     rifa: Partial<Rifa>;
   }>();
 
+  const hasError = ref<boolean>(false);
   const showNumbers = ref(false);
   const expireAt = computed(() => (props.order.expire_at ? useLocaleDateLong(props.order.expire_at) : ''));
   const transactionAmount = computed(() => useLocaleCurrency(props.order.transaction_amount));
@@ -29,6 +31,14 @@
   function countdownEnd() {
     location = route('rifas.show', [props.rifa.slug]);
   }
+
+  function confirmOrder() {
+    form.post(route('payment.store'), {
+      onError: (errors) => {
+        hasError.value = !!(errors?.warning ?? false);
+      },
+    });
+  }
 </script>
 
 <template>
@@ -39,6 +49,10 @@
         Expira em: {{ expireAt }}
       </PsrBadge>
     </div>
+
+    <PsrDialog v-if="hasError" :button-confirm="false" @dismiss="hasError = false">
+      Não foi possível finalizar o pedido. Entre em contato com o administrador do site.
+    </PsrDialog>
 
     <PsrCard>
       <div class="!mt-0 space-y-3" role="table">
@@ -118,7 +132,7 @@
       class="w-full max-w-[558px]"
       data-testid="button-payment"
       :disabled="expired || form.processing"
-      @click="form.post(route('payment.store'))"
+      @click="confirmOrder"
     >
       <span v-if="form.processing" class="text-white">Aguarde</span>
       <span v-else class="text-white">{{ expired ? 'Expirado' : 'Pagar' }}</span>
