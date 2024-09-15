@@ -4,7 +4,10 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "eslint": "eslint resources/js/**/*.{js,vue}"
+        "eslint": "eslint resources/js/**/*.{js,vue}",
+        "eslint:fix": "eslint --fix resources/js/**/*.{js,vue}",
+        "prettier": "prettier -c resources/js/**/*.{js,vue}",
+        "prettier:fix": "prettier --write resources/js/**/*.{js,vue}"
     },
     "devDependencies": {
         "@eslint/js": "^9.10.0",
