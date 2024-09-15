@@ -111,7 +111,7 @@ Execute o comando abaixo no seu terminal
 
 ```bash
   docker run --rm --volume "$PWD:/app" composer require --ignore-platform-reqs;
-  docker-compose up -d
+  docker compose up -d;
 ```
 
 Caso seja necessário, acesse o container `laravel.test` e execute o vite
@@ -119,15 +119,16 @@ Caso seja necessário, acesse o container `laravel.test` e execute o vite
 ```bash
   docker-compose exec laravel.test sh -c "pnpm dev"
 ```
+
 ## Rodando os testes
 
-Para rodar os testes do *JavaScript*, rode o seguinte comando
+Para rodar os testes do *JavaScript*, execute o seguinte comando
 
 ```bash
   npx vitest
 ```
 
-Para rodar os testes do *Laravel*, rode o seguinte comando
+Para rodar os testes do *Laravel*, execute o seguinte comando
 
 ```bash
   php artisan test
@@ -135,6 +136,7 @@ Para rodar os testes do *Laravel*, rode o seguinte comando
 ## Deploy
 
 Leia [Deployment com Laravel](https://laravel.com/docs/10.x/deployment)
+
 ## Stack utilizada
 
 **Front-end:** Vue 3, Vite, Typescript, InertiaJs, TailwindCSS
@@ -147,7 +149,7 @@ Leia [Deployment com Laravel](https://laravel.com/docs/10.x/deployment)
 
 - [ ] Integrar o sistema com o mecanismo de busca Meilisearch
 
-- [ ] Criar uma página para visualização das informações de rifa no painel de controle: número de bilhetes vendidos, gráfico com vendas por data, ranking dos compradores. <sup>Nota 1</sup>
+- [x] Criar uma página para visualização das informações de rifa no painel de controle: número de bilhetes vendidos, gráfico com vendas por data, ranking dos compradores. <sup>Nota 1</sup>
 
 - [ ] Adicionar suporte para desconto por quantidade
 
