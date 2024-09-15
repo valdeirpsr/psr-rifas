@@ -41,14 +41,27 @@
 </script>
 
 <template>
+  <!-- ------ -->
+  <!-- Header -->
+  <!-- ------ -->
   <PsrHeader />
 
+  <!-- ------------ -->
+  <!-- Rifa Content -->
+  <!-- ------------ -->
   <div v-if="rifa" class="container max-w-[1024px] space-y-4 pt-10 pb-32 px-4">
+
+    <!-- --------- -->
+    <!-- Expire at -->
+    <!-- --------- -->
     <div class="mb-4">
       <h1 class="text-2xl font-extrabold font-[Raleway] leading-none">{{ rifa.title }}</h1>
       <PsrBadge v-if="rifa.expired_at" type="warning">Compre até: {{ expireAt }}</PsrBadge>
     </div>
 
+    <!-- ---------- -->
+    <!-- Rifa Image -->
+    <!-- ---------- -->
     <picture>
       <source media="(max-width: 425px)" :srcset="`${rifa.thumbnail}?width=425`" />
       <source media="(max-width: 768px)" :srcset="`${rifa.thumbnail}?width=768`" />
@@ -56,8 +69,14 @@
       <img :src="rifa.thumbnail" alt="Imagem" />
     </picture>
 
+    <!-- ------- -->
+    <!-- Pricing -->
+    <!-- ------- -->
     <PsrCard class="text-center font-semibold">Por apenas {{ price }}</PsrCard>
 
+    <!-- ----------------------- -->
+    <!-- Description and Ranking -->
+    <!-- ----------------------- -->
     <div class="space-y-4 sm:space-y-0 sm:flex sm:gap-4">
       <PsrCard class="md:flex-auto">
         <template #heading>Descrição</template>
@@ -68,6 +87,9 @@
       <PsrRanking v-if="ranking.length && rifa.ranking_buyer" class="sm:flex-auto md:flex-initial" :users="ranking" />
     </div>
 
+    <!-- -------------------- -->
+    <!-- Form Reserve Numbers -->
+    <!-- -------------------- -->
     <ReserveNumbers
       v-if="!isFinished"
       v-model:quantity="orderQuantitySelected"
@@ -77,12 +99,17 @@
       @reserve-numbers="onReserveNumbers"
     />
 
-    <PsrCard v-if="listWinners.length">
-      <template #heading>Ganhadores</template>
+    <!-- ----------- -->
+    <!-- Winner List -->
+    <!-- ----------- -->
+    <PsrCard v-if="listWinners.length" class="bg-green-600">
+      <template #heading>
+        <span class="text-2xl text-white">Ganhadores</span>
+      </template>
 
       <template #default>
         <ol class="text-center" data-testid="winners-list">
-          <li v-for="winner in listWinners" :key="`winner-${winner.position}`">
+          <li v-for="winner in listWinners" :key="`winner-${winner.position}`" class="font-bold text-xl text-white">
             {{ winner.position }}º Prêmio - {{ winner.customer_fullname }}
           </li>
         </ol>
@@ -97,11 +124,14 @@
           class="max-h-[570px] m-auto"
           controls
           controlslist="nodownload noremoteplayback"
-          :src="winnerVideo[0].video as string"
+          :src="winnerVideo[0].video"
         />
       </template>
     </PsrCard>
 
+    <!-- ------------------------------------- -->
+    <!-- Payment Method, Raffle and My Numbers -->
+    <!-- ------------------------------------- -->
     <div class="flex flex-wrap gap-4 justify-between text-center">
       <PsrCard class="md:flex-auto">
         <template #heading>Meio de Pagamento</template>
@@ -119,6 +149,9 @@
       </PsrCard>
     </div>
 
+    <!-- ------------------------------ -->
+    <!-- Form Reserve Numbers Component -->
+    <!-- ------------------------------ -->
     <Teleport v-if="displayFormReserveNumbers" to="body">
       <FormReserveNumbers
         :rifa="rifa.id"
