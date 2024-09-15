@@ -78,45 +78,44 @@ describe('Teste com rifa expirada e finalizadas', () => {
 });
 
 describe('Teste com o componente de ranking de compradores', () => {
-    it.each([
-        true,
-        false
-    ])('O componente PsrRanking deve aparecer somente quando a propriedade ranking_buyer for true', (rankingBuyerBoolean) => {
-        const wrapper = mount(PsrShow, {
-            props: {
-                rifa: {
-                    id: 1,
-                    title: 'First Draw',
-                    thumbnail: 'J7P03ilHENBApaoVcUCX2dovCHqyON-metacG5nLnBuZw==-.png',
-                    price: 0.54,
-                    description:'',
-                    slug: 'first-draw-KYNyqbCdDb',
-                    total_numbers_available: 100000,
-                    buy_max: 300,
-                    buy_min: 1,
-                    ranking_buyer: rankingBuyerBoolean,
-                    raffle: 'Loteria Federal',
-                    status: 'finished',
-                    expired_at: '1993-07-13',
-                },
-                ranking: [
-                    {
-                        customer_fullname: 'Customer Name',
-                        total_numbers: 1234,
-                    }
-                ],
-                winners: [],
+  it.each([true, false])(
+    'O componente PsrRanking deve aparecer somente quando a propriedade ranking_buyer for true',
+    (rankingBuyerBoolean) => {
+      const wrapper = mount(PsrShow, {
+        props: {
+          rifa: {
+            id: 1,
+            title: 'First Draw',
+            thumbnail: 'J7P03ilHENBApaoVcUCX2dovCHqyON-metacG5nLnBuZw==-.png',
+            price: 0.54,
+            description: '',
+            slug: 'first-draw-KYNyqbCdDb',
+            total_numbers_available: 100000,
+            buy_max: 300,
+            buy_min: 1,
+            ranking_buyer: rankingBuyerBoolean,
+            raffle: 'Loteria Federal',
+            status: 'finished',
+            expired_at: '1993-07-13',
+          },
+          ranking: [
+            {
+              customer_fullname: 'Customer Name',
+              total_numbers: 1234,
             },
-            global: {
-                plugins: [[ZiggyVue, Ziggy]],
-            },
+          ],
+          winners: [],
+        },
+        global: {
+          plugins: [[ZiggyVue, Ziggy]],
+        },
+      });
 
-        });
-
-        if (rankingBuyerBoolean) {
-            expect(wrapper.findComponent(PsrRanking).exists()).toBeTruthy();
-        } else {
-            expect(wrapper.findComponent(PsrRanking).exists()).toBeFalsy();
-        }
-    });
+      if (rankingBuyerBoolean) {
+        expect(wrapper.findComponent(PsrRanking).exists()).toBeTruthy();
+      } else {
+        expect(wrapper.findComponent(PsrRanking).exists()).toBeFalsy();
+      }
+    }
+  );
 });

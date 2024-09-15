@@ -65,11 +65,7 @@
         <p v-html="rifa.description" />
       </PsrCard>
 
-      <PsrRanking
-        v-if="ranking.length && rifa.ranking_buyer"
-        class="sm:flex-auto md:flex-initial"
-        :users="ranking"
-      />
+      <PsrRanking v-if="ranking.length && rifa.ranking_buyer" class="sm:flex-auto md:flex-initial" :users="ranking" />
     </div>
 
     <ReserveNumbers
