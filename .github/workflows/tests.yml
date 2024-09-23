@@ -90,4 +90,4 @@ jobs:
       - name: Vite Build
         run: pnpm build
       - name: Execute tests
-        run: npx vitest
+        run: npx vitest --run
