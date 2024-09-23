@@ -10,15 +10,15 @@ jobs:
   eslint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: latest
       - name: Captura diretório do pnpm
         id: pnpm-cache
         run: echo "dir=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
       - name: Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.pnpm-cache.outputs.dir }}
           key: ${{ runner.os }}-cache-${{ hashFiles('**/package-lock.json') }}
@@ -33,15 +33,15 @@ jobs:
   prettier:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: latest
       - name: Captura diretório do pnpm
         id: pnpm-cache
         run: echo "dir=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
       - name: Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.pnpm-cache.outputs.dir }}
           key: ${{ runner.os }}-cache-${{ hashFiles('**/package-lock.json') }}
