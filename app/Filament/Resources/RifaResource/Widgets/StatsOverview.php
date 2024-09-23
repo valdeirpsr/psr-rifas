@@ -22,12 +22,12 @@ class StatsOverview extends BaseWidget
     {
         $rifaService = app(RifaService::class);
 
-        $paid = $rifaService->countOrdersByStatus($this->rifa, OrderStatus::PAID);
-        $reserved = $rifaService->countOrdersByStatus($this->rifa, OrderStatus::RESERVED);
-        $totalReservedAndPaid = $paid->total + $reserved->total;
+        $paidTotal = $rifaService->countOrdersByStatus($this->rifa, OrderStatus::PAID);
+        $reservedTotal = $rifaService->countOrdersByStatus($this->rifa, OrderStatus::RESERVED);
+        $totalReservedAndPaid = $paidTotal + $reservedTotal;
 
-        $totalPaid = $this->formatNumber($paid->total * $this->rifa->price, 'currency');
-        $totalReserved = $this->formatNumber($reserved->total * $this->rifa->price, 'currency');
+        $totalPaid = $this->formatNumber($paidTotal * $this->rifa->price, 'currency');
+        $totalReserved = $this->formatNumber($reservedTotal * $this->rifa->price, 'currency');
         $percent = $this->formatNumber(100 - ($totalReservedAndPaid / $this->rifa->total_numbers_available) * 100, 'percentage');
 
         return [

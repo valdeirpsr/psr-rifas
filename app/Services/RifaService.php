@@ -13,14 +13,13 @@ class RifaService
     /**
      * Conta o número de pedidos de uma rifa de acordo com a situação do pedido
      *
-     * @return Order
+     * @return int
      */
     public function countOrdersByStatus(Rifa $rifa, OrderStatus $orderStatus)
     {
-        return $rifa->orders()
-            ->select(DB::raw('SUM(JSON_LENGTH(numbers_reserved)) AS total'))
+        return (int) $rifa->orders()
             ->where('status', $orderStatus)
-            ->first();
+            ->sum(DB::raw('JSON_LENGTH(numbers_reserved)'));
     }
 
     /**

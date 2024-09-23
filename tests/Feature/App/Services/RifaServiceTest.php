@@ -31,7 +31,7 @@ class RifaServiceTest extends TestCase
         $service = new RifaService;
         $result = $service->countOrdersByStatus($rifa, OrderStatus::PAID);
 
-        assertEquals(10, $result->total);
+        assertEquals(10, $result);
     }
 
     /**
