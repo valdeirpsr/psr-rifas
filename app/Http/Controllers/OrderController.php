@@ -76,7 +76,7 @@ class OrderController extends Controller
             ->chunk(100)
             ->map(function (\Illuminate\Support\LazyCollection $orders) {
                 /* numbers_reserved é um array contendo os números gerados */
-                return collect($orders)->map(fn ($order) => $order->numbers_reserved);
+                return collect($orders)->map(fn (Order $order) => $order->numbers_reserved);
             })
             ->flatten();
 
