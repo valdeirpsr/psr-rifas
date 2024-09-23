@@ -91,24 +91,16 @@ class OrderController extends Controller
             ->map(fn ($number) => str_pad($number, 4, '0', STR_PAD_LEFT))
             ->sort();
 
-        $order = false;
+        $order = new Order();
+        $order->customer_fullname = $request->input('fullname');
+        $order->customer_email = $request->input('email');
+        $order->customer_telephone = $request->input('telephone');
+        $order->rifa_id = $rifa->id;
+        $order->numbers_reserved = $rifaRandomNumbers->values();
+        $order->status = Order::STATUS_RESERVED;
+        $order->expire_at = now()->addMinutes(env('RIFA_EXPIRE_AT_MINUTES', self::RIFA_EXPIRE_AT_MINUTES_DEFAULT));
+        $order->saveOrFail();
 
-        DB::transaction(function () use ($rifaRandomNumbers, $request, $rifa, &$order) {
-            $order = new Order();
-            $order->customer_fullname = $request->input('fullname');
-            $order->customer_email = $request->input('email');
-            $order->customer_telephone = $request->input('telephone');
-            $order->rifa_id = $rifa->id;
-            $order->numbers_reserved = $rifaRandomNumbers->values();
-            $order->status = Order::STATUS_RESERVED;
-            $order->expire_at = now()->addMinutes(env('RIFA_EXPIRE_AT_MINUTES', self::RIFA_EXPIRE_AT_MINUTES_DEFAULT));
-            $order->saveOrFail();
-        });
-
-        if ($order instanceof Order) {
-            return Inertia::location(route('orders.show', [$order->id]));
-        }
-
-        return abort(500);
+        return Inertia::location(route('orders.show', [$order->id]));
     }
 }
