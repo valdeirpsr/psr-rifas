@@ -20,13 +20,13 @@ class OrderStatsOverview extends BaseWidget
     {
         $rifaService = app(RifaService::class);
 
-        $paid = $rifaService->countOrdersByStatus($this->rifa, OrderStatus::PAID);
-        $reserved = $rifaService->countOrdersByStatus($this->rifa, OrderStatus::RESERVED);
-        $diff = $this->rifa->total_numbers_available - ($paid->total + $reserved->total);
+        $paidTotal = $rifaService->countOrdersByStatus($this->rifa, OrderStatus::PAID);
+        $reservedTotal = $rifaService->countOrdersByStatus($this->rifa, OrderStatus::RESERVED);
+        $diff = $this->rifa->total_numbers_available - ($paidTotal + $reservedTotal);
 
         return [
-            Stat::make('Total de bilhetes pagos', $this->formatNumber($paid->total)),
-            Stat::make('Total de bilhetes pendentes', $this->formatNumber($reserved->total)),
+            Stat::make('Total de bilhetes pagos', $this->formatNumber($paidTotal)),
+            Stat::make('Total de bilhetes pendentes', $this->formatNumber($reservedTotal)),
             Stat::make('Total de bilhetes disponíveis', $this->formatNumber($diff)),
         ];
     }
