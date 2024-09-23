@@ -23,10 +23,10 @@ jobs:
           mysql root password: root123
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-      - name: Captura diretório do pnpm
+      - name: Captura o caminho do diretório de cache do pnpm
         id: pnpm-cache
         run: echo "dir=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
-      - name: Captura diretório do composer
+      - name: Captura o caminho do diretório de cache do composer
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
       - name: Cache
