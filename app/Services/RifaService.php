@@ -30,12 +30,12 @@ class RifaService
         return Order::query()->select([
             'customer_fullname',
             'customer_telephone',
-            DB::raw('SUM(JSON_LENGTH(numbers_reserved)) AS total'),
+            DB::raw('SUM(JSON_LENGTH(numbers_reserved)) AS numbers_reserved_total'),
         ])
             ->where('status', OrderStatus::PAID)
             ->where('rifa_id', $rifa->id)
             ->groupBy('customer_telephone')
-            ->orderBy('total', 'desc')
+            ->orderBy('numbers_reserved_total', 'desc')
             ->get();
     }
 
