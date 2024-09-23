@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import PsrShow from './PsrResume.vue';
 import PsrBadge from '@Components/PsrBadge.vue';
@@ -9,16 +9,16 @@ import { ref } from 'vue';
 vi.stubGlobal('route', vi.fn());
 
 vi.mock('@inertiajs/vue3', (inertiaOriginal) => ({
-    ...inertiaOriginal,
-    useForm: function (formData) {
-        return {
-            ...formData,
-            processing: ref(false),
-            post: function () {
-                this.processing.value = true;
-            },
-        }
-    }
+  ...inertiaOriginal,
+  useForm: function (formData) {
+    return {
+      ...formData,
+      processing: ref(false),
+      post: function () {
+        this.processing.value = true;
+      },
+    };
+  },
 }));
 
 const getValidData = () => {

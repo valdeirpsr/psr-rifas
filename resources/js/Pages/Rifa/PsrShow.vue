@@ -50,7 +50,6 @@
   <!-- Rifa Content -->
   <!-- ------------ -->
   <div v-if="rifa" class="container max-w-[1024px] space-y-4 pt-10 pb-32 px-4">
-
     <!-- --------- -->
     <!-- Expire at -->
     <!-- --------- -->

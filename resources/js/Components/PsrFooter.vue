@@ -2,7 +2,7 @@
   import PsrLogo from './PsrLogo.vue';
   import { IconSvgFacebook, IconSvgInstagram, IconSvgTwitter } from '@Assets/icons';
 
-  const year = (new Date()).getFullYear();
+  const year = new Date().getFullYear();
   const facebook = import.meta.env.VITE_FACEBOOK;
   const twitter = import.meta.env.VITE_TWITTER;
   const instagram = import.meta.env.VITE_INSTAGRAM;
