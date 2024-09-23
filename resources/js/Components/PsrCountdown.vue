@@ -7,7 +7,7 @@
   }>();
 
   const props = defineProps<{
-    time: Date | number | string;
+    time: Date | number | string | null;
   }>();
 
   const time = computed((): number => {
@@ -24,7 +24,7 @@
 </script>
 
 <template>
-  <VueCountdown v-slot="{ totalHours, minutes, seconds }" :time="time" @end="$emit('end')">
+  <VueCountdown v-if="time !== null" v-slot="{ totalHours, minutes, seconds }" :time="time" @end="$emit('end')">
     <slot>{{ totalHours }} horas, {{ minutes }} minutos e {{ seconds }} segundos</slot>
   </VueCountdown>
 </template>

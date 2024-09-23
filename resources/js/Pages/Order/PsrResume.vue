@@ -122,7 +122,7 @@
         v-if="!checkIsPaid"
         class="inline-block"
         data-testid="countdown"
-        :time="order.expire_at as string"
+        :time="order.expire_at"
         @end="countdownEnd"
       />
     </p>
@@ -131,7 +131,7 @@
       v-if="!checkIsPaid"
       class="w-full max-w-[558px]"
       data-testid="button-payment"
-      :disabled="expired || form.processing"
+      :disabled="expired || !!form.processing"
       @click="confirmOrder"
     >
       <span v-if="form.processing" class="text-white">Aguarde</span>
