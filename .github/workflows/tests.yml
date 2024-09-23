@@ -48,6 +48,11 @@ jobs:
         run: pnpm i
       - name: Vite Build
         run: pnpm build
+      - name: Executa migração de dados
+        env:
+          DB_DATABASE: psr
+          DB_PASSWORD: root123
+        run: php artisan migrate
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
           DB_DATABASE: psr
