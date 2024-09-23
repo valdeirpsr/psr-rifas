@@ -91,7 +91,7 @@ jobs:
       - name: Install Dependencies JS
         run: pnpm i
       - name: Install Ziggy
-        run: composer require tightenco/ziggy
+        run: composer require tightenco/ziggy:^1.6
       - name: Vite Build
         run: pnpm build
       - name: Execute tests
