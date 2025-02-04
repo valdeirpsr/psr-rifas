@@ -11,9 +11,6 @@ use Inertia\Inertia;
 
 class OrderController extends Controller
 {
-    /** @var int */
-    private const RIFA_EXPIRE_AT_MINUTES_DEFAULT = 60;
-
     /**
      * Display a listing of the resource.
      */
@@ -98,7 +95,7 @@ class OrderController extends Controller
         $order->rifa_id = $rifa->id;
         $order->numbers_reserved = $rifaRandomNumbers->values();
         $order->status = Order::STATUS_RESERVED;
-        $order->expire_at = now()->addMinutes(env('RIFA_EXPIRE_AT_MINUTES', self::RIFA_EXPIRE_AT_MINUTES_DEFAULT));
+        $order->expire_at = now()->addMinutes(config('payment.order_expired'));
         $order->saveOrFail();
 
         return Inertia::location(route('orders.show', [$order->id]));
