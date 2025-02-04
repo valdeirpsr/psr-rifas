@@ -31,10 +31,18 @@ class Order extends Model
         'status',
     ];
 
-    protected $casts = [
-        'numbers_reserved' => 'array',
-        'total_numbers' => 'int',
-    ];
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'numbers_reserved' => 'array',
+            'total_numbers' => 'int',
+        ];
+    }
 
     public function customerTelephone(): Attribute
     {
