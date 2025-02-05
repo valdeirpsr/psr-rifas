@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { computed, ref } from 'vue';
   import axios from 'axios';
-  import { vMaska } from 'maska';
+  import { vMaska } from 'maska/vue';
   import { useTelephone } from '../Composables/Validators';
   import { IconSvgWhatsApp } from '@Assets/icons';
   import PsrButton from './PsrButton.vue';
