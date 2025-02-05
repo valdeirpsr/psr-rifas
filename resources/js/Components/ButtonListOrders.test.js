@@ -39,8 +39,13 @@ describe('Teste de renderização do componente', () => {
       },
     });
 
-    axios.get.mockResolvedValue({
-      data: { data: [] },
+    /** Simula delay na requisição */
+    axios.get.mockImplementation(() => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ data: { data: [] } });
+        }, 1000);
+      });
     });
 
     await wrapper.get('button').trigger('click');

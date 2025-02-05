@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { vMaska } from 'maska';
+  import { vMaska } from 'maska/vue';
   import { useForm } from '@inertiajs/vue3';
   import { IconSvgEmail, IconSvgPeople, IconSvgTelephone } from '@Assets/icons';
   import PsrDialog from './PsrDialog.vue';

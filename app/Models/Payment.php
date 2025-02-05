@@ -21,9 +21,17 @@ class Payment extends Model
         'order_id',
     ];
 
-    protected $casts = [
-        'transaction_amount' => 'float',
-    ];
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'transaction_amount' => 'float',
+        ];
+    }
 
     public function order(): BelongsTo
     {
