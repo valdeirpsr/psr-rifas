@@ -102,6 +102,14 @@ class RifaResource extends Resource
                     ->seconds(false),
 
                 /**
+                 * Data de Publicação
+                 */
+                Forms\Components\DateTimePicker::make('published_at')
+                    ->timezone('America/Sao_Paulo')
+                    ->seconds(false)
+                    ->default(now()),
+
+                /**
                  * Exibir ranking de compradores
                  */
                 Forms\Components\Radio::make('ranking_buyer')

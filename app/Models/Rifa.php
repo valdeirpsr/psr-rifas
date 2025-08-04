@@ -39,6 +39,7 @@ class Rifa extends Model
         'status',
         'expired_at',
         'ranking_buyer',
+        'published_at',
     ];
 
     public function price(): Attribute
@@ -76,9 +77,10 @@ class Rifa extends Model
             ->get();
     }
 
-    public static function availables(): Builder
+    public function scopeAvailables(Builder $query): void
     {
-        return static::where('status', Rifa::STATUS_PUBLISHED)
+        $query->where('status', Rifa::STATUS_PUBLISHED)
+            ->where('published_at', '<=', now())
             ->where(function ($query) {
                 $query->where('expired_at', '>', now()->format('Y-m-d H:i'))
                     ->orWhereNull('expired_at');

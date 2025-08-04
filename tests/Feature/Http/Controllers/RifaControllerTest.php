@@ -11,9 +11,6 @@ class RifaControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * A basic feature test example.
-     */
     public function test_rifa_dentro_do_prazo_nao_pode_aparecer_como_expirada(): void
     {
         Rifa::factory(1)->create([
@@ -31,5 +28,29 @@ class RifaControllerTest extends TestCase
         $response->assertInertia(fn (Assert $page) => $page->component('Rifa/PsrList')
             ->count('values', 1)
         );
+    }
+
+    /**
+     * Somente rifas com data de publicação superior à definida em published_at
+     * devem ser retornadas na página inicial
+     *
+     * @return void
+     */
+    public function test_valida_exibicacao_de_rifas_nao_publicadas()
+    {
+        Rifa::factory(1)->create([
+            'status' => Rifa::STATUS_PUBLISHED,
+            'published_at' => now()->subDay(),
+        ]);
+
+        Rifa::factory(1)->create([
+            'status' => Rifa::STATUS_PUBLISHED,
+            'published_at' => now()->addDay(),
+        ]);
+
+        $this->get(route('home'))
+            ->assertInertia(fn (Assert $page) => $page->component('Home/PsrList')
+                ->count('values', 1)
+            );
     }
 }
