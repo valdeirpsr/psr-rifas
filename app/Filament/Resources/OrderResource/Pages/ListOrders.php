@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\OrderResource\Pages;
 
 use App\Filament\Resources\OrderResource;
-use Filament\Pages\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListOrders extends ListRecords
@@ -14,7 +14,7 @@ class ListOrders extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label(__('filament.action.create', ['label' => $this->getModelLabel()])),
+                ->label(__('filament.action.create', ['label' => $this->getTitle()])),
         ];
     }
 }

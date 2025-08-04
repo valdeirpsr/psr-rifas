@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\WinnerResource\Pages;
 
 use App\Filament\Resources\WinnerResource;
-use Filament\Pages\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
 class EditWinner extends EditRecord

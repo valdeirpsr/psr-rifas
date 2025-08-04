@@ -153,6 +153,7 @@ class RifaResource extends Resource
                     ->label(__('filament.column.created_at'))
                     ->dateTime(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\Filter::make('is_expired')
                     ->label(__('filament.filter.is_expired'))

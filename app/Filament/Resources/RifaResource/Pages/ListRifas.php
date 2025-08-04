@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\RifaResource\Pages;
 
 use App\Filament\Resources\RifaResource;
-use Filament\Pages\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListRifas extends ListRecords
@@ -14,7 +14,7 @@ class ListRifas extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label(__('filament.action.create', ['label' => $this->getModelLabel()])),
+                ->label(__('filament.action.create', ['label' => $this->getTitle()])),
         ];
     }
 }

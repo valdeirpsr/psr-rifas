@@ -82,6 +82,7 @@ class PaymentResource extends Resource
                     ->dateTime('d/m/Y \à\s H:i')
                     ->searchable(),
             ])
+            ->defaultSort('date_of_expiration', 'desc')
             ->filters([
                 Tables\Filters\Filter::make('is_approved')
                     ->query(fn (Builder $query) => $query->where('date_approved', '!=', null)),
