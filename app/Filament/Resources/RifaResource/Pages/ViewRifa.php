@@ -41,6 +41,6 @@ class ViewRifa extends ViewRecord
      */
     public function rankingBuyers()
     {
-        return (new RifaService())->getRanking($this->getRecord());
+        return (new RifaService)->getRanking($this->getRecord());
     }
 }

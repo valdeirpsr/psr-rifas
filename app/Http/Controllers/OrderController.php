@@ -6,7 +6,6 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Models\Order;
 use App\Models\Rifa;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class OrderController extends Controller
@@ -88,7 +87,7 @@ class OrderController extends Controller
             ->map(fn ($number) => str_pad($number, 4, '0', STR_PAD_LEFT))
             ->sort();
 
-        $order = new Order();
+        $order = new Order;
         $order->customer_fullname = $request->input('fullname');
         $order->customer_email = $request->input('email');
         $order->customer_telephone = $request->input('telephone');
