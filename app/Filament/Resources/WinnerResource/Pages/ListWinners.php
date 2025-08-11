@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\WinnerResource\Pages;
 
 use App\Filament\Resources\WinnerResource;
-use Filament\Pages\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListWinners extends ListRecords
@@ -14,7 +14,7 @@ class ListWinners extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label(__('filament.action.create', ['label' => $this->getModelLabel()])),
+                ->label(__('filament.action.create', ['label' => $this->getTitle()])),
         ];
     }
 }

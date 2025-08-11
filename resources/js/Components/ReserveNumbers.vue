@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed, watch } from 'vue';
+  import { computed, ref, watch } from 'vue';
   import { useCounter } from '@vueuse/core';
   import { useLocaleCurrency } from '../Composables/Locale';
 
@@ -17,12 +17,12 @@
     buyMin: number;
   }>();
 
-  const { count, inc, dec } = useCounter(props.buyMin, { max: props.buyMax, min: props.buyMin });
+  const { count, inc, dec, set } = useCounter(props.buyMin, { max: props.buyMax, min: props.buyMin });
+  const countModel = ref<number>(props.buyMin);
 
   const priceTotal = computed(() => useLocaleCurrency(props.price * count.value));
-
-  watch(count, (newValue) => {
-    if (!newValue) count.value = 1;
+  watch(countModel, (newValue) => {
+    set(newValue);
     emits('update:quantity', count.value);
   });
 </script>
@@ -41,7 +41,7 @@
     <div class="flex justify-between gap-2 mx-auto w-full sm:max-w-xl">
       <button class="button-qntd" data-testid="decrement" @click="dec(1)">-</button>
       <input
-        v-model="count"
+        v-model="countModel"
         type="number"
         class="border border-gray-300 rounded-md text-center flex-1 w-full"
         data-testid="quantity"

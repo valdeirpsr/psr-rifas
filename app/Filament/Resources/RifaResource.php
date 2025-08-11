@@ -102,6 +102,14 @@ class RifaResource extends Resource
                     ->seconds(false),
 
                 /**
+                 * Data de Publicação
+                 */
+                Forms\Components\DateTimePicker::make('published_at')
+                    ->timezone('America/Sao_Paulo')
+                    ->seconds(false)
+                    ->default(now()),
+
+                /**
                  * Exibir ranking de compradores
                  */
                 Forms\Components\Radio::make('ranking_buyer')
@@ -153,6 +161,7 @@ class RifaResource extends Resource
                     ->label(__('filament.column.created_at'))
                     ->dateTime(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\Filter::make('is_expired')
                     ->label(__('filament.filter.is_expired'))

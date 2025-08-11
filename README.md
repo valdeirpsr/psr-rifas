@@ -135,13 +135,13 @@ Para rodar os testes do *Laravel*, execute o seguinte comando
 ```
 ## Deploy
 
-Leia [Deployment com Laravel](https://laravel.com/docs/10.x/deployment)
+Leia [Deployment com Laravel](https://laravel.com/docs/11.x/deployment)
 
 ## Stack utilizada
 
-**Front-end:** Vue 3, Vite, Typescript, InertiaJs, TailwindCSS
+**Front-end:** Vue 3, Vite, Typescript, InertiaJs, TailwindCSS 3.x
 
-**Back-end:** PHP 8.2, Laravel 10.10.x
+**Back-end:** PHP 8.2, Laravel 11.x
 
 ## Roadmap
 
@@ -153,7 +153,7 @@ Leia [Deployment com Laravel](https://laravel.com/docs/10.x/deployment)
 
 - [ ] Adicionar suporte para desconto por quantidade
 
-- [ ] Adicionar agendamento para publicação das rifas
+- [x] Adicionar agendamento para publicação das rifas
 
 - [ ] Adicionar outras formas de pagamento
 

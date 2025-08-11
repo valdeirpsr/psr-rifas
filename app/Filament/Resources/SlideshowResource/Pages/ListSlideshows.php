@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\SlideshowResource\Pages;
 
 use App\Filament\Resources\SlideshowResource;
-use Filament\Pages\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListSlideshows extends ListRecords
@@ -14,7 +14,7 @@ class ListSlideshows extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label(__('filament.action.create', ['label' => $this->getModelLabel()])),
+                ->label(__('filament.action.create', ['label' => $this->getTitle()])),
         ];
     }
 }

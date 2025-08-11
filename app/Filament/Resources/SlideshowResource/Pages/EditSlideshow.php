@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\SlideshowResource\Pages;
 
 use App\Filament\Resources\SlideshowResource;
-use Filament\Pages\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
 class EditSlideshow extends EditRecord

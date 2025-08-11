@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\PaymentResource\Pages;
 
 use App\Filament\Resources\PaymentResource;
-use Filament\Pages\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 
 class ManagePayments extends ManageRecords
@@ -14,7 +14,7 @@ class ManagePayments extends ManageRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label(__('filament.action.create', ['label' => $this->getModelLabel()])),
+                ->label(__('filament.action.create', ['label' => $this->getTitle()])),
         ];
     }
 }

@@ -77,6 +77,7 @@ class OrderResource extends Resource
                     ->dateTime('d/m/Y \à\s H:i')
                     ->label(__('filament.column.created_at')),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\Filter::make('is_paid')
                     ->label(__('filament.filter.is_paid'))

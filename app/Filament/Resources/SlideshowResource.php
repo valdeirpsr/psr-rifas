@@ -46,14 +46,19 @@ class SlideshowResource extends Resource
                 Tables\Columns\ImageColumn::make('image')
                     ->disk(env('FILAMENT_FILESYSTEM_DISK', config('filesystems.default')))
                     ->size(100),
-                Tables\Columns\TextColumn::make('order'),
+                Tables\Columns\TextColumn::make('order')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->sortable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])

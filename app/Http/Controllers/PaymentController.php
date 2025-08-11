@@ -23,8 +23,7 @@ class PaymentController extends Controller
 
     public function __construct(
         private ServicesMercadoPago $paymentGateway
-    ) {
-    }
+    ) {}
 
     /**
      * Store a newly created resource in storage.
@@ -53,7 +52,7 @@ class PaymentController extends Controller
         try {
             $response = $this->paymentGateway->generatePix($order, $order->rifa);
 
-            $payment = new Payment();
+            $payment = new Payment;
             $payment->id = $response->id;
             $payment->ticket_url = $response->ticket_url;
             $payment->payment_code = $response->payment_method_id;
